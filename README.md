@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://cdn-ilbnbef.nitrocdn.com/EKyrOUswRhmoLlCKzmZwsMvsMkedOSyS/assets/images/optimized/rev-63f5d27/www.contentbeta.com/wp-content/uploads/2025/07/Content-Beta-Table-LOGO.webp" alt="Presenton" />
+  <img src="https://d3nauzviflkfb4.cloudfront.net/tenants/57d50329-b7ad-472c-bf54-19d7933dcdf9/branding/ae74530f-8e8b-4d6d-acde-5fea6cc06c3c" alt="Presenton" />
 </p>
 
 <p align="center">

@@ -9,17 +9,20 @@ const WorkflowStepSchema = z.object({
   description: z.string().min(18).max(50).meta({
     description: "Short step description text.",
   }),
-  icon: z.object({
-    __icon_url__: z.string().meta({
-      description: "URL to icon",
+  icon: z
+    .object({
+      __icon_url__: z.string().meta({
+        description: "URL to icon",
+      }),
+      __icon_query__: z.string().meta({
+        description: "Query used to search the icon",
+      }),
+    })
+    .default({
+      __icon_url__:
+        "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+      __icon_query__: "check icon",
     }),
-    __icon_query__: z.string().meta({
-      description: "Query used to search the icon",
-    }),
-  }).default({
-    __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
-    __icon_query__: "check icon",
-  }),
 });
 
 export const slideLayoutId = "workflow-slide";
@@ -40,15 +43,18 @@ export const Schema = z.object({
         title: "Design",
         description: "Create wireframes and design system components.",
         icon: {
-          __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+          __icon_url__:
+            "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
           __icon_query__: "check icon",
         },
       },
       {
         title: "Develop",
-        description: "Build features using modern frameworks and best practices.",
+        description:
+          "Build features using modern frameworks and best practices.",
         icon: {
-          __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+          __icon_url__:
+            "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
           __icon_query__: "check icon",
         },
       },
@@ -56,7 +62,8 @@ export const Schema = z.object({
         title: "Test & QA",
         description: "Run automated tests and quality assurance checks.",
         icon: {
-          __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+          __icon_url__:
+            "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
           __icon_query__: "check icon",
         },
       },
@@ -64,7 +71,8 @@ export const Schema = z.object({
         title: "Deploy",
         description: "Ship to production with CI and CD pipeline automation.",
         icon: {
-          __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+          __icon_url__:
+            "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
           __icon_query__: "check icon",
         },
       },
@@ -77,10 +85,12 @@ export const Schema = z.object({
 export type SchemaType = z.infer<typeof Schema>;
 
 const CodeSlide06Workflow = ({ data }: { data: Partial<SchemaType> }) => {
-
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden p-[53px]"
         style={{
@@ -88,13 +98,26 @@ const CodeSlide06Workflow = ({ data }: { data: Partial<SchemaType> }) => {
           fontFamily: "var(--body-font-family,Nunito Sans)",
         }}
       >
+        <h2
+          className="text-[64px] font-medium"
+          style={{ color: "var(--background-text,#ffffff)" }}
+        >
+          {data.title}
+        </h2>
 
-        <h2 className="text-[64px] font-medium" style={{ color: "var(--background-text,#ffffff)" }}>{data.title}</h2>
-
-        <div className="mt-[52px] grid flex-1  justify-center items-center gap-[12px]"
-
+        <div
+          className="mt-[52px] grid flex-1  justify-center items-center gap-[12px]"
           style={{
-            gridTemplateColumns: data.steps?.length === 1 ? '1fr' : data?.steps?.length === 2 ? '1fr auto 1fr' : data?.steps?.length === 3 ? '1fr auto 1fr auto 1fr' : data?.steps?.length === 4 ? '1fr auto 1fr auto 1fr auto 1fr' : '1fr auto 1fr auto 1fr auto 1fr auto 1fr',
+            gridTemplateColumns:
+              data.steps?.length === 1
+                ? "1fr"
+                : data?.steps?.length === 2
+                  ? "1fr auto 1fr"
+                  : data?.steps?.length === 3
+                    ? "1fr auto 1fr auto 1fr"
+                    : data?.steps?.length === 4
+                      ? "1fr auto 1fr auto 1fr auto 1fr"
+                      : "1fr auto 1fr auto 1fr auto 1fr auto 1fr",
           }}
         >
           {data?.steps?.map((step, index) => (
@@ -127,18 +150,45 @@ const CodeSlide06Workflow = ({ data }: { data: Partial<SchemaType> }) => {
                     }}
                   /> */}
                 </div>
-                <h3 className="mt-[12px] text-[24px] font-medium" style={{ color: "var(--background-text,#ffffff)" }}>{step.title}</h3>
-                <p className="mt-[12px] text-[18px]" style={{ color: "var(--background-text,#90A1B9)" }}>{step.description}</p>
+                <h3
+                  className="mt-[12px] text-[24px] font-medium"
+                  style={{ color: "var(--background-text,#ffffff)" }}
+                >
+                  {step.title}
+                </h3>
+                <p
+                  className="mt-[12px] text-[18px]"
+                  style={{ color: "var(--background-text,#90A1B9)" }}
+                >
+                  {step.description}
+                </p>
               </div>
               {index < (data?.steps?.length || 0) - 1 && (
-                <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43" fill="none">
-                  <path d="M8.88892 21.3333H33.7778" stroke="var(--primary-color,#51A2FF)" strokeWidth="3.55556" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M21.3334 8.88892L33.7778 21.3334L21.3334 33.7778" stroke="var(--primary-color,#51A2FF)" strokeWidth="3.55556" strokeLinecap="round" strokeLinejoin="round" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="43"
+                  height="43"
+                  viewBox="0 0 43 43"
+                  fill="none"
+                >
+                  <path
+                    d="M8.88892 21.3333H33.7778"
+                    stroke="var(--primary-color,#51A2FF)"
+                    strokeWidth="3.55556"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M21.3334 8.88892L33.7778 21.3334L21.3334 33.7778"
+                    stroke="var(--primary-color,#51A2FF)"
+                    strokeWidth="3.55556"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               )}
             </Fragment>
           ))}
-
         </div>
       </div>
     </>

@@ -1,5 +1,8 @@
 import * as z from "zod";
-import { ImageSchema, IconSchema } from "@/app/presentation-templates/defaultSchemes";
+import {
+  ImageSchema,
+  IconSchema,
+} from "@/app/presentation-templates/defaultSchemes";
 
 export const Schema = z.object({
   title: z.string().min(5).max(50).default("Quarterly Business Review").meta({
@@ -22,7 +25,7 @@ export const Schema = z.object({
         label: z.string().min(2).max(20),
         value: z.string().min(1).max(10),
         trend: z.enum(["up", "down", "stable"]),
-      })
+      }),
     )
     .default([
       { label: "Revenue", value: "$2.4M", trend: "up" },

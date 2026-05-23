@@ -15,11 +15,16 @@ export const Schema = z.object({
   title: z.string().max(18).default("Market Opportunity").meta({
     description: "Main heading shown at the top-left.",
   }),
-  subtitle: z.string().min(40).max(110).default(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt."
-  ).meta({
-    description: "Supporting text under the main heading.",
-  }),
+  subtitle: z
+    .string()
+    .min(40)
+    .max(110)
+    .default(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.",
+    )
+    .meta({
+      description: "Supporting text under the main heading.",
+    }),
   bullets: z
     .array(BulletSchema)
     .min(4)
@@ -57,7 +62,10 @@ const MarketOpportunitySlide = ({ data }: { data: Partial<SchemaType> }) => {
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden "
         style={{

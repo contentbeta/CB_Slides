@@ -11,7 +11,7 @@ export const Schema = z.object({
     .max(250)
     .describe("The descriptive paragraph at the top right of the slide")
     .default(
-      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies."
+      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies.",
     ),
   table: z
     .object({
@@ -23,7 +23,7 @@ export const Schema = z.object({
         .array(z.array(z.string().max(80)).max(3))
         .max(3)
         .describe(
-          "The data rows for the table, each containing multiple lines of text"
+          "The data rows for the table, each containing multiple lines of text",
         ),
     })
     .default({

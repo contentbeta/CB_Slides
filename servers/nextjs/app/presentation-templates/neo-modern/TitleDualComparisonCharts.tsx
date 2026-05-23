@@ -81,20 +81,20 @@ export const Schema = z.object({
                     value: z
                       .number()
                       .describe("The numerical value for this series segment"),
-                  })
+                  }),
                 )
                 .min(1)
                 .max(2)
                 .describe(
-                  "1 or 2 series per category; second series is optional for single-series charts"
-                )
+                  "1 or 2 series per category; second series is optional for single-series charts",
+                ),
             )
             .max(5)
             .describe(
-              "Data for the chart. Each inner array represents a category on the X-axis with multiple series."
+              "Data for the chart. Each inner array represents a category on the X-axis with multiple series.",
             ),
         }),
-      })
+      }),
     )
     .max(2)
     .describe("A list of up to 2 items")
@@ -171,7 +171,7 @@ export const layoutDescription =
   "A comparison slide with a main title and two side-by-side chart panels, each supporting bar, grouped bar, stacked bar, clustered bar, diverging bar, horizontal bar, line, area, pie, donut, and scatter chart types.";
 
 const CHART_COLORS = [
-  "#244CD9",
+  "#c35de4",
   "#6A89E6",
   "#4169E1",
   "#7B9FFF",

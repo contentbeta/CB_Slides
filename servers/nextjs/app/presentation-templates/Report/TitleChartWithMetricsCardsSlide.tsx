@@ -2,7 +2,10 @@
 
 import * as z from "zod";
 
-import { FlexibleReportChart, flexibleChartDataSchema } from "./flexibleReportChart";
+import {
+  FlexibleReportChart,
+  flexibleChartDataSchema,
+} from "./flexibleReportChart";
 
 const MetricSchema = z.object({
   value: z.string().min(1).max(12).meta({
@@ -86,24 +89,44 @@ type StatMetric = {
 function StatPill({ metrics }: { metrics: StatMetric[] }) {
   return (
     <div
-      className="h-[438px] w-[248px] overflow-hidden rounded-[127px] bg-[#157CFF] px-[28px] py-[74px] text-center text-white"
+      className="h-[438px] w-[248px] overflow-hidden rounded-[127px] bg-[#9748b1] px-[28px] py-[74px] text-center text-white"
       style={{
-        backgroundColor: "var(--primary-color,#157CFF)",
+        backgroundColor: "var(--primary-color,#9748b1)",
         color: "var(--primary-text,#ffffff)",
       }}
     >
       {metrics.map((metric, index) => (
-        <div key={`${metric.value}-${metric.label}-${index}`} className="flex flex-col items-center justify-between gap-2">
+        <div
+          key={`${metric.value}-${metric.label}-${index}`}
+          className="flex flex-col items-center justify-between gap-2"
+        >
           <div key={`${metric.value}-${metric.label}-${index}`} className={``}>
-            <p className="text-[55px]  leading-[44.353px] tracking-[-1.09px]">{metric.value}</p>
-            {metric.label && <p className="mt-[6px] text-[20px]  leading-none">{metric.label}</p>}
-            {metric.description && <p className="text-[20px] mt-1 leading-[1.15] text-white/90" style={{ color: "var(--primary-text,#ffffff)", opacity: 0.9 }}>
-              {metric.description}
-            </p>}
+            <p className="text-[55px]  leading-[44.353px] tracking-[-1.09px]">
+              {metric.value}
+            </p>
+            {metric.label && (
+              <p className="mt-[6px] text-[20px]  leading-none">
+                {metric.label}
+              </p>
+            )}
+            {metric.description && (
+              <p
+                className="text-[20px] mt-1 leading-[1.15] text-white/90"
+                style={{ color: "var(--primary-text,#ffffff)", opacity: 0.9 }}
+              >
+                {metric.description}
+              </p>
+            )}
           </div>
           {index === 0 && (
             <div className="py-[22px]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="181" height="1" viewBox="0 0 181 1" fill="none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="181"
+                height="1"
+                viewBox="0 0 181 1"
+                fill="none"
+              >
                 <path
                   opacity="0.2"
                   d="M0 0.487305H180.122"
@@ -120,15 +143,29 @@ function StatPill({ metrics }: { metrics: StatMetric[] }) {
   );
 }
 
-const DataAnalysisLineStatsSlide = ({ data }: { data: Partial<SchemaType> }) => {
-  const { title, seriesALabel, seriesBLabel, chartData, statColumns, legendLabel } = data;
+const DataAnalysisLineStatsSlide = ({
+  data,
+}: {
+  data: Partial<SchemaType>;
+}) => {
+  const {
+    title,
+    seriesALabel,
+    seriesBLabel,
+    chartData,
+    statColumns,
+    legendLabel,
+  } = data;
   const rows = chartData?.data ?? [];
   const chartType = chartData?.type ?? "line-dual";
   const series = chartData?.series ?? [];
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden rounded-[24px] bg-[#f9f8f8]"
         style={{
@@ -137,8 +174,11 @@ const DataAnalysisLineStatsSlide = ({ data }: { data: Partial<SchemaType> }) => 
         }}
       >
         <div
-          className="absolute left-0 top-0 w-[42px] rounded-b-[22px] bg-[#157CFF]"
-          style={{ height: 185, backgroundColor: "var(--primary-color,#157CFF)" }}
+          className="absolute left-0 top-0 w-[42px] rounded-b-[22px] bg-[#9748b1]"
+          style={{
+            height: 185,
+            backgroundColor: "var(--primary-color,#9748b1)",
+          }}
         />
 
         <div className="px-[64px] pt-[48px]">
@@ -152,38 +192,49 @@ const DataAnalysisLineStatsSlide = ({ data }: { data: Partial<SchemaType> }) => 
 
         <div className="flex justify-between px-[74px] pt-[40px]">
           <div className="w-[474px]">
-            {chartType === "line-dual" && <div
-              className="flex justify-center gap-[26px] text-[14px] text-[#353538]"
-              style={{ color: "var(--background-text,#353538)" }}
-            >
-              <span className="flex items-center gap-[8px]">
-                <span className="h-[2px] w-[20px] bg-[#9fb6ff]" style={{ backgroundColor: "var(--graph-0,#9fb6ff)" }} />
-                {seriesALabel}
-              </span>
-              <span className="flex items-center gap-[8px]">
-                <span className="h-[2px] w-[20px] bg-[#4d4ef3]" style={{ backgroundColor: "var(--graph-1,#4d4ef3)" }} />
-                {seriesBLabel}
-              </span>
-            </div>}
+            {chartType === "line-dual" && (
+              <div
+                className="flex justify-center gap-[26px] text-[14px] text-[#353538]"
+                style={{ color: "var(--background-text,#353538)" }}
+              >
+                <span className="flex items-center gap-[8px]">
+                  <span
+                    className="h-[2px] w-[20px] bg-[#9fb6ff]"
+                    style={{ backgroundColor: "var(--graph-0,#9fb6ff)" }}
+                  />
+                  {seriesALabel}
+                </span>
+                <span className="flex items-center gap-[8px]">
+                  <span
+                    className="h-[2px] w-[20px] bg-[#4d4ef3]"
+                    style={{ backgroundColor: "var(--graph-1,#4d4ef3)" }}
+                  />
+                  {seriesBLabel}
+                </span>
+              </div>
+            )}
 
             <div className="mt-[12px] h-[356px] min-h-0 w-full overflow-hidden">
               <FlexibleReportChart
                 chartType={chartType}
                 data={rows}
                 series={series}
-                colorFallback="#157CFF"
+                colorFallback="#9748b1"
                 density="default"
-                dualLineColors={["var(--graph-0,#9fb6ff)", "var(--graph-1,#4d4ef3)"]}
+                dualLineColors={[
+                  "var(--graph-0,#9fb6ff)",
+                  "var(--graph-1,#4d4ef3)",
+                ]}
               />
             </div>
 
             <div
-              className="mt-[12px] flex items-center gap-[10px] text-center justify-center text-[24px] tracking-[-0.03em] text-[#157CFF]"
-              style={{ color: "var(--primary-color,#157CFF)" }}
+              className="mt-[12px] flex items-center gap-[10px] text-center justify-center text-[24px] tracking-[-0.03em] text-[#9748b1]"
+              style={{ color: "var(--primary-color,#9748b1)" }}
             >
               <span
-                className="h-[12px] w-[12px] rounded-full bg-[#157CFF]"
-                style={{ backgroundColor: "var(--primary-color,#157CFF)" }}
+                className="h-[12px] w-[12px] rounded-full bg-[#9748b1]"
+                style={{ backgroundColor: "var(--primary-color,#9748b1)" }}
               />
               <p>{data.legendLabel}</p>
             </div>
@@ -191,7 +242,10 @@ const DataAnalysisLineStatsSlide = ({ data }: { data: Partial<SchemaType> }) => 
 
           <div className="ml-[42px] flex gap-[30px]">
             {statColumns?.map((column, index) => (
-              <StatPill key={`line-stat-column-${index}`} metrics={column.metrics} />
+              <StatPill
+                key={`line-stat-column-${index}`}
+                metrics={column.metrics}
+              />
             ))}
           </div>
         </div>

@@ -13,7 +13,7 @@ export const Schema = z.object({
     .max(400)
     .describe("Supporting description text for the slide")
     .default(
-      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies."
+      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies.",
     ),
   sections: z
     .array(
@@ -30,11 +30,11 @@ export const Schema = z.object({
                 .string()
                 .max(20)
                 .describe("Description text for the bullet point"),
-            })
+            }),
           )
           .max(5)
           .describe("List of bullet points in the section"),
-      })
+      }),
     )
     .max(3)
     .describe("Column sections containing bullet points")
@@ -89,7 +89,7 @@ const dynamicSlideLayout: React.FC<{
       <div
         className="relative w-full rounded-sm max-w-[1280px] shadow-lg max-h-[720px] aspect-video bg-[#FFFFFE] z-20 mx-auto overflow-hidden flex flex-col px-[60px] py-[60px] font-['Poppins']"
         style={{
-          fontFamily: "var(--heading-font-family,Poppins)",
+          fontFamily: "var(--body-font-family,Poppins)",
           background: "var(--background-color,#ffffff)",
         }}
       >
@@ -131,7 +131,7 @@ const dynamicSlideLayout: React.FC<{
             </h1>
             <div
               className="w-[116.6px] h-[5.7px] mt-4"
-              style={{ backgroundColor: "var(--primary-color,#9234EB)" }}
+              style={{ backgroundColor: "var(--primary-color,#c25de2)" }}
             />
           </div>
           <div className="basis-1/2 flex justify-end">

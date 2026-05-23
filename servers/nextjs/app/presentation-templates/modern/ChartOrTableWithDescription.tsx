@@ -6,12 +6,10 @@ import { ModernSimpleChart } from "./ModernChartPrimitives";
 
 export const layoutId = "chart-or-table-with-description";
 export const layoutName = "Chart or Table With Description";
-export const layoutDescription =
-  "Chart with description slide layout";
+export const layoutDescription = "Chart with description slide layout";
 
 const businessModelSchema = z
   .object({
-
     title: z.string().min(3).max(60).default("Data Table or Chart"),
     description: z
       .string()
@@ -53,7 +51,9 @@ const businessModelSchema = z
       .object({
         type: z.enum(["bar", "horizontalBar", "line", "pie"]).default("line"),
         data: z
-          .array(z.object({ label: z.string().min(1).max(12), value: z.number() }))
+          .array(
+            z.object({ label: z.string().min(1).max(12), value: z.number() }),
+          )
           .min(3)
           .max(12)
           .default([
@@ -78,7 +78,6 @@ const businessModelSchema = z
       }),
   })
   .default({
-
     title: "Data Table or Chart",
     description:
       "Present structured information in a flexible table or visualize it with a chart.",
@@ -109,8 +108,6 @@ interface Props {
   data?: Partial<BusinessModelData>;
 }
 
-
-
 const BusinessModelSlide: React.FC<Props> = ({ data }) => {
   const mode = data?.mode || "table";
   const columns = data?.columns || [];
@@ -130,7 +127,7 @@ const BusinessModelSlide: React.FC<Props> = ({ data }) => {
       <div
         className="w-full max-w-[1280px] max-h-[720px] aspect-video mx-auto rounded shadow-lg overflow-hidden relative z-20"
         style={{
-          fontFamily: "var(--heading-font-family,Montserrat)",
+          fontFamily: "var(--body-font-family,Montserrat)",
           backgroundColor: "var(--background-color, #FFFFFF)",
         }}
       >
@@ -139,11 +136,21 @@ const BusinessModelSlide: React.FC<Props> = ({ data }) => {
           <div className="absolute top-0 left-0 right-0 px-8 sm:px-12 lg:px-20 pt-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
-
-                {(data as any)?._logo_url__ && <img src={(data as any)?._logo_url__} alt="logo" className="w-6 h-6" />}
-                {(data as any)?.__companyName__ && <span className="text-sm sm:text-base font-semibold" style={{ color: 'var(--background-text, #111827)' }}>
-                  {(data as any)?.__companyName__ || 'Company Name'}
-                </span>}
+                {(data as any)?._logo_url__ && (
+                  <img
+                    src={(data as any)?._logo_url__}
+                    alt="logo"
+                    className="w-6 h-6"
+                  />
+                )}
+                {(data as any)?.__companyName__ && (
+                  <span
+                    className="text-sm sm:text-base font-semibold"
+                    style={{ color: "var(--background-text, #111827)" }}
+                  >
+                    {(data as any)?.__companyName__ || "Company Name"}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -153,10 +160,16 @@ const BusinessModelSlide: React.FC<Props> = ({ data }) => {
         <div className="px-16 py-16 flex h-full gap-8">
           {/* Left Column - Title and description */}
           <div className="flex-1 pr-12 flex flex-col justify-center">
-            <h1 className="text-5xl font-bold mb-4 leading-tight text-left" style={{ color: 'var(--background-text, #234CD9)' }}>
+            <h1
+              className="text-5xl font-bold mb-4 leading-tight text-left"
+              style={{ color: "var(--background-text, #234CD9)" }}
+            >
               {data?.title}
             </h1>
-            <p className="text-base leading-relaxed font-normal max-w-xl text-left" style={{ color: 'var(--background-text, #234CD9)' }}>
+            <p
+              className="text-base leading-relaxed font-normal max-w-xl text-left"
+              style={{ color: "var(--background-text, #234CD9)" }}
+            >
               {data?.description}
             </p>
           </div>
@@ -165,12 +178,22 @@ const BusinessModelSlide: React.FC<Props> = ({ data }) => {
           <div className="flex flex-col items-start justify-center w-[52%] gap-8">
             {mode === "table" ? (
               <div className="w-full">
-                <div className="rounded-lg border" style={{ borderColor: 'var(--stroke, rgba(0,0,0,0.08))' }}>
+                <div
+                  className="rounded-lg border"
+                  style={{ borderColor: "var(--stroke, rgba(0,0,0,0.08))" }}
+                >
                   <table className="w-full border-separate border-spacing-0">
                     <thead>
                       <tr>
                         {columns.map((col, idx) => (
-                          <th key={idx} className="text-left text-sm font-semibold px-4 py-3 border-b" style={{ borderColor: 'var(--stroke, rgba(0,0,0,0.12))', color: 'var(--primary-color, #1E4CD9)' }}>
+                          <th
+                            key={idx}
+                            className="text-left text-sm font-semibold px-4 py-3 border-b"
+                            style={{
+                              borderColor: "var(--stroke, rgba(0,0,0,0.12))",
+                              color: "var(--primary-color, #1E4CD9)",
+                            }}
+                          >
                             {col}
                           </th>
                         ))}
@@ -180,8 +203,15 @@ const BusinessModelSlide: React.FC<Props> = ({ data }) => {
                       {rows.map((row, rIdx) => (
                         <tr key={rIdx} className="align-top">
                           {columns.map((_, cIdx) => (
-                            <td key={cIdx} className="text-sm px-4 py-3 border-t" style={{ borderColor: 'var(--stroke, rgba(0,0,0,0.08))', color: 'var(--background-text, #334155)' }}>
-                              {row.cells[cIdx] || ''}
+                            <td
+                              key={cIdx}
+                              className="text-sm px-4 py-3 border-t"
+                              style={{
+                                borderColor: "var(--stroke, rgba(0,0,0,0.08))",
+                                color: "var(--background-text, #334155)",
+                              }}
+                            >
+                              {row.cells[cIdx] || ""}
                             </td>
                           ))}
                         </tr>
@@ -192,18 +222,26 @@ const BusinessModelSlide: React.FC<Props> = ({ data }) => {
               </div>
             ) : (
               <div className="w-full">
-                <div className="bg-white rounded-lg shadow p-4"
-                  style={{ backgroundColor: 'var(--card-color, #F5F8FE)' }}
+                <div
+                  className="bg-white rounded-lg shadow p-4"
+                  style={{ backgroundColor: "var(--card-color, #F5F8FE)" }}
                 >
                   <div className="w-full h-72">
-                    <ModernSimpleChart type={type} data={cData} showLabels={showLabels} />
+                    <ModernSimpleChart
+                      type={type}
+                      data={cData}
+                      showLabels={showLabels}
+                    />
                   </div>
                 </div>
               </div>
             )}
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-1" style={{ backgroundColor: 'var(--primary-color, #1E4CD9)' }} />
+        <div
+          className="absolute bottom-0 left-0 right-0 h-1"
+          style={{ backgroundColor: "var(--primary-color, #1E4CD9)" }}
+        />
       </div>
     </>
   );

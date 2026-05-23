@@ -6,8 +6,7 @@ import { ModernMultiLineChart } from "./ModernChartPrimitives";
 
 export const layoutId = "chart-with-metrics";
 export const layoutName = "Chart With Metrics Slide";
-export const layoutDescription =
-  "A chart or table with metrics slide layout";
+export const layoutDescription = "A chart or table with metrics slide layout";
 
 const growthStatsSchema = z
   .object({
@@ -21,8 +20,6 @@ const growthStatsSchema = z
 
 // growthStats: list of dicts, each dict is { year: string, <metric1>: number, <metric2>: number, ... }
 const tractionSchema = z.object({
-
-
   title: z.string().default("Company Traction").meta({
     description: "Main title of the slide",
   }),
@@ -38,8 +35,20 @@ const tractionSchema = z.object({
         "Main content text describing the company's traction and growth momentum.",
     }),
   tableMode: z.boolean().default(false),
-  tableColumns: z.array(z.string().min(1).max(40)).min(2).max(10).default(["Metric", "Value"]),
-  tableRows: z.array(z.array(z.string().min(0).max(200)).min(2).max(10)).min(1).max(30).default([["Users", "10K+"], ["Revenue", "$1.2M"], ["Satisfaction", "95%"]]),
+  tableColumns: z
+    .array(z.string().min(1).max(40))
+    .min(2)
+    .max(10)
+    .default(["Metric", "Value"]),
+  tableRows: z
+    .array(z.array(z.string().min(0).max(200)).min(2).max(10))
+    .min(1)
+    .max(30)
+    .default([
+      ["Users", "10K+"],
+      ["Revenue", "$1.2M"],
+      ["Satisfaction", "95%"],
+    ]),
   // growthStats is a list of objects, each with a 'year' and any number of metric keys (all numbers)
   growthStats: z
     .array(growthStatsSchema)
@@ -111,7 +120,7 @@ interface Props {
 // Helper: assign colors to series
 const defaultColors = [
   "#1E4CD9",
-  "#3b82f6",
+  "#c25de2",
   "#f59e0b",
   "#10b981",
   "#ef4444",
@@ -175,7 +184,7 @@ const CompanyTractionSlideLayout: React.FC<Props> = ({ data }) => {
       <div
         className="w-full max-w-[1280px] max-h-[720px] aspect-video mx-auto rounded shadow-lg overflow-hidden relative z-20"
         style={{
-          fontFamily: "var(--heading-font-family,Montserrat)",
+          fontFamily: "var(--body-font-family,Montserrat)",
           backgroundColor: "var(--background-color, #FFFFFF)",
         }}
       >
@@ -184,11 +193,21 @@ const CompanyTractionSlideLayout: React.FC<Props> = ({ data }) => {
           <div className="absolute top-0 left-0 right-0 px-8 sm:px-12 lg:px-20 pt-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
-
-                {(data as any)?._logo_url__ && <img src={(data as any)?._logo_url__} alt="logo" className="w-6 h-6" />}
-                {(data as any)?.__companyName__ && <span className="text-sm sm:text-base font-semibold" style={{ color: 'var(--background-text, #111827)' }}>
-                  {(data as any)?.__companyName__ || 'Company Name'}
-                </span>}
+                {(data as any)?._logo_url__ && (
+                  <img
+                    src={(data as any)?._logo_url__}
+                    alt="logo"
+                    className="w-6 h-6"
+                  />
+                )}
+                {(data as any)?.__companyName__ && (
+                  <span
+                    className="text-sm sm:text-base font-semibold"
+                    style={{ color: "var(--background-text, #111827)" }}
+                  >
+                    {(data as any)?.__companyName__ || "Company Name"}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -198,32 +217,56 @@ const CompanyTractionSlideLayout: React.FC<Props> = ({ data }) => {
         <div className="px-16 py-16 flex h-full gap-8">
           {/* Left Column - Chart with Title Below */}
           <div className="flex-1 pr-12 flex flex-col justify-center">
-            <h1 className="text-5xl font-bold mb-4 leading-tight text-left" style={{ color: 'var(--background-text, #234CD9)' }}>
+            <h1
+              className="text-5xl font-bold mb-4 leading-tight text-left"
+              style={{ color: "var(--background-text, #234CD9)" }}
+            >
               {data?.title}
             </h1>
-            <div className=" rounded-lg shadow p-4 mb-8"
-              style={{ backgroundColor: 'var(--card-color, #ffffff)' }}
+            <div
+              className=" rounded-lg shadow p-4 mb-8"
+              style={{ backgroundColor: "var(--card-color, #ffffff)" }}
             >
               <div className="w-full h-64">
-                <ModernMultiLineChart data={growthStats} seriesKeys={seriesKeys} colors={defaultColors} />
+                <ModernMultiLineChart
+                  data={growthStats}
+                  seriesKeys={seriesKeys}
+                  colors={defaultColors}
+                />
               </div>
             </div>
           </div>
 
           {/* Right Column - Description and Stats or Table */}
           <div className="flex flex-col items-start justify-center w-[52%] gap-8">
-            <p className="text-base leading-relaxed font-normal mb-6 max-w-xl text-left" style={{ color: 'var(--background-text, #234CD9)' }}>
+            <p
+              className="text-base leading-relaxed font-normal mb-6 max-w-xl text-left"
+              style={{ color: "var(--background-text, #234CD9)" }}
+            >
               {data?.description ||
                 "Traction is a period where the company is feeling momentum during its development period. If traction momentum is not harnessed, sales figures can decline and the customer base can shrink. In general, companies will judge success by the amount of revenue and new customers they receive."}
             </p>
             {data?.tableMode ? (
               <div className="w-full">
-                <div className="rounded-lg ring-1" style={{ borderColor: 'var(--secondary-accent-color, rgba(0,0,0,0.08))' }}>
+                <div
+                  className="rounded-lg ring-1"
+                  style={{
+                    borderColor:
+                      "var(--secondary-accent-color, rgba(0,0,0,0.08))",
+                  }}
+                >
                   <table className="w-full border-separate border-spacing-0">
                     <thead>
                       <tr>
                         {data.tableColumns?.map((col, idx) => (
-                          <th key={idx} className="text-left text-sm font-semibold px-4 py-3 border-b" style={{ borderColor: 'var(--stroke, rgba(0,0,0,0.12))', color: 'var(--primary-color, #1E4CD9)' }}>
+                          <th
+                            key={idx}
+                            className="text-left text-sm font-semibold px-4 py-3 border-b"
+                            style={{
+                              borderColor: "var(--stroke, rgba(0,0,0,0.12))",
+                              color: "var(--primary-color, #1E4CD9)",
+                            }}
+                          >
                             {col}
                           </th>
                         ))}
@@ -233,7 +276,14 @@ const CompanyTractionSlideLayout: React.FC<Props> = ({ data }) => {
                       {data.tableRows?.map((row, rIdx) => (
                         <tr key={rIdx} className="align-top">
                           {row.map((cell, cIdx) => (
-                            <td key={cIdx} className="text-sm px-4 py-3 border-t" style={{ borderColor: 'var(--stroke, rgba(0,0,0,0.08))', color: 'var(--background-text, #334155)' }}>
+                            <td
+                              key={cIdx}
+                              className="text-sm px-4 py-3 border-t"
+                              style={{
+                                borderColor: "var(--stroke, rgba(0,0,0,0.08))",
+                                color: "var(--background-text, #334155)",
+                              }}
+                            >
                               {cell}
                             </td>
                           ))}
@@ -249,15 +299,27 @@ const CompanyTractionSlideLayout: React.FC<Props> = ({ data }) => {
                   <div
                     key={index}
                     className="flex-1 rounded-lg shadow-sm px-5 py-4 flex flex-col items-start"
-                    style={{ backgroundColor: 'var(--primary-color, #F5F8FE)' }}
+                    style={{ backgroundColor: "var(--primary-color, #F5F8FE)" }}
                   >
-                    <div className="text-white text-xs font-semibold px-3 py-1 rounded-sm mb-2" style={{ backgroundColor: 'var(--card-color, #234CD9)', color: 'var(--background-text, #ffffff)' }}>
+                    <div
+                      className="text-white text-xs font-semibold px-3 py-1 rounded-sm mb-2"
+                      style={{
+                        backgroundColor: "var(--card-color, #234CD9)",
+                        color: "var(--background-text, #ffffff)",
+                      }}
+                    >
                       {stat.label}
                     </div>
-                    <div className="text-2xl font-bold mb-1" style={{ color: 'var(--primary-text, #234CD9)' }}>
+                    <div
+                      className="text-2xl font-bold mb-1"
+                      style={{ color: "var(--primary-text, #234CD9)" }}
+                    >
                       {stat.value}
                     </div>
-                    <p className="text-sm leading-snug" style={{ color: 'var(--primary-text, #234CD9)' }}>
+                    <p
+                      className="text-sm leading-snug"
+                      style={{ color: "var(--primary-text, #234CD9)" }}
+                    >
                       {stat.description}
                     </p>
                   </div>
@@ -266,7 +328,10 @@ const CompanyTractionSlideLayout: React.FC<Props> = ({ data }) => {
             )}
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-1" style={{ backgroundColor: 'var(--primary-color, #1E4CD9)' }} />
+        <div
+          className="absolute bottom-0 left-0 right-0 h-1"
+          style={{ backgroundColor: "var(--primary-color, #1E4CD9)" }}
+        />
       </div>
     </>
   );

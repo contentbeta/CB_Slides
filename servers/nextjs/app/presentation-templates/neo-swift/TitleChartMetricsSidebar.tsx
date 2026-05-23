@@ -74,7 +74,7 @@ export const Schema = z.object({
               .number()
               .optional()
               .describe("The secondary metric value for this label"),
-          })
+          }),
         )
         .max(3)
         .describe("The data points for the graph"),
@@ -102,7 +102,7 @@ export const Schema = z.object({
           .max(35)
           .describe("Bottom description or challenge text")
           .default("Main Challenge: Delayed Client"),
-      })
+      }),
     )
     .max(4)
     .describe("List of metric cards shown on the right side")
@@ -142,7 +142,7 @@ const COLORS = [
   "#4ECDC4",
   "#45B7D1",
   "#10B981",
-  "#244CD9",
+  "#c35de4",
   "#6B89E6",
   "#4169E1",
   "#7B9FFF",

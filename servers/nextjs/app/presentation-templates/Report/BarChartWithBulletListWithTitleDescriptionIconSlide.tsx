@@ -2,7 +2,10 @@
 
 import * as z from "zod";
 
-import { FlexibleReportChart, flexibleChartDataSchema } from "./flexibleReportChart";
+import {
+  FlexibleReportChart,
+  flexibleChartDataSchema,
+} from "./flexibleReportChart";
 import { RemoteSvgIcon } from "@/app/hooks/useRemoteSvgIcon";
 
 const InsightItemSchema = z.object({
@@ -14,8 +17,10 @@ const InsightItemSchema = z.object({
   }),
 });
 
-export const slideLayoutId = "bar-chart-with-bullet-list-title-description-icon-slide";
-export const slideLayoutName = "Bar Chart with Bullet List with Title Description Icon Slide";
+export const slideLayoutId =
+  "bar-chart-with-bullet-list-title-description-icon-slide";
+export const slideLayoutName =
+  "Bar Chart with Bullet List with Title Description Icon Slide";
 export const slideLayoutDescription =
   "A slide with a title at the top, a vertical list of three bullet points with icon, title and description on the left, and a bar chart on the right.";
 
@@ -27,11 +32,14 @@ export const Schema = z.object({
     .object({
       __icon_url__: z
         .string()
-        .default("https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg"),
+        .default(
+          "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+        ),
       __icon_query__: z.string().default("pulse icon"),
     })
     .default({
-      __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+      __icon_url__:
+        "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
       __icon_query__: "pulse icon",
     })
     .meta({
@@ -47,7 +55,8 @@ export const Schema = z.object({
       { title: "Title 2", description: "Ut enim ad minima veniam, quis." },
     ])
     .meta({
-      description: "Three analysis points shown in the left column,maximum 3 items",
+      description:
+        "Three analysis points shown in the left column,maximum 3 items",
     }),
   chartData: flexibleChartDataSchema.default({
     type: "bar",
@@ -60,7 +69,6 @@ export const Schema = z.object({
       { name: "Sat", value: 110 },
       { name: "Sun", value: 130 },
     ],
-
   }),
   legendLabel: z.string().min(3).max(50).default("Traditional Workflow").meta({
     description: "Legend label shown below the chart.",
@@ -77,7 +85,10 @@ const DataAnalysisBarSlide = ({ data }: { data: Partial<SchemaType> }) => {
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet"
+      />
 
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden rounded-[24px] bg-[#f9f8f8]"
@@ -145,7 +156,12 @@ const DataAnalysisBarSlide = ({ data }: { data: Partial<SchemaType> }) => {
 
           <div className="ml-[44px] flex flex-col items-center">
             <div className="h-[346px] min-h-0 w-[560px] overflow-hidden">
-              <FlexibleReportChart chartType={chartType} data={rows} series={series} colorFallback="#4d4ef3" />
+              <FlexibleReportChart
+                chartType={chartType}
+                data={rows}
+                series={series}
+                colorFallback="#4d4ef3"
+              />
             </div>
             <div
               className="mt-[12px] flex items-center gap-[10px] text-[24px] tracking-[-0.03em] text-[#4d4ef3]"

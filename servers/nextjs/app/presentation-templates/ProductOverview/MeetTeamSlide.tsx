@@ -1,6 +1,5 @@
 import * as z from "zod";
 
-
 export const slideLayoutId = "title-description-with-cards-slide";
 export const slideLayoutName = "Title Description with Cards Slide";
 export const slideLayoutDescription =
@@ -13,15 +12,25 @@ const MemberSchema = z.object({
   name: z.string().min(2).max(16).meta({
     description: "Member name shown in the card footer.",
   }),
-  image: z.object({
-    __image_url__: z.string().url().default("https://i.pravatar.cc/600?img=12"),
-    __image_prompt__: z.string().min(10).max(100).default("Professional male portrait with suit"),
-  }).default({
-    __image_url__: "https://i.pravatar.cc/600?img=12",
-    __image_prompt__: "Professional male portrait with suit",
-  }).meta({
-    description: "Portrait image for a team member card.",
-  }),
+  image: z
+    .object({
+      __image_url__: z
+        .string()
+        .url()
+        .default("https://i.pravatar.cc/600?img=12"),
+      __image_prompt__: z
+        .string()
+        .min(10)
+        .max(100)
+        .default("Professional male portrait with suit"),
+    })
+    .default({
+      __image_url__: "https://i.pravatar.cc/600?img=12",
+      __image_prompt__: "Professional male portrait with suit",
+    })
+    .meta({
+      description: "Portrait image for a team member card.",
+    }),
   highlighted: z.boolean().default(false).meta({
     description: "Whether this card uses the dark highlight footer.",
   }),
@@ -34,11 +43,15 @@ export const Schema = z.object({
   taglineLabel: z.string().max(16).default("TAGLINE").meta({
     description: "Small heading above team description.",
   }),
-  taglineBody: z.string().max(80).default(
-    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea."
-  ).meta({
-    description: "Short descriptive paragraph at top-right.",
-  }),
+  taglineBody: z
+    .string()
+    .max(80)
+    .default(
+      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.",
+    )
+    .meta({
+      description: "Short descriptive paragraph at top-right.",
+    }),
   members: z
     .array(MemberSchema)
 
@@ -93,7 +106,10 @@ const MeetTeamSlide = ({ data }: { data: Partial<SchemaType> }) => {
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden "
         style={{

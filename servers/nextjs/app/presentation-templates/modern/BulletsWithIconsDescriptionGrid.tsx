@@ -17,7 +17,7 @@ const bulletWithIconsDescriptionGridSlideSchema = z.object({
     .min(20)
     .max(300)
     .default(
-      "Show that we offer a solution that solves the problems previously described and identified. Make sure that the solutions we offer uphold the values of effectiveness, efficiency, and are highly relevant to the market situation and society is here and what is hsd sdksdf klfdslkf lkflkfsldkf."
+      "Show that we offer a solution that solves the problems previously described and identified. Make sure that the solutions we offer uphold the values of effectiveness, efficiency, and are highly relevant to the market situation and society is here and what is hsd sdksdf klfdslkf lkflkfsldkf.",
     )
     .meta({
       description: "Main content text describing the solution",
@@ -34,7 +34,7 @@ const bulletWithIconsDescriptionGridSlideSchema = z.object({
         icon: IconSchema.optional().meta({
           description: "Icon for the section",
         }),
-      })
+      }),
     )
     .min(2)
     .max(6)
@@ -126,7 +126,7 @@ const BulletWithIconsDescriptionGridSlideLayout = ({
       <div
         className="w-full rounded-sm max-w-[1280px] shadow-lg  aspect-video relative z-20 mx-auto overflow-hidden"
         style={{
-          fontFamily: "var(--heading-font-family,Montserrat)",
+          fontFamily: "var(--body-font-family,Montserrat)",
           backgroundColor: "var(--background-color, #FFFFFF)",
         }}
       >

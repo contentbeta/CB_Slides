@@ -8,19 +8,23 @@ const FeatureCardSchema = z.object({
   description: z.string().min(18).max(80).meta({
     description: "Description shown on each card.",
   }),
-  icon: z.object({
-    __icon_url__: z.string().meta({
-      description: "URL to icon",
+  icon: z
+    .object({
+      __icon_url__: z.string().meta({
+        description: "URL to icon",
+      }),
+      __icon_query__: z.string().meta({
+        description: "Query used to search the icon",
+      }),
+    })
+    .default({
+      __icon_url__:
+        "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+      __icon_query__: "check icon",
+    })
+    .meta({
+      description: "Suiting icon used for each bullet in plan cards.",
     }),
-    __icon_query__: z.string().meta({
-      description: "Query used to search the icon",
-    }),
-  }).default({
-    __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
-    __icon_query__: "check icon",
-  }).meta({
-    description: "Suiting icon used for each bullet in plan cards.",
-  }),
 });
 
 export const slideLayoutId = "cards-grid-slide";
@@ -39,9 +43,11 @@ export const Schema = z.object({
     .default([
       {
         title: "Modern Stack",
-        description: "Built with React, TypeScript, and Tailwind CSS for maximum developer experience.",
+        description:
+          "Built with React, TypeScript, and Tailwind CSS for maximum developer experience.",
         icon: {
-          __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+          __icon_url__:
+            "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
           __icon_query__: "check icon",
         },
       },
@@ -49,7 +55,8 @@ export const Schema = z.object({
         title: "Component Library ",
         description: "Reusable UI components with consistent design patterns.",
         icon: {
-          __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+          __icon_url__:
+            "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
           __icon_query__: "check icon",
         },
       },
@@ -57,7 +64,8 @@ export const Schema = z.object({
         title: "CLI Tools",
         description: "Command-line utilities for scaffolding and automation.",
         icon: {
-          __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+          __icon_url__:
+            "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
           __icon_query__: "check icon",
         },
       },
@@ -65,7 +73,8 @@ export const Schema = z.object({
         title: "Analytics",
         description: "Built-in tracking and performance monitoring.",
         icon: {
-          __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+          __icon_url__:
+            "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
           __icon_query__: "check icon",
         },
       },
@@ -73,15 +82,18 @@ export const Schema = z.object({
         title: "Version Control",
         description: "Git-based workflow with automated deployments.",
         icon: {
-          __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+          __icon_url__:
+            "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
           __icon_query__: "check icon",
         },
       },
       {
         title: "Best Practices",
-        description: "Following industry standards and modern development patterns.",
+        description:
+          "Following industry standards and modern development patterns.",
         icon: {
-          __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+          __icon_url__:
+            "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
           __icon_query__: "check icon",
         },
       },
@@ -94,11 +106,12 @@ export const Schema = z.object({
 export type SchemaType = z.infer<typeof Schema>;
 
 const CodeSlide04FeatureGrid = ({ data }: { data: Partial<SchemaType> }) => {
-
-
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden p-[53px]"
         style={{
@@ -106,9 +119,12 @@ const CodeSlide04FeatureGrid = ({ data }: { data: Partial<SchemaType> }) => {
           fontFamily: "var(--body-font-family,Nunito Sans)",
         }}
       >
-
-
-        <h2 className="text-[64px] font-medium tracking-[-0.03em]" style={{ color: "var(--background-text,#f2f4ff)" }}>{data.title}</h2>
+        <h2
+          className="text-[64px] font-medium tracking-[-0.03em]"
+          style={{ color: "var(--background-text,#f2f4ff)" }}
+        >
+          {data.title}
+        </h2>
 
         <div className="mt-[26px] grid flex-1 grid-cols-3 items-center h-fit  gap-[26px]">
           {data?.features?.map((feature) => (
@@ -122,7 +138,12 @@ const CodeSlide04FeatureGrid = ({ data }: { data: Partial<SchemaType> }) => {
               }}
             >
               <div className="flex items-start justify-between gap-[8px]">
-                <h3 className="text-[26px] font-medium" style={{ color: "var(--background-text,#ffffff)" }}>{feature.title}</h3>
+                <h3
+                  className="text-[26px] font-medium"
+                  style={{ color: "var(--background-text,#ffffff)" }}
+                >
+                  {feature.title}
+                </h3>
                 <span
                   className="flex h-[52px] w-[52px] items-center justify-center rounded-full border text-[18px]"
                   style={{
@@ -144,7 +165,12 @@ const CodeSlide04FeatureGrid = ({ data }: { data: Partial<SchemaType> }) => {
                   />
                 </span>
               </div>
-              <p className="mt-[12px] text-[18px] leading-[136%]" style={{ color: "var(--background-text,#90A1B9)" }}>{feature.description}</p>
+              <p
+                className="mt-[12px] text-[18px] leading-[136%]"
+                style={{ color: "var(--background-text,#90A1B9)" }}
+              >
+                {feature.description}
+              </p>
             </div>
           ))}
         </div>

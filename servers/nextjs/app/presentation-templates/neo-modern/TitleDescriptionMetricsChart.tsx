@@ -56,14 +56,14 @@ export const Schema = z.object({
     .max(180)
     .describe("Supporting description text")
     .default(
-      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies."
+      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies.",
     ),
   metricCards: z
     .array(
       z.object({
         heading: z.string().max(25).describe("Label text for the metric card"),
         value: z.string().max(8).describe("Value displayed in the metric card"),
-      })
+      }),
     )
     .max(4)
     .describe("List of metric cards displayed in a grid")
@@ -102,9 +102,9 @@ export const Schema = z.object({
               .number()
               .optional()
               .describe(
-                "The second series value (optional for single-series charts)"
+                "The second series value (optional for single-series charts)",
               ),
-          })
+          }),
         )
         .max(4)
         .describe("The data rows for the chart"),
@@ -127,7 +127,7 @@ export const layoutDescription =
   "A slide featuring a main title, description, metric cards grid on the left, and a chart panel on the right. Supports bar, grouped bar, stacked bar, clustered bar, diverging bar, horizontal bar, line, area, pie, donut, and scatter chart types.";
 
 const CHART_COLORS = [
-  "#244CD9",
+  "#c35de4",
   "#6B89E6",
   "#4169E1",
   "#7B9FFF",
@@ -894,7 +894,7 @@ const dynamicSlideLayout: React.FC<{
                       style={{
                         color: isEven
                           ? "var(--background-text,#FFFFFF)"
-                          : "var(--background-text,#244CD9)",
+                          : "var(--background-text,#c35de4)",
                       }}
                     >
                       {metric.heading}
@@ -904,7 +904,7 @@ const dynamicSlideLayout: React.FC<{
                       style={{
                         color: isEven
                           ? "var(--background-text,#FFFFFF)"
-                          : "var(--background-text,#244CD9)",
+                          : "var(--background-text,#c35de4)",
                       }}
                     >
                       {metric.value}
@@ -920,13 +920,13 @@ const dynamicSlideLayout: React.FC<{
             <div className="flex justify-between items-end mb-[20px] px-[20px]">
               <h2
                 className="text-[28.4px] font-bold"
-                style={{ color: "var(--background-text,#244CD9)" }}
+                style={{ color: "var(--background-text,#c35de4)" }}
               >
                 {chartTitle}
               </h2>
               <span
                 className="text-[18.7px] font-normal opacity-70"
-                style={{ color: "var(--background-text,#244CD9)" }}
+                style={{ color: "var(--background-text,#c35de4)" }}
               >
                 {chartCategory}
               </span>
@@ -944,7 +944,7 @@ const dynamicSlideLayout: React.FC<{
               </div>
               <div
                 className="absolute bottom-[8px] right-[20px] text-[16px] font-normal italic opacity-80"
-                style={{ color: "var(--background-text,#244CD9)" }}
+                style={{ color: "var(--background-text,#c35de4)" }}
               >
                 {chartFooterLabel}
               </div>

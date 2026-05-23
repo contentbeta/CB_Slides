@@ -14,7 +14,7 @@ export const Schema = z.object({
 
     .max(90)
     .default(
-      "This is a sample statement used for placeholder content in presentations. This is a sample statement used for placeholder"
+      "This is a sample statement used for placeholder content in presentations. This is a sample statement used for placeholder",
     )
     .meta({
       description: "Main statement text, with max 90 characters.",

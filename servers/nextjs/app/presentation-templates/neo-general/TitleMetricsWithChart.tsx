@@ -26,7 +26,7 @@ import {
 
 // Color palettes
 const DEFAULT_CHART_COLORS = [
-  "#8B5CF6",
+  "#ab51c9",
   "#06B6D4",
   "#10B981",
   "#F59E0B",
@@ -81,7 +81,7 @@ export const Schema = z.object({
     .max(100)
     .describe("Supporting description text for the slide")
     .default(
-      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies."
+      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies.",
     ),
   chart: z
     .object({
@@ -127,7 +127,7 @@ export const Schema = z.object({
       z.object({
         value: z.string().max(7).describe("The displayed metric value"),
         label: z.string().max(13).describe("Label describing the metric"),
-      })
+      }),
     )
     .max(6)
     .default([
@@ -509,12 +509,12 @@ const ChartRenderer: React.FC<{
       const divergingData = chart.divergingData
         ? transformDivergingData(chart.divergingData)
         : chart.series.length >= 2
-        ? chart.categories.map((name, index) => ({
-            name,
-            positive: chart.series[0].values[index] ?? 0,
-            negative: -(chart.series[1].values[index] ?? 0),
-          }))
-        : [];
+          ? chart.categories.map((name, index) => ({
+              name,
+              positive: chart.series[0].values[index] ?? 0,
+              negative: -(chart.series[1].values[index] ?? 0),
+            }))
+          : [];
       const labels = chart.divergingLabels || [
         chart.series[0]?.name || "Positive",
         chart.series[1]?.name || "Negative",
@@ -651,7 +651,7 @@ const ChartRenderer: React.FC<{
               name,
               value: chart.series.reduce(
                 (sum, s) => sum + (s.values[index] || 0),
-                0
+                0,
               ),
             }));
       return (
@@ -694,7 +694,7 @@ const ChartRenderer: React.FC<{
               name,
               value: chart.series.reduce(
                 (sum, s) => sum + (s.values[index] || 0),
-                0
+                0,
               ),
             }));
       return (
@@ -754,7 +754,7 @@ const dynamicSlideLayout: React.FC<{ data: Partial<SlideData> }> = ({
       <div
         className="relative w-full rounded-sm max-w-[1280px] shadow-lg max-h-[720px] aspect-video bg-white z-20 mx-auto overflow-hidden  font-['Poppins'] gap-6 font-normal px-16 py-10"
         style={{
-          fontFamily: "var(--heading-font-family,Poppins)",
+          fontFamily: "var(--body-font-family,Poppins)",
           background: "var(--background-color,#ffffff)",
         }}
       >
@@ -798,7 +798,7 @@ const dynamicSlideLayout: React.FC<{ data: Partial<SlideData> }> = ({
             </h1>
             <div
               className="w-[116.6px] h-[5.7px]"
-              style={{ backgroundColor: "var(--primary-color,#9234EB)" }}
+              style={{ backgroundColor: "var(--primary-color,#c25de2)" }}
             />
           </div>
           <p

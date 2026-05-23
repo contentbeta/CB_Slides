@@ -27,7 +27,7 @@ import React from "react";
 
 // Default color palettes for beautiful charts (fallback)
 const DEFAULT_CHART_COLORS = [
-  "#8B5CF6",
+  "#ab51c9",
   "#06B6D4",
   "#10B981",
   "#F59E0B",
@@ -141,7 +141,7 @@ const ChartLegend: React.FC<{
 
 const buildChartData = (
   categories: string[],
-  series: z.infer<typeof SeriesSchema>[]
+  series: z.infer<typeof SeriesSchema>[],
 ) =>
   categories.map((category, index) => {
     const entry: Record<string, string | number> = { name: category };
@@ -154,7 +154,7 @@ const buildChartData = (
 // Build simple data for single series charts
 const buildSimpleData = (
   categories: string[],
-  series: z.infer<typeof SeriesSchema>[]
+  series: z.infer<typeof SeriesSchema>[],
 ) => {
   if (series.length === 0) return [];
   return categories.map((name, index) => ({
@@ -519,12 +519,12 @@ const ChartRenderer: React.FC<{ chart: z.infer<typeof Schema>["chart"] }> = ({
       const divergingData = chart.divergingData
         ? transformDivergingData(chart.divergingData)
         : chart.series.length >= 2
-        ? chart.categories.map((name, index) => ({
-            name,
-            positive: chart.series[0].values[index] ?? 0,
-            negative: -(chart.series[1].values[index] ?? 0),
-          }))
-        : [];
+          ? chart.categories.map((name, index) => ({
+              name,
+              positive: chart.series[0].values[index] ?? 0,
+              negative: -(chart.series[1].values[index] ?? 0),
+            }))
+          : [];
       const labels = chart.divergingLabels || [
         chart.series[0]?.name || "Positive",
         chart.series[1]?.name || "Negative",
@@ -661,7 +661,7 @@ const ChartRenderer: React.FC<{ chart: z.infer<typeof Schema>["chart"] }> = ({
               name,
               value: chart.series.reduce(
                 (sum, s) => sum + (s.values[index] || 0),
-                0
+                0,
               ),
             }));
       return (
@@ -704,7 +704,7 @@ const ChartRenderer: React.FC<{ chart: z.infer<typeof Schema>["chart"] }> = ({
               name,
               value: chart.series.reduce(
                 (sum, s) => sum + (s.values[index] || 0),
-                0
+                0,
               ),
             }));
       return (
@@ -766,7 +766,7 @@ const dynamicSlideLayout: React.FC<{ data: Partial<FormData> }> = ({
       <div
         className="relative w-full rounded-sm max-w-[1280px] shadow-lg max-h-[720px] aspect-video bg-[#FFFFFE] z-20 mx-auto overflow-hidden flex flex-col items-center px-[48px] py-[40px]"
         style={{
-          fontFamily: "var(--heading-font-family,Poppins)",
+          fontFamily: "var(--body-font-family,Poppins)",
           background: "var(--background-color,#ffffff)",
         }}
       >
@@ -806,7 +806,7 @@ const dynamicSlideLayout: React.FC<{ data: Partial<FormData> }> = ({
           </h1>
           <div
             className="w-[116.6px] h-[5.7px]"
-            style={{ backgroundColor: "var(--primary-color,#9234EB)" }}
+            style={{ backgroundColor: "var(--primary-color,#c25de2)" }}
           />
         </div>
 

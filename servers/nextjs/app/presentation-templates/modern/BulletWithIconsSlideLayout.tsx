@@ -82,8 +82,6 @@ const bulletWithIconsSlideSchema = z.object({
       description:
         "List of problem categories with titles, descriptions, and optional icons",
     }),
-
-
 });
 
 export const Schema = bulletWithIconsSlideSchema;
@@ -112,20 +110,31 @@ const BulletWithIconsSlideLayout = ({
       <div
         className="w-full rounded-sm max-w-[1280px] shadow-lg max-h-[720px] aspect-video relative z-20 mx-auto overflow-hidden"
         style={{
-          fontFamily: "var(--heading-font-family,Montserrat)",
+          fontFamily: "var(--body-font-family,Montserrat)",
           backgroundColor: "var(--background-color, #FFFFFF)",
         }}
       >
         {/* Header */}
-        {((slideData as any)?.__companyName__ || (slideData as any)?._logo_url__) && (
+        {((slideData as any)?.__companyName__ ||
+          (slideData as any)?._logo_url__) && (
           <div className="absolute top-0 left-0 right-0 px-8 sm:px-12 lg:px-20 pt-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
-
-                {(slideData as any)?._logo_url__ && <img src={(slideData as any)?._logo_url__} alt="logo" className="w-6 h-6" />}
-                {(slideData as any)?.__companyName__ && <span className="text-sm sm:text-base font-semibold" style={{ color: 'var(--background-text, #111827)' }}>
-                  {(slideData as any)?.__companyName__ || 'Company Name'}
-                </span>}
+                {(slideData as any)?._logo_url__ && (
+                  <img
+                    src={(slideData as any)?._logo_url__}
+                    alt="logo"
+                    className="w-6 h-6"
+                  />
+                )}
+                {(slideData as any)?.__companyName__ && (
+                  <span
+                    className="text-sm sm:text-base font-semibold"
+                    style={{ color: "var(--background-text, #111827)" }}
+                  >
+                    {(slideData as any)?.__companyName__ || "Company Name"}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -136,11 +145,17 @@ const BulletWithIconsSlideLayout = ({
           {/* Left side - Main Problem */}
           <div className="flex-1 pr-16 flex flex-col justify-center">
             <div className="flex flex-col items-start justify-center h-full">
-              <h2 className="text-5xl font-bold mb-8 leading-tight text-left" style={{ color: 'var(--background-text, #234CD9)' }}>
+              <h2
+                className="text-5xl font-bold mb-8 leading-tight text-left"
+                style={{ color: "var(--background-text, #234CD9)" }}
+              >
                 {slideData?.title}
               </h2>
 
-              <div className="text-lg leading-relaxed font-normal mb-12 max-w-lg text-left" style={{ color: 'var(--background-text, #234CD9)' }}>
+              <div
+                className="text-lg leading-relaxed font-normal mb-12 max-w-lg text-left"
+                style={{ color: "var(--background-text, #234CD9)" }}
+              >
                 {slideData?.description}
               </div>
             </div>
@@ -153,7 +168,7 @@ const BulletWithIconsSlideLayout = ({
                 <div
                   key={index}
                   className="flex items-start gap-5 rounded-lg p-5"
-                  style={{ backgroundColor: 'var(--card-color, #F5F8FE)' }}
+                  style={{ backgroundColor: "var(--card-color, #F5F8FE)" }}
                 >
                   <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">
                     {category.icon?.__icon_url__ ? (
@@ -165,14 +180,25 @@ const BulletWithIconsSlideLayout = ({
                         title={category.icon.__icon_query__}
                       />
                     ) : (
-                      <div className="w-12 h-12 rounded-full opacity-40" style={{ backgroundColor: 'var(--background-text, #111827)' }} />
+                      <div
+                        className="w-12 h-12 rounded-full opacity-40"
+                        style={{
+                          backgroundColor: "var(--background-text, #111827)",
+                        }}
+                      />
                     )}
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-1" style={{ color: 'var(--background-text, #234CD9)' }}>
+                    <h3
+                      className="text-xl font-semibold mb-1"
+                      style={{ color: "var(--background-text, #234CD9)" }}
+                    >
                       {category.title}
                     </h3>
-                    <p className="text-sm leading-relaxed max-w-md" style={{ color: 'var(--background-text, #234CD9)' }}>
+                    <p
+                      className="text-sm leading-relaxed max-w-md"
+                      style={{ color: "var(--background-text, #234CD9)" }}
+                    >
                       {category.description}
                     </p>
                   </div>
@@ -183,7 +209,10 @@ const BulletWithIconsSlideLayout = ({
         </div>
 
         {/* Bottom border line */}
-        <div className="absolute bottom-0 left-0 w-full h-1" style={{ backgroundColor: 'var(--primary-color, #1E4CD9)' }}></div>
+        <div
+          className="absolute bottom-0 left-0 w-full h-1"
+          style={{ backgroundColor: "var(--primary-color, #1E4CD9)" }}
+        ></div>
       </div>
     </>
   );

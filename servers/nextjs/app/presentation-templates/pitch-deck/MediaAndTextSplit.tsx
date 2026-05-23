@@ -25,7 +25,7 @@ export const Schema = z
         __image_url__: z
           .string()
           .default(
-            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80"
+            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1400&q=80",
           ),
         __image_prompt__: z.string().default("Glass skyscraper perspective"),
       })
@@ -37,7 +37,7 @@ export const Schema = z
 
       .max(50)
       .default(
-        "This is a sample text to tell story for audience is written here"
+        "This is a sample text to tell story for audience is written here",
       )
       .meta({
         description: "Main headline text on the right.",
@@ -47,7 +47,7 @@ export const Schema = z
 
       .max(128)
       .default(
-        "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut alUt enim ad minima veniam."
+        "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut alUt enim ad minima veniam.",
       )
       .meta({
         description: "Supporting paragraph text.",

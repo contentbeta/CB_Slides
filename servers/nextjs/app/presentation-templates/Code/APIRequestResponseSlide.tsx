@@ -1,7 +1,6 @@
 import * as z from "zod";
 import { fitCodeBlock, PRISM_CODE_BLOCK_STYLES } from "./codeBlockFitting";
 
-
 export const slideLayoutId = "api-request-response-slide";
 export const slideLayoutName = "API Request Response Slide";
 export const slideLayoutDescription =
@@ -14,39 +13,52 @@ export const Schema = z.object({
   method: z.enum(["GET", "POST", "PATCH", "DELETE"]).default("POST").meta({
     description: "HTTP method badge text.",
   }),
-  endpoint: z.string().min(8).max(48).default("/api/v1/users/authenticate").meta({
-    description: "Endpoint path text.",
-  }),
+  endpoint: z
+    .string()
+    .min(8)
+    .max(48)
+    .default("/api/v1/users/authenticate")
+    .meta({
+      description: "Endpoint path text.",
+    }),
   headers: z
     .array(z.string().max(10))
     .min(2)
     .max(2)
-    .default(["Content-Type: application/json", "Authorization: Bearer <token>"])
+    .default([
+      "Content-Type: application/json",
+      "Authorization: Bearer <token>",
+    ])
     .meta({
       description: "Two header lines shown in the endpoint card.",
     }),
-  requestSnippet: z.object({
-    language: z.string().min(2).max(10),
-    fileName: z.string().min(3).max(24),
-    content: z.string().min(20).max(500),
-  }).default({
-    language: "json",
-    fileName: "request.json",
-    content: `{
+  requestSnippet: z
+    .object({
+      language: z.string().min(2).max(10),
+      fileName: z.string().min(3).max(24),
+      content: z.string().min(20).max(500),
+    })
+    .default({
+      language: "json",
+      fileName: "request.json",
+      content: `{
   "email": "user@example.com user@example.com user@example.com user@example.com user@example.com" ,
   "password": "securepassword123"
 }`,
-  }).meta({
-    description: "Request payload example.",
-  }),
-  responseSnippet: z.object({
-    language: z.string().min(2).max(10),
-    fileName: z.string().min(3).max(24),
-    content: z.string().min(20).max(620),
-  }).default({
-    language: "json",
-    fileName: "response.json",
-    content: `{
+    })
+    .meta({
+      description: "Request payload example.",
+    }),
+  responseSnippet: z
+    .object({
+      language: z.string().min(2).max(10),
+      fileName: z.string().min(3).max(24),
+      content: z.string().min(20).max(620),
+    })
+    .default({
+      language: "json",
+      fileName: "response.json",
+      content: `{
   "success": true,
   "user": {
     "id": "usr_1234567890",
@@ -57,9 +69,10 @@ export const Schema = z.object({
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
   "expiresIn": 3600
 }`,
-  }).meta({
-    description: "Response payload example.",
-  }),
+    })
+    .meta({
+      description: "Response payload example.",
+    }),
 });
 
 export type SchemaType = z.infer<typeof Schema>;
@@ -99,7 +112,10 @@ const CodeSlide03ApiRequestResponse = ({
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet"
+      />
       <style>{PRISM_CODE_BLOCK_STYLES}</style>
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden p-[53px]"
@@ -108,9 +124,13 @@ const CodeSlide03ApiRequestResponse = ({
           fontFamily: "var(--body-font-family,Nunito Sans)",
         }}
       >
-
         <div className="relative z-10 flex h-full flex-col">
-          <h2 className="text-[64px] font-medium" style={{ color: "var(--background-text,#ffffff)" }}>{data.title}</h2>
+          <h2
+            className="text-[64px] font-medium"
+            style={{ color: "var(--background-text,#ffffff)" }}
+          >
+            {data.title}
+          </h2>
 
           <div className="mt-[22px] grid min-h-0 flex-1 grid-cols-2 gap-[22px]">
             <div className="flex min-h-0 flex-col gap-[12px]">
@@ -121,7 +141,10 @@ const CodeSlide03ApiRequestResponse = ({
                   backgroundColor: "var(--card-color,#0F172B80)",
                 }}
               >
-                <div className="flex items-center gap-5 pb-[14px] border-b" style={{ borderColor: "var(--stroke,#1D293D80)" }}>
+                <div
+                  className="flex items-center gap-5 pb-[14px] border-b"
+                  style={{ borderColor: "var(--stroke,#1D293D80)" }}
+                >
                   <p
                     className="rounded-[12px] px-[23px] py-[10px] text-[14px] uppercase tracking-[0.06em]"
                     style={{
@@ -131,12 +154,31 @@ const CodeSlide03ApiRequestResponse = ({
                   >
                     {data.method}
                   </p>
-                  <p className="text-[23px]" style={{ color: "var(--background-text,#dde5ff)" }}>{data.endpoint}</p>
+                  <p
+                    className="text-[23px]"
+                    style={{ color: "var(--background-text,#dde5ff)" }}
+                  >
+                    {data.endpoint}
+                  </p>
                 </div>
-                <p className="mt-[21px] text-[18px] uppercase tracking-[0.08em]" style={{ color: "var(--background-text,#90a1d8)" }}>Headers</p>
-                <div className="mt-[15px] space-y-[4px] text-[24px]" style={{ color: "var(--background-text,#cbd4f8)" }}>
+                <p
+                  className="mt-[21px] text-[18px] uppercase tracking-[0.08em]"
+                  style={{ color: "var(--background-text,#90a1d8)" }}
+                >
+                  Headers
+                </p>
+                <div
+                  className="mt-[15px] space-y-[4px] text-[24px]"
+                  style={{ color: "var(--background-text,#cbd4f8)" }}
+                >
                   {data.headers?.map((item) => (
-                    <p key={item} className="text-[18px]" style={{ color: "var(--background-text,#CAD5E2)" }}>{item}</p>
+                    <p
+                      key={item}
+                      className="text-[18px]"
+                      style={{ color: "var(--background-text,#CAD5E2)" }}
+                    >
+                      {item}
+                    </p>
                   ))}
                 </div>
               </div>
@@ -171,7 +213,9 @@ const CodeSlide03ApiRequestResponse = ({
                       wordBreak: "normal",
                       tabSize: 2,
                     }}
-                    dangerouslySetInnerHTML={{ __html: requestCode.highlightedHtml }}
+                    dangerouslySetInnerHTML={{
+                      __html: requestCode.highlightedHtml,
+                    }}
                   />
                 </div>
               </div>
@@ -207,7 +251,9 @@ const CodeSlide03ApiRequestResponse = ({
                     wordBreak: "normal",
                     tabSize: 2,
                   }}
-                  dangerouslySetInnerHTML={{ __html: responseCode.highlightedHtml }}
+                  dangerouslySetInnerHTML={{
+                    __html: responseCode.highlightedHtml,
+                  }}
                 />
               </div>
             </div>

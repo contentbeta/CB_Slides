@@ -92,7 +92,7 @@ function isSimpleDatum(item: EducationChartDatum): item is SimpleDatum {
 }
 
 function isMultiSeriesDatum(
-  item: EducationChartDatum
+  item: EducationChartDatum,
 ): item is MultiSeriesDatum {
   return (
     typeof (item as MultiSeriesDatum).name === "string" &&
@@ -182,7 +182,7 @@ function resolveColor(element: HTMLElement, value: string) {
 function resolveFont(element: HTMLElement) {
   return resolveToken(element, BODY_FONT, "Times New Roman").replace(
     /^['"]|['"]$/g,
-    ""
+    "",
   );
 }
 
@@ -220,7 +220,7 @@ function makeDatasets(
   data: { name: string; values: number[] }[],
   series: string[],
   colors: string[],
-  overrides: Partial<ChartDataset<"bar" | "line">> = {}
+  overrides: Partial<ChartDataset<"bar" | "line">> = {},
 ) {
   return series.map((serie, index) => ({
     label: serie,
@@ -238,7 +238,7 @@ function makeDatasets(
 function makeValueLabelPlugin(
   mode: "bar" | "bar-horizontal" | "pie" | "none",
   textColor: string,
-  fontFamily: string
+  fontFamily: string,
 ) {
   return {
     id: `educationValueLabels-${mode}`,
@@ -264,7 +264,7 @@ function makeValueLabelPlugin(
           const value = dataset.data[index];
           const position = element.tooltipPosition();
           const text = formatComma(
-            typeof value === "number" ? value : Number(value)
+            typeof value === "number" ? value : Number(value),
           );
 
           if (mode === "bar-horizontal") {
@@ -283,7 +283,7 @@ function makeValueLabelPlugin(
         const values = dataset?.data ?? [];
         const total = values.reduce(
           (sum: number, value: number) => sum + Math.abs(Number(value) || 0),
-          0
+          0,
         );
         if (!total) {
           ctx.restore();
@@ -310,7 +310,7 @@ function makeValueLabelPlugin(
               : `${(percent * 100).toFixed(0)}%`;
           const arc = element.getProps(
             ["x", "y", "startAngle", "endAngle", "innerRadius", "outerRadius"],
-            true
+            true,
           );
           const angle = (arc.startAngle + arc.endAngle) / 2;
           const radius =
@@ -377,7 +377,7 @@ function makeBaseOptions({
             const value =
               typeof parsed === "number"
                 ? parsed
-                : parsed?.y ?? parsed?.x ?? context.raw;
+                : (parsed?.y ?? parsed?.x ?? context.raw);
             return `${datasetLabel}${formatComma(Number(value))}`;
           },
         },
@@ -401,7 +401,7 @@ function categoryScale(
   gridColor: string,
   fontFamily: string,
   display: boolean,
-  showGrid: boolean
+  showGrid: boolean,
 ) {
   return {
     display,
@@ -431,7 +431,7 @@ function linearScale(
   gridColor: string,
   fontFamily: string,
   display: boolean,
-  showGrid: boolean
+  showGrid: boolean,
 ) {
   return {
     beginAtZero: true,
@@ -503,7 +503,7 @@ function makeChartConfig({
             {
               data: values,
               backgroundColor: values.map((_, index) =>
-                getChartColor(colors, index)
+                getChartColor(colors, index),
               ),
               borderRadius: 18,
               barThickness: 30,
@@ -533,7 +533,7 @@ function makeChartConfig({
             {
               data: values,
               backgroundColor: values.map((_, index) =>
-                getChartColor(colors, index)
+                getChartColor(colors, index),
               ),
               borderRadius: 10,
             },
@@ -784,7 +784,7 @@ function makeChartConfig({
             {
               data: values,
               backgroundColor: values.map((_, index) =>
-                getChartColor(colors, index)
+                getChartColor(colors, index),
               ),
               borderColor: "transparent",
               borderWidth: 0,
@@ -811,7 +811,7 @@ function makeChartConfig({
       const scatterData = toScatterData(chartData);
       const labelMap = new Map<number, string>();
       const xTicks = Array.from(
-        new Set(scatterData.map((item) => item.x))
+        new Set(scatterData.map((item) => item.x)),
       ).sort((a, b) => a - b);
       const minTick = xTicks[0] ?? 0;
       const maxTick = xTicks[xTicks.length - 1] ?? 1;
@@ -825,7 +825,7 @@ function makeChartConfig({
               label: "",
               data: scatterData.map((item) => ({ x: item.x, y: item.y })),
               backgroundColor: scatterData.map((_, index) =>
-                getChartColor(colors, index)
+                getChartColor(colors, index),
               ),
               pointRadius: 5,
             },
@@ -917,7 +917,7 @@ export default function EducationChartPrimitives({
           series: series ?? [],
           showLegend,
           showTooltip,
-        })
+        }),
       );
     };
 

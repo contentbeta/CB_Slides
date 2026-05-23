@@ -22,7 +22,7 @@ const ModeSelectStep = ({ selectedMode, setStep, setSelectedMode }: { selectedMo
                             <div className='flex items-start gap-2 relative '>
 
                                 <h3 className='text-black text-[18px] font-medium font-syne'>Template Presentation Mode</h3>
-                                <p className='bg-[#F4F3FF] px-3 py-1.5 rounded-[30px] text-[#7A5AF8] text-[9px] absolute left-[260px] top-[-10px]'>PPTX Export </p>
+                                <p className='bg-[#F4F3FF] px-3 py-1.5 rounded-[30px] text-[#9748b1] text-[9px] absolute left-[260px] top-[-10px]'>PPTX Export </p>
                             </div>
                             <p className='text-[#999999] text-[14px] font-normal font-syne'>Best for structured decks, editing, and PPTX export. Requires text and image providers.</p>
                         </div>
@@ -41,7 +41,7 @@ const ModeSelectStep = ({ selectedMode, setStep, setSelectedMode }: { selectedMo
                             <div className='flex items-start gap-2 relative '>
 
                                 <h3 className='text-black text-[18px] font-medium font-syne'>Image Slides Mode</h3>
-                                <p className='bg-[#F4F3FF] px-3 py-1.5 rounded-[30px] text-[#7A5AF8] text-[9px] absolute left-[180px] top-[-10px]'>No PPTX Export </p>
+                                <p className='bg-[#F4F3FF] px-3 py-1.5 rounded-[30px] text-[#9748b1] text-[9px] absolute left-[180px] top-[-10px]'>No PPTX Export </p>
                             </div>
                             <p className='text-[#999999] text-[14px] font-normal font-syne'> Best for visual slide generation from image models. No PPTX export.</p>
                         </div>
@@ -55,7 +55,7 @@ const ModeSelectStep = ({ selectedMode, setStep, setSelectedMode }: { selectedMo
                     onClick={() => {
                         setStep(2);
                     }}
-                    className='border font-syne border-[#EDEEEF] bg-[#7C51F8]  rounded-[58px] px-5 py-2.5 text-white text-xs  font-semibold'>
+                    className='border font-syne border-[#EDEEEF] bg-[#c25de2]  rounded-[58px] px-5 py-2.5 text-white text-xs  font-semibold'>
                     Continue to providers
                 </button>
             </div>

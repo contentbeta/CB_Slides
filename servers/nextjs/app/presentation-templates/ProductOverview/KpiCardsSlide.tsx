@@ -1,7 +1,6 @@
 import { RemoteSvgIcon } from "@/app/hooks/useRemoteSvgIcon";
 import * as z from "zod";
 
-
 export const slideLayoutId = "title-with-kpi-cards-slide";
 export const slideLayoutName = "Title with KPI Cards Slide";
 export const slideLayoutDescription =
@@ -9,10 +8,12 @@ export const slideLayoutDescription =
 
 const KpiSchema = z.object({
   value: z.string().max(5).meta({
-    description: "Primary KPI value shown in a card. Should be less than 5 characters.",
+    description:
+      "Primary KPI value shown in a card. Should be less than 5 characters.",
   }),
   body: z.string().max(16).meta({
-    description: "Short KPI supporting text. Should be less than 16 characters.",
+    description:
+      "Short KPI supporting text. Should be less than 16 characters.",
   }),
 });
 
@@ -20,26 +21,45 @@ export const Schema = z.object({
   title: z.string().min(3).max(10).default("KPIs").meta({
     description: "Main title shown in the top-left corner.",
   }),
-  kpiIcon: z.object({
-    __icon_url__: z.string().default("https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg"),
-    __icon_query__: z.string().min(3).max(30).default("pulse icon"),
-  }).default({
-    __icon_url__:
-      "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
-    __icon_query__: "pulse icon",
-  }).meta({
-    description: "Icon shown in each KPI card badge.",
-  }),
-  backgroundImage: z.object({
-    __image_url__: z.string().url().default("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80"),
-    __image_prompt__: z.string().min(10).max(100).default("Business team using laptop in meeting"),
-  }).default({
-    __image_url__:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80",
-    __image_prompt__: "Business team using laptop in meeting",
-  }).meta({
-    description: "Background image behind the KPI cards.",
-  }),
+  kpiIcon: z
+    .object({
+      __icon_url__: z
+        .string()
+        .default(
+          "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+        ),
+      __icon_query__: z.string().min(3).max(30).default("pulse icon"),
+    })
+    .default({
+      __icon_url__:
+        "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+      __icon_query__: "pulse icon",
+    })
+    .meta({
+      description: "Icon shown in each KPI card badge.",
+    }),
+  backgroundImage: z
+    .object({
+      __image_url__: z
+        .string()
+        .url()
+        .default(
+          "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80",
+        ),
+      __image_prompt__: z
+        .string()
+        .min(10)
+        .max(100)
+        .default("Business team using laptop in meeting"),
+    })
+    .default({
+      __image_url__:
+        "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80",
+      __image_prompt__: "Business team using laptop in meeting",
+    })
+    .meta({
+      description: "Background image behind the KPI cards.",
+    }),
   items: z
     .array(KpiSchema)
     .min(3)
@@ -64,7 +84,10 @@ const KpiCardsSlide = ({ data }: { data: Partial<SchemaType> }) => {
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden "
         style={{

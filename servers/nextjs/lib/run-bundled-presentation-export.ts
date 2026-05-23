@@ -3,10 +3,7 @@ import os from "os";
 import fs from "fs/promises";
 import { spawn } from "child_process";
 import { sanitizeFilename } from "@/app/(presentation-generator)/utils/others";
-import {
-  BoundedTextBuffer,
-  memorySnapshotMb,
-} from "@/lib/runtime-limits";
+import { BoundedTextBuffer, memorySnapshotMb } from "@/lib/runtime-limits";
 
 /** Repo `presentation-export/` at app root (`/app/presentation-export` in Docker). */
 export function getExportPackageRoot(): string {
@@ -23,7 +20,9 @@ export function getPresentonAppRoot(): string {
   );
 }
 
-function extractSessionTokenFromCookieHeader(cookieHeader?: string): string | undefined {
+function extractSessionTokenFromCookieHeader(
+  cookieHeader?: string,
+): string | undefined {
   if (!cookieHeader) {
     return undefined;
   }
@@ -59,7 +58,7 @@ function bundledConverterPath(exportRoot: string): string {
     return path.join(exportRoot, "py", "convert-linux-x64");
   }
   throw new Error(
-    `No bundled export converter for ${process.platform}/${process.arch}. Set BUILT_PYTHON_MODULE_PATH.`
+    `No bundled export converter for ${process.platform}/${process.arch}. Set BUILT_PYTHON_MODULE_PATH.`,
   );
 }
 
@@ -90,7 +89,9 @@ function normalizeExportOutputPath(params: {
 
   const resolveAppDataRelative = (value: string): string => {
     if (!appData) {
-      throw new Error("APP_DATA_DIRECTORY is required for relative export paths.");
+      throw new Error(
+        "APP_DATA_DIRECTORY is required for relative export paths.",
+      );
     }
 
     const normalized = value.startsWith("/") ? value.slice(1) : value;
@@ -125,7 +126,9 @@ function normalizeExportOutputPath(params: {
     }
   }
 
-  throw new Error("Export finished but response did not include a valid output path.");
+  throw new Error(
+    "Export finished but response did not include a valid output path.",
+  );
 }
 
 async function ensureExportFileReadable(filePath: string): Promise<void> {
@@ -165,8 +168,7 @@ async function runBundledPresentationExportLocked(params: {
 
   await fs.access(converter);
 
-  const nextjsUrl =
-    process.env.NEXT_PUBLIC_URL?.trim() || "http://127.0.0.1";
+  const nextjsUrl = process.env.NEXT_PUBLIC_URL?.trim() || "http://127.0.0.1";
   const q = new URLSearchParams({ id: presentationId });
   const sessionToken = extractSessionTokenFromCookieHeader(cookieHeader);
   if (sessionToken) {
@@ -250,8 +252,8 @@ async function runBundledPresentationExportLocked(params: {
           finish(() => {
             reject(
               new Error(
-                `Export process exited with code ${code ?? "unknown"}${signal ? ` signal ${signal}` : ""}${errText ? `. ${errText}` : ""}${outText ? ` stdout: ${outText}` : ""}`
-              )
+                `Export process exited with code ${code ?? "unknown"}${signal ? ` signal ${signal}` : ""}${errText ? `. ${errText}` : ""}${outText ? ` stdout: ${outText}` : ""}`,
+              ),
             );
           });
         }
@@ -263,7 +265,10 @@ async function runBundledPresentationExportLocked(params: {
     });
 
     const responseRaw = await fs.readFile(responsePath, "utf8");
-    const responseData = JSON.parse(responseRaw) as { path?: string; url?: string };
+    const responseData = JSON.parse(responseRaw) as {
+      path?: string;
+      url?: string;
+    };
 
     const outPath = normalizeExportOutputPath({
       pathValue: responseData?.path,

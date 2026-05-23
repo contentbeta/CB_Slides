@@ -36,7 +36,7 @@ export const Schema = z.object({
     .string()
     .max(80)
     .default(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt."
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.",
     )
     .meta({
       description: "Short subtitle shown under the main heading.",
@@ -166,14 +166,14 @@ const ComparisonChartSlide = ({ data }: { data: Partial<SchemaType> }) => {
       "cells" in row
         ? row.cells
         : [row.cell1, row.cell2, row.cell3, row.cell4].filter(
-            (cell): cell is CellStatus => typeof cell !== "undefined"
+            (cell): cell is CellStatus => typeof cell !== "undefined",
           );
 
     return {
       label: row.label,
       cells: Array.from(
         { length: safeColumns.length },
-        (_, cellIndex) => rowCells[cellIndex] ?? "empty"
+        (_, cellIndex) => rowCells[cellIndex] ?? "empty",
       ),
     };
   });

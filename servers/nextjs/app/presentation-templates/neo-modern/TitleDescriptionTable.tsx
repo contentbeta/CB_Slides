@@ -11,7 +11,7 @@ export const Schema = z.object({
     .max(250)
     .describe("Supporting description text")
     .default(
-      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies."
+      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies.",
     ),
   table: z
     .object({
@@ -160,7 +160,7 @@ const dynamicSlideLayout: React.FC<{
                           </div>
                         </td>
                       );
-                    }
+                    },
                   )}
                 </tr>
               ))}

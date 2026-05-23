@@ -83,15 +83,15 @@ export const Schema = z.object({
                     .number()
                     .optional()
                     .describe(
-                      "The second value (optional for single-series charts)"
+                      "The second value (optional for single-series charts)",
                     ),
-                })
+                }),
               )
               .max(4)
               .describe("Data rows for the chart"),
           })
           .describe("Data for the graph in this section"),
-      })
+      }),
     )
     .max(2)
     .default([
@@ -188,7 +188,7 @@ const dynamicSlideLayout: React.FC<{
   const renderChart = (
     section: typeof comparisonSections extends (infer T)[] | undefined
       ? T
-      : never
+      : never,
   ) => {
     const chartType = section?.chartType || "bar";
     const chartData = section?.graph?.rows;
@@ -901,10 +901,10 @@ const dynamicSlideLayout: React.FC<{
                       ?.slice(
                         0,
                         section?.graph?.rows?.some(
-                          (row) => (row.value2 ?? 0) > 0
+                          (row) => (row.value2 ?? 0) > 0,
                         )
                           ? 2
-                          : 1
+                          : 1,
                       )
                       ?.map((item, lIdx) => (
                         <div key={lIdx} className="flex items-center gap-2">

@@ -84,9 +84,9 @@ export const Schema = z.object({
               .number()
               .optional()
               .describe(
-                "The value for the second series (optional for single-series charts)"
+                "The value for the second series (optional for single-series charts)",
               ),
-          })
+          }),
         )
         .max(4)
         .describe("The data rows for the chart"),
@@ -109,7 +109,7 @@ export const layoutDescription =
   "A slide with a centered title, two subtitles, and a chart within a bordered content area. Supports bar, grouped bar, stacked bar, clustered bar, diverging bar, horizontal bar, line, area, pie, donut, and scatter chart types.";
 
 const CHART_COLORS = [
-  "#244CD9",
+  "#c35de4",
   "#6A89E6",
   "#4169E1",
   "#7B9FFF",
@@ -930,7 +930,7 @@ const dynamicSlideLayout: React.FC<{
                 style={{
                   fontWeight: 700,
                   fontSize: "33.8px",
-                  color: "var(--background-text,#244CD9)",
+                  color: "var(--background-text,#c35de4)",
                 }}
               >
                 {subtitleLeft}
@@ -939,7 +939,7 @@ const dynamicSlideLayout: React.FC<{
                 style={{
                   fontWeight: 700,
                   fontSize: "22.2px",
-                  color: "var(--background-text,#244CD9)",
+                  color: "var(--background-text,#c35de4)",
                 }}
               >
                 {subtitleRight}
@@ -957,7 +957,7 @@ const dynamicSlideLayout: React.FC<{
                 style={{
                   fontWeight: 700,
                   fontSize: "19.0px",
-                  color: "var(--background-text,#244CD9)",
+                  color: "var(--background-text,#c35de4)",
                 }}
               >
                 {footerLabel}

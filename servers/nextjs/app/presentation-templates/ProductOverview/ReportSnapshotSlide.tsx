@@ -7,7 +7,8 @@ import * as z from "zod";
 import { RemoteSvgIcon } from "@/app/hooks/useRemoteSvgIcon";
 
 export const slideLayoutId = "title-description-with-chart-and-kpi-cards-slide";
-export const slideLayoutName = "Title Description with Chart and KPI Cards Slide";
+export const slideLayoutName =
+  "Title Description with Chart and KPI Cards Slide";
 export const slideLayoutDescription =
   "A text slide with a title on top and a description below, and a content section containing a chart and a grid of KPI cards.";
 
@@ -78,24 +79,43 @@ export const Schema = z.object({
   taglineLabel: z.string().max(24).default("TAGLINE").meta({
     description: "Small label above intro paragraph.",
   }),
-  taglineBody: z.string().max(120).default(
-    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-  ).meta({
-    description: "Intro paragraph shown beneath the heading.",
-  }),
-  sideImage: z.object({
-    __image_url__: z.string().url().default("https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=700&q=80"),
-    __image_prompt__: z.string().min(10).max(100).default("Team members reviewing charts together"),
-  }).default({
-    __image_url__:
-      "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=700&q=80",
-    __image_prompt__: "Team members reviewing charts together",
-  }).meta({
-    description: "Left-side vertical image strip.",
-  }),
-  chartStyle: z.enum(["mini-bars", "donut", "grouped-bars", "dual-line"]).default("donut").meta({
-    description: "Chart style variant matching Image #1 to Image #4.",
-  }),
+  taglineBody: z
+    .string()
+    .max(120)
+    .default(
+      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    )
+    .meta({
+      description: "Intro paragraph shown beneath the heading.",
+    }),
+  sideImage: z
+    .object({
+      __image_url__: z
+        .string()
+        .url()
+        .default(
+          "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=700&q=80",
+        ),
+      __image_prompt__: z
+        .string()
+        .min(10)
+        .max(100)
+        .default("Team members reviewing charts together"),
+    })
+    .default({
+      __image_url__:
+        "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=700&q=80",
+      __image_prompt__: "Team members reviewing charts together",
+    })
+    .meta({
+      description: "Left-side vertical image strip.",
+    }),
+  chartStyle: z
+    .enum(["mini-bars", "donut", "grouped-bars", "dual-line"])
+    .default("donut")
+    .meta({
+      description: "Chart style variant matching Image #1 to Image #4.",
+    }),
   chartTitle: z.string().min(3).max(20).default("Sandro Tavares").meta({
     description: "Name displayed in the chart card.",
   }),
@@ -158,18 +178,28 @@ export const Schema = z.object({
     .meta({
       description: "Data for Image #4 dual-line chart.",
     }),
-  legendLabels: z.array(z.string().min(1).max(18)).min(2).max(3).default(["Option A", "Option B", "Option C"]).meta({
-    description: "Legend labels used by donut/grouped/line variants.",
-  }),
+  legendLabels: z
+    .array(z.string().min(1).max(18))
+    .min(2)
+    .max(3)
+    .default(["Option A", "Option B", "Option C"])
+    .meta({
+      description: "Legend labels used by donut/grouped/line variants.",
+    }),
   xAxisName: z.string().min(3).max(16).default("X axis name").meta({
     description: "X axis title used in the dual-line variant.",
   }),
   yAxisName: z.string().min(3).max(16).default("Y axis name").meta({
     description: "Y axis title used in the dual-line variant.",
   }),
-  footerLabel: z.string().min(10).max(60).default("Current margin: April Spendings").meta({
-    description: "Footer label under mini bar chart.",
-  }),
+  footerLabel: z
+    .string()
+    .min(10)
+    .max(60)
+    .default("Current margin: April Spendings")
+    .meta({
+      description: "Footer label under mini bar chart.",
+    }),
   footerValue: z.string().min(6).max(24).default("$350.00  /  $640.00").meta({
     description: "Footer value under mini bar chart.",
   }),
@@ -188,14 +218,20 @@ export const Schema = z.object({
       { value: 55 },
     ])
     .meta({
-      description: "Legacy fallback bar values used when miniBars is not supplied.",
+      description:
+        "Legacy fallback bar values used when miniBars is not supplied.",
     }),
   metricValue: z.string().min(1).max(8).default("X 5").meta({
     description: "Legacy single KPI value.",
   }),
-  metricBody: z.string().min(10).max(40).default("Lorem ipsum dolor sit.").meta({
-    description: "Legacy single KPI body.",
-  }),
+  metricBody: z
+    .string()
+    .min(10)
+    .max(40)
+    .default("Lorem ipsum dolor sit.")
+    .meta({
+      description: "Legacy single KPI body.",
+    }),
   metricCards: z
     .array(MetricCardSchema)
     .min(1)
@@ -207,16 +243,23 @@ export const Schema = z.object({
     .meta({
       description: "One or two KPI cards shown on the right.",
     }),
-  metricIcon: z.object({
-    __icon_url__: z.string().default("https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg"),
-    __icon_query__: z.string().min(3).max(30).default("pulse icon"),
-  }).default({
-    __icon_url__:
-      "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
-    __icon_query__: "pulse icon",
-  }).meta({
-    description: "Icon shown in the KPI callout card.",
-  }),
+  metricIcon: z
+    .object({
+      __icon_url__: z
+        .string()
+        .default(
+          "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+        ),
+      __icon_query__: z.string().min(3).max(30).default("pulse icon"),
+    })
+    .default({
+      __icon_url__:
+        "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+      __icon_query__: "pulse icon",
+    })
+    .meta({
+      description: "Icon shown in the KPI callout card.",
+    }),
 });
 
 export type SchemaType = z.infer<typeof Schema>;
@@ -265,7 +308,10 @@ function resolveColor(element: HTMLElement, value: string) {
 }
 
 function resolveFont(element: HTMLElement) {
-  return resolveToken(element, BODY_FONT, "Bricolage Grotesque").replace(/^['"]|['"]$/g, "");
+  return resolveToken(element, BODY_FONT, "Bricolage Grotesque").replace(
+    /^['"]|['"]$/g,
+    "",
+  );
 }
 
 function formatCurrency(value: string | number) {
@@ -277,29 +323,46 @@ function colorLuminance(color: string) {
   const weights = [0.2126, 0.7152, 0.0722];
   const hex = color.trim().match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
   if (hex) {
-    const raw = hex[1].length === 3
-      ? hex[1].split("").map((char) => char + char).join("")
-      : hex[1];
+    const raw =
+      hex[1].length === 3
+        ? hex[1]
+            .split("")
+            .map((char) => char + char)
+            .join("")
+        : hex[1];
     const int = Number.parseInt(raw, 16);
     const rgb = [(int >> 16) & 255, (int >> 8) & 255, int & 255];
     return rgb
       .map((value) => {
         const channel = value / 255;
-        return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+        return channel <= 0.03928
+          ? channel / 12.92
+          : ((channel + 0.055) / 1.055) ** 2.4;
       })
-      .reduce((sum, channel, index) => sum + channel * (weights[index] ?? 0), 0);
+      .reduce(
+        (sum, channel, index) => sum + channel * (weights[index] ?? 0),
+        0,
+      );
   }
 
   const rgb = color.trim().match(/^rgba?\(([^)]+)\)$/i);
   if (rgb) {
-    const channels = rgb[1].split(",").slice(0, 3).map((part) => Number(part.trim()));
+    const channels = rgb[1]
+      .split(",")
+      .slice(0, 3)
+      .map((part) => Number(part.trim()));
     if (channels.every(Number.isFinite)) {
       return channels
         .map((value) => {
           const channel = value / 255;
-          return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+          return channel <= 0.03928
+            ? channel / 12.92
+            : ((channel + 0.055) / 1.055) ** 2.4;
         })
-        .reduce((sum, channel, index) => sum + channel * (weights[index] ?? 0), 0);
+        .reduce(
+          (sum, channel, index) => sum + channel * (weights[index] ?? 0),
+          0,
+        );
     }
   }
 
@@ -312,7 +375,10 @@ function readableTextColor(color: unknown) {
   return colorLuminance(resolved) > 0.52 ? "#17342D" : "#ffffff";
 }
 
-function productBaseOptions(axisColor: string, fontFamily: string): ChartOptions {
+function productBaseOptions(
+  axisColor: string,
+  fontFamily: string,
+): ChartOptions {
   return {
     responsive: true,
     maintainAspectRatio: false,
@@ -333,7 +399,12 @@ function productBaseOptions(axisColor: string, fontFamily: string): ChartOptions
   };
 }
 
-function productCategoryScale(axisColor: string, gridColor: string, fontFamily: string, display = true) {
+function productCategoryScale(
+  axisColor: string,
+  gridColor: string,
+  fontFamily: string,
+  display = true,
+) {
   return {
     type: "category",
     display,
@@ -358,7 +429,13 @@ function productCategoryScale(axisColor: string, gridColor: string, fontFamily: 
   };
 }
 
-function productLinearScale(axisColor: string, gridColor: string, fontFamily: string, display = true, currency = false) {
+function productLinearScale(
+  axisColor: string,
+  gridColor: string,
+  fontFamily: string,
+  display = true,
+  currency = false,
+) {
   return {
     type: "linear",
     beginAtZero: true,
@@ -386,7 +463,11 @@ function productLinearScale(axisColor: string, gridColor: string, fontFamily: st
   };
 }
 
-function productLabelPlugin(mode: "grouped-bars" | "donut" | "none", axisColor: string, fontFamily: string) {
+function productLabelPlugin(
+  mode: "grouped-bars" | "donut" | "none",
+  axisColor: string,
+  fontFamily: string,
+) {
   return {
     id: `productOverviewLabels-${mode}`,
     afterDatasetsDraw(chart: any) {
@@ -415,7 +496,10 @@ function productLabelPlugin(mode: "grouped-bars" | "donut" | "none", axisColor: 
         const dataset = chart.data.datasets[0];
         const meta = chart.getDatasetMeta(0);
         const values = dataset?.data ?? [];
-        const total = values.reduce((sum: number, value: number) => sum + Math.abs(Number(value) || 0), 0);
+        const total = values.reduce(
+          (sum: number, value: number) => sum + Math.abs(Number(value) || 0),
+          0,
+        );
         if (!total) {
           ctx.restore();
           return;
@@ -431,12 +515,18 @@ function productLabelPlugin(mode: "grouped-bars" | "donut" | "none", axisColor: 
         meta.data.forEach((element: any, index: number) => {
           const value = Number(values[index]) || 0;
           if (!value) return;
-          const arc = element.getProps(["x", "y", "startAngle", "endAngle", "innerRadius", "outerRadius"], true);
+          const arc = element.getProps(
+            ["x", "y", "startAngle", "endAngle", "innerRadius", "outerRadius"],
+            true,
+          );
           const angle = (arc.startAngle + arc.endAngle) / 2;
-          const radius = arc.innerRadius + (arc.outerRadius - arc.innerRadius) * 0.58;
+          const radius =
+            arc.innerRadius + (arc.outerRadius - arc.innerRadius) * 0.58;
           const x = arc.x + Math.cos(angle) * radius;
           const y = arc.y + Math.sin(angle) * radius;
-          const fill = Array.isArray(dataset.backgroundColor) ? dataset.backgroundColor[index] : dataset.backgroundColor;
+          const fill = Array.isArray(dataset.backgroundColor)
+            ? dataset.backgroundColor[index]
+            : dataset.backgroundColor;
 
           ctx.fillStyle = readableTextColor(fill);
           ctx.fillText(`${Math.round((value / total) * 100)}%`, x, y);
@@ -484,7 +574,9 @@ function productChartConfig({
         datasets: [
           {
             data: donutData.map((item) => item.value),
-            backgroundColor: donutData.map((_, index) => donutColors[index % donutColors.length]),
+            backgroundColor: donutData.map(
+              (_, index) => donutColors[index % donutColors.length],
+            ),
             borderColor: "transparent",
             borderWidth: 0,
             hoverBorderWidth: 0,
@@ -664,16 +756,19 @@ function ProductOverviewChart({
 
     const renderChart = () => {
       chart?.destroy();
-      chart = new Chart(canvas, productChartConfig({
+      chart = new Chart(
         canvas,
-        donutData,
-        groupedBars,
-        miniBars,
-        trendLines,
-        variant,
-        xAxisName,
-        yAxisName,
-      }));
+        productChartConfig({
+          canvas,
+          donutData,
+          groupedBars,
+          miniBars,
+          trendLines,
+          variant,
+          xAxisName,
+          yAxisName,
+        }),
+      );
     };
 
     const scheduleRender = () => {
@@ -705,7 +800,15 @@ function ProductOverviewChart({
       observer.disconnect();
       chart?.destroy();
     };
-  }, [donutData, groupedBars, miniBars, trendLines, variant, xAxisName, yAxisName]);
+  }, [
+    donutData,
+    groupedBars,
+    miniBars,
+    trendLines,
+    variant,
+    xAxisName,
+    yAxisName,
+  ]);
 
   return <canvas ref={canvasRef} className="block h-full w-full" />;
 }
@@ -751,15 +854,15 @@ const ReportSnapshotSlide = ({ data }: { data: Partial<SchemaType> }) => {
     miniBars && miniBars.length >= 8
       ? miniBars
       : (bars ?? []).map((bar, index) => {
-        const scaledPrimary = Math.round(bar.value * 8 + 80);
-        const scaledSecondary = Math.min(1000, scaledPrimary + 220);
+          const scaledPrimary = Math.round(bar.value * 8 + 80);
+          const scaledSecondary = Math.min(1000, scaledPrimary + 220);
 
-        return {
-          label: `${index + 1}`,
-          primary: scaledPrimary,
-          secondary: scaledSecondary,
-        };
-      });
+          return {
+            label: `${index + 1}`,
+            primary: scaledPrimary,
+            secondary: scaledSecondary,
+          };
+        });
 
   const fallbackMetric = {
     value: metricValue ?? "X 5",
@@ -776,42 +879,48 @@ const ReportSnapshotSlide = ({ data }: { data: Partial<SchemaType> }) => {
       ? resolvedMetricCards.slice(0, 1)
       : resolvedMetricCards.slice(0, 2);
 
-  const usePulseFallback = !metricIcon?.__icon_url__ || metricIcon.__icon_url__.includes("placeholder.svg");
+  const usePulseFallback =
+    !metricIcon?.__icon_url__ ||
+    metricIcon.__icon_url__.includes("placeholder.svg");
   const activeChartStyle = chartStyle ?? "mini-bars";
   const resolvedDonutData =
     donutData && donutData.length > 0
       ? donutData
       : [
-        { name: "Option A", value: 60 },
-        { name: "Option B", value: 20 },
-        { name: "Option C", value: 20 },
-      ];
+          { name: "Option A", value: 60 },
+          { name: "Option B", value: 20 },
+          { name: "Option C", value: 20 },
+        ];
   const resolvedGroupedBars =
     groupedBars && groupedBars.length > 0
       ? groupedBars
       : [
-        { label: "label", optionA: 120, optionB: 200 },
-        { label: "label", optionA: 150, optionB: 80 },
-        { label: "label", optionA: 70, optionB: 110 },
-        { label: "label", optionA: 130, optionB: 130 },
-      ];
+          { label: "label", optionA: 120, optionB: 200 },
+          { label: "label", optionA: 150, optionB: 80 },
+          { label: "label", optionA: 70, optionB: 110 },
+          { label: "label", optionA: 130, optionB: 130 },
+        ];
   const resolvedTrendLines =
     trendLines && trendLines.length > 0
       ? trendLines
       : [
-        { label: "label", optionA: 8, optionB: 2 },
-        { label: "label", optionA: 45, optionB: 65 },
-        { label: "label", optionA: 35, optionB: 40 },
-        { label: "label", optionA: 95, optionB: 100 },
-        { label: "label", optionA: 50, optionB: 35 },
-        { label: "label", optionA: 5, optionB: 75 },
-        { label: "label", optionA: 55, optionB: 50 },
-      ];
-  const donutTotal = resolvedDonutData.reduce((sum, item) => sum + item.value, 0) || 1;
+          { label: "label", optionA: 8, optionB: 2 },
+          { label: "label", optionA: 45, optionB: 65 },
+          { label: "label", optionA: 35, optionB: 40 },
+          { label: "label", optionA: 95, optionB: 100 },
+          { label: "label", optionA: 50, optionB: 35 },
+          { label: "label", optionA: 5, optionB: 75 },
+          { label: "label", optionA: 55, optionB: 50 },
+        ];
+  const donutTotal =
+    resolvedDonutData.reduce((sum, item) => sum + item.value, 0) || 1;
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden "
         style={{
@@ -820,8 +929,6 @@ const ReportSnapshotSlide = ({ data }: { data: Partial<SchemaType> }) => {
         }}
       >
         <div className="flex gap-7 h-full">
-
-
           {sideImage?.__image_url__ && (
             <img
               src={sideImage.__image_url__}
@@ -855,8 +962,9 @@ const ReportSnapshotSlide = ({ data }: { data: Partial<SchemaType> }) => {
             </div>
             <div className="flex gap-4">
               <div
-                className={` w-[580px] overflow-hidden bg-[#F3F3F3] px-[28px] pb-[18px] pt-[20px] ${activeChartStyle === "mini-bars" ? "h-[308px]" : "h-[350px]"
-                  }`}
+                className={` w-[580px] overflow-hidden bg-[#F3F3F3] px-[28px] pb-[18px] pt-[20px] ${
+                  activeChartStyle === "mini-bars" ? "h-[308px]" : "h-[350px]"
+                }`}
                 style={{ backgroundColor: "var(--card-color,#F3F3F3)" }}
               >
                 <p
@@ -865,7 +973,6 @@ const ReportSnapshotSlide = ({ data }: { data: Partial<SchemaType> }) => {
                 >
                   {chartTitle}
                 </p>
-
 
                 {activeChartStyle === "mini-bars" && (
                   <>
@@ -910,24 +1017,36 @@ const ReportSnapshotSlide = ({ data }: { data: Partial<SchemaType> }) => {
 
                     <div className="ml-[8px] flex-1 space-y-[16px] pr-[8px]">
                       {resolvedDonutData.map((entry, index) => {
-                        const percent = Math.round((entry.value / donutTotal) * 100);
+                        const percent = Math.round(
+                          (entry.value / donutTotal) * 100,
+                        );
                         return (
-                          <div key={`${entry.name}-legend-${index}`} className="flex items-center justify-between">
+                          <div
+                            key={`${entry.name}-legend-${index}`}
+                            className="flex items-center justify-between"
+                          >
                             <div className="flex items-center gap-[10px]">
                               <span
                                 className="h-[14px] w-[14px] rounded-full"
-                                style={{ backgroundColor: DONUT_COLORS[index % DONUT_COLORS.length] }}
+                                style={{
+                                  backgroundColor:
+                                    DONUT_COLORS[index % DONUT_COLORS.length],
+                                }}
                               />
                               <p
                                 className="text-[18px] font-bold  text-[#767676]"
-                                style={{ color: "var(--background-text,#767676)" }}
+                                style={{
+                                  color: "var(--background-text,#767676)",
+                                }}
                               >
                                 {legendLabels?.[index] ?? entry.name}
                               </p>
                             </div>
                             <p
                               className="text-[18px] font-bold  text-[#404040]"
-                              style={{ color: "var(--background-text,#404040)" }}
+                              style={{
+                                color: "var(--background-text,#404040)",
+                              }}
                             >
                               {percent}%
                             </p>
@@ -1024,8 +1143,11 @@ const ReportSnapshotSlide = ({ data }: { data: Partial<SchemaType> }) => {
               </div>
 
               <div
-                className={` w-[362px] ${activeChartStyle === "mini-bars" ? "top-[382px]" : "top-[320px]"
-                  }`}
+                className={` w-[362px] ${
+                  activeChartStyle === "mini-bars"
+                    ? "top-[382px]"
+                    : "top-[320px]"
+                }`}
               >
                 <div className="flex flex-col justify-end items-end gap-[24px]">
                   {visibleMetricCards.map((metric, index) => (
@@ -1037,7 +1159,11 @@ const ReportSnapshotSlide = ({ data }: { data: Partial<SchemaType> }) => {
                       <div className="flex items-center gap-[14px]">
                         <div
                           className="flex h-[56px] w-[56px] items-center justify-center rounded-full"
-                          style={{ backgroundColor: metricIcon?.__icon_url__ ? "var(--primary-color,#113F37)" : KPI_ICON_BG }}
+                          style={{
+                            backgroundColor: metricIcon?.__icon_url__
+                              ? "var(--primary-color,#113F37)"
+                              : KPI_ICON_BG,
+                          }}
                         >
                           {usePulseFallback ? (
                             <PulseIcon />

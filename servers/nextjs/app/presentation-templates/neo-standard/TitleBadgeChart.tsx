@@ -85,9 +85,9 @@ export const Schema = z.object({
               .number()
               .optional()
               .describe(
-                "Value for the second series (optional for single-series charts)"
+                "Value for the second series (optional for single-series charts)",
               ),
-          })
+          }),
         )
         .max(4)
         .describe("Array of data points for the chart"),

@@ -1,6 +1,5 @@
 import * as z from "zod";
 
-
 export const slideLayoutId = "text-blocks-with-image-block-slide";
 export const slideLayoutName = "Text Blocks with Image Block Slide";
 export const slideLayoutDescription =
@@ -14,37 +13,55 @@ export const Schema = z.object({
   topleftTextBlockLabel: z.string().min(3).max(20).default("MISSION").meta({
     description: "Mission section label.",
   }),
-  topleftTextBlockBody: z.string().min(40).max(90).default(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore."
-  ).meta({
-    description: "Mission paragraph content.",
-  }),
+  topleftTextBlockBody: z
+    .string()
+    .min(40)
+    .max(90)
+    .default(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.",
+    )
+    .meta({
+      description: "Mission paragraph content.",
+    }),
   bottomleftTextBlockLabel: z.string().min(3).max(20).default("VISION").meta({
     description: "Vision section label.",
   }),
-  bottomleftTextBlockBody: z.string().min(40).max(90).default(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore."
-  ).meta({
-    description: "Vision paragraph content.",
-  }),
-  image: z.object({
-    __image_url__: z.string(),
-    __image_prompt__: z.string(),
-  }).optional().meta({
-    description: "Bottom-right supporting image. Optional.",
-  }).optional().default({
-    __image_url__: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80",
-    __image_prompt__: "Business silhouette at window skyline",
-  }),
+  bottomleftTextBlockBody: z
+    .string()
+    .min(40)
+    .max(90)
+    .default(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.",
+    )
+    .meta({
+      description: "Vision paragraph content.",
+    }),
+  image: z
+    .object({
+      __image_url__: z.string(),
+      __image_prompt__: z.string(),
+    })
+    .optional()
+    .meta({
+      description: "Bottom-right supporting image. Optional.",
+    })
+    .optional()
+    .default({
+      __image_url__:
+        "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80",
+      __image_prompt__: "Business silhouette at window skyline",
+    }),
 });
 
 export type SchemaType = z.infer<typeof Schema>;
 
 const MissionVisionSlide = ({ data }: { data: Partial<SchemaType> }) => {
-
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden "
         style={{

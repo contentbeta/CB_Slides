@@ -14,7 +14,9 @@ const introPitchDeckSchema = z.object({
     .string()
     .min(1)
     .max(200)
-    .default("Add a short subtitle or description here. Add a short subtitle or description here. Add a short subtitle or description here. Add a short subtitle or description here.")
+    .default(
+      "Add a short subtitle or description here. Add a short subtitle or description here. Add a short subtitle or description here. Add a short subtitle or description here.",
+    )
     .meta({
       description: "Description shown below the title",
     }),
@@ -31,8 +33,6 @@ const introPitchDeckSchema = z.object({
       "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop",
     __image_prompt__: "Abstract business background",
   }),
-
-
 });
 
 export const Schema = introPitchDeckSchema;
@@ -45,7 +45,6 @@ interface IntroSlideLayoutProps {
 const IntroPitchDeckSlide: React.FC<IntroSlideLayoutProps> = ({
   data: slideData,
 }) => {
-
   return (
     <>
       {/* Montserrat Font */}
@@ -56,22 +55,33 @@ const IntroPitchDeckSlide: React.FC<IntroSlideLayoutProps> = ({
       <div
         className="w-full max-w-[1280px] aspect-video mx-auto relative overflow-hidden rounded-md"
         style={{
-          fontFamily: "var(--heading-font-family,Montserrat)",
-          backgroundColor: 'var(--background-color, #FFFFFF)',
+          fontFamily: "var(--body-font-family,Montserrat)",
+          backgroundColor: "var(--background-color, #FFFFFF)",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
         {/* Top Header */}
-        {((slideData as any)?.__companyName__ || (slideData as any)?._logo_url__) && (
+        {((slideData as any)?.__companyName__ ||
+          (slideData as any)?._logo_url__) && (
           <div className="absolute top-0 left-0 right-0 px-8 sm:px-12 lg:px-20 pt-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
-
-                {(slideData as any)?._logo_url__ && <img src={(slideData as any)?._logo_url__} alt="logo" className="w-6 h-6" />}
-                {(slideData as any)?.__companyName__ && <span className="text-sm sm:text-base font-semibold" style={{ color: 'var(--background-text, #111827)' }}>
-                  {(slideData as any)?.__companyName__ || 'Company Name'}
-                </span>}
+                {(slideData as any)?._logo_url__ && (
+                  <img
+                    src={(slideData as any)?._logo_url__}
+                    alt="logo"
+                    className="w-6 h-6"
+                  />
+                )}
+                {(slideData as any)?.__companyName__ && (
+                  <span
+                    className="text-sm sm:text-base font-semibold"
+                    style={{ color: "var(--background-text, #111827)" }}
+                  >
+                    {(slideData as any)?.__companyName__ || "Company Name"}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -89,7 +99,7 @@ const IntroPitchDeckSlide: React.FC<IntroSlideLayoutProps> = ({
             <div className="relative inline-block">
               <h1
                 className="text-5xl font-bold leading-none"
-                style={{ color: 'var(--background-text, #1E4CD9)' }}
+                style={{ color: "var(--background-text, #1E4CD9)" }}
                 id="pitchdeck-title"
               >
                 {slideData?.title}
@@ -100,22 +110,52 @@ const IntroPitchDeckSlide: React.FC<IntroSlideLayoutProps> = ({
                   width: "50%",
                   bottom: "-0.5em",
                   transition: "width 0.3s",
-                  backgroundColor: 'var(--primary-color, #1E4CD9)'
+                  backgroundColor: "var(--primary-color, #1E4CD9)",
                 }}
               />
             </div>
           )}
-          <p className="text-lg leading-relaxed font-normal mt-6 max-w-xl" style={{ color: 'var(--background-text, #234CD9)' }}>
+          <p
+            className="text-lg leading-relaxed font-normal mt-6 max-w-xl"
+            style={{ color: "var(--background-text, #234CD9)" }}
+          >
             {slideData?.description}
           </p>
           {slideData?.introCard?.enabled && (
-            <div className="mt-6 inline-flex items-center gap-4 rounded-lg px-5 py-4 shadow-sm min-w-[400px]" style={{ backgroundColor: 'var(--card-color, #FFFFFF)', border: '1px solid var(--stroke, #E5E7EB)' }}>
-              <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold" style={{ backgroundColor: 'var(--primary-color, #F5F8FE)', color: 'var(--primary-text, #234CD9)' }}>
-                {(slideData?.introCard?.name || "").split(" ").map(p => p.charAt(0)).join("").slice(0, 2).toUpperCase()}
+            <div
+              className="mt-6 inline-flex items-center gap-4 rounded-lg px-5 py-4 shadow-sm min-w-[400px]"
+              style={{
+                backgroundColor: "var(--card-color, #FFFFFF)",
+                border: "1px solid var(--stroke, #E5E7EB)",
+              }}
+            >
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold"
+                style={{
+                  backgroundColor: "var(--primary-color, #F5F8FE)",
+                  color: "var(--primary-text, #234CD9)",
+                }}
+              >
+                {(slideData?.introCard?.name || "")
+                  .split(" ")
+                  .map((p) => p.charAt(0))
+                  .join("")
+                  .slice(0, 2)
+                  .toUpperCase()}
               </div>
               <div className="flex flex-col">
-                <div className="text-[16px] font-semibold" style={{ color: 'var(--background-text, #234CD9)' }}>{slideData?.introCard?.name}</div>
-                <div className="text-[14px]" style={{ color: 'var(--background-text, #234CD9)' }}>{slideData?.introCard?.date}</div>
+                <div
+                  className="text-[16px] font-semibold"
+                  style={{ color: "var(--background-text, #234CD9)" }}
+                >
+                  {slideData?.introCard?.name}
+                </div>
+                <div
+                  className="text-[14px]"
+                  style={{ color: "var(--background-text, #234CD9)" }}
+                >
+                  {slideData?.introCard?.date}
+                </div>
               </div>
             </div>
           )}
@@ -126,7 +166,11 @@ const IntroPitchDeckSlide: React.FC<IntroSlideLayoutProps> = ({
           <div className="absolute top-16 bottom-16 right-10 w-[42%] rounded-md overflow-hidden">
             <img
               src={slideData?.image?.__image_url__}
-              alt={slideData?.image?.__image_prompt__ || slideData?.title || "intro-image"}
+              alt={
+                slideData?.image?.__image_prompt__ ||
+                slideData?.title ||
+                "intro-image"
+              }
               className="w-full h-full object-cover"
               crossOrigin="anonymous"
               referrerPolicy="no-referrer"

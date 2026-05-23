@@ -29,16 +29,13 @@ interface ButtonState {
   status?: string;
 }
 
-
-
 export default function Home() {
   const router = useRouter();
-  const [step, setStep] = useState<number>(1)
-  const [selectedMode, setSelectedMode] = useState<string>("presenton")
+  const [step, setStep] = useState<number>(1);
+  const [selectedMode, setSelectedMode] = useState<string>("presenton");
   const config = useSelector((state: RootState) => state.userConfig);
 
   const canChangeKeys = config.can_change_keys;
-
 
   useEffect(() => {
     if (!canChangeKeys) {
@@ -51,23 +48,30 @@ export default function Home() {
   }
 
   return (
-
     <div className="flex min-h-screen relative">
       <div
         className="fixed z-0 -bottom-[14.5rem] left-0 w-full h-full pointer-events-none"
         aria-hidden
         style={{
           height: "341px",
-          borderRadius: '1440px',
-          background: 'radial-gradient(5.92% 104.69% at 50% 100%, rgba(122, 90, 248, 0.00) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(50% 50% at 50% 50%, rgba(122, 90, 248, 0.80) 0%, rgba(122, 90, 248, 0.00) 100%)',
+          borderRadius: "1440px",
+          background:
+            "radial-gradient(5.92% 104.69% at 50% 100%, rgba(122, 90, 248, 0.00) 0%, rgba(255, 255, 255, 0.00) 100%), radial-gradient(50% 50% at 50% 50%, rgba(122, 90, 248, 0.80) 0%, rgba(122, 90, 248, 0.00) 100%)",
         }}
       />
       <OnBoardingSlidebar step={step} />
       <main className="w-full pl-20 pr-8 max-w-[1440px] mx-auto relative z-10">
-
         <OnBoardingHeader currentStep={step} setStep={setStep} />
-        {step === 1 && <ModeSelectStep selectedMode={selectedMode} setStep={setStep} setSelectedMode={setSelectedMode} />}
-        {step === 2 && selectedMode === "presenton" && <PresentonMode currentStep={step} setStep={setStep} />}
+        {step === 1 && (
+          <ModeSelectStep
+            selectedMode={selectedMode}
+            setStep={setStep}
+            setSelectedMode={setSelectedMode}
+          />
+        )}
+        {step === 2 && selectedMode === "presenton" && (
+          <PresentonMode currentStep={step} setStep={setStep} />
+        )}
         {step === 2 && selectedMode === "image" && <GenerationWithImage />}
         {step === 3 && <FinalStep />}
       </main>

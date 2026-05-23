@@ -39,13 +39,13 @@ type Props = {
 };
 
 const DEFAULT_CHART_COLORS = [
-  "#8B5CF6",
+  "#ab51c9",
   "#06B6D4",
   "#10B981",
   "#F59E0B",
   "#EF4444",
   "#EC4899",
-  "#3B82F6",
+  "#c25de2",
   "#84CC16",
   "#F97316",
   "#6366F1",
@@ -110,7 +110,7 @@ const DEFAULT_CHART_PAYLOAD: PitchChartPayload = {
 };
 
 function resolveChartPayload(
-  payload?: Partial<PitchChartPayload> | null
+  payload?: Partial<PitchChartPayload> | null,
 ): PitchChartPayload {
   return {
     ...DEFAULT_CHART_PAYLOAD,
@@ -166,36 +166,55 @@ function resolveFont(element: HTMLElement) {
 
 function formatValue(value: number | string) {
   const numeric = Number(value);
-  return Number.isFinite(numeric) ? numeric.toLocaleString("en-US") : String(value);
+  return Number.isFinite(numeric)
+    ? numeric.toLocaleString("en-US")
+    : String(value);
 }
 
 function colorLuminance(color: string) {
   const weights = [0.2126, 0.7152, 0.0722];
   const hex = color.trim().match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
   if (hex) {
-    const raw = hex[1].length === 3
-      ? hex[1].split("").map((char) => char + char).join("")
-      : hex[1];
+    const raw =
+      hex[1].length === 3
+        ? hex[1]
+            .split("")
+            .map((char) => char + char)
+            .join("")
+        : hex[1];
     const int = Number.parseInt(raw, 16);
     const rgb = [(int >> 16) & 255, (int >> 8) & 255, int & 255];
     return rgb
       .map((value) => {
         const channel = value / 255;
-        return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+        return channel <= 0.03928
+          ? channel / 12.92
+          : ((channel + 0.055) / 1.055) ** 2.4;
       })
-      .reduce((sum, channel, index) => sum + channel * (weights[index] ?? 0), 0);
+      .reduce(
+        (sum, channel, index) => sum + channel * (weights[index] ?? 0),
+        0,
+      );
   }
 
   const rgb = color.trim().match(/^rgba?\(([^)]+)\)$/i);
   if (rgb) {
-    const channels = rgb[1].split(",").slice(0, 3).map((part) => Number(part.trim()));
+    const channels = rgb[1]
+      .split(",")
+      .slice(0, 3)
+      .map((part) => Number(part.trim()));
     if (channels.every(Number.isFinite)) {
       return channels
         .map((value) => {
           const channel = value / 255;
-          return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+          return channel <= 0.03928
+            ? channel / 12.92
+            : ((channel + 0.055) / 1.055) ** 2.4;
         })
-        .reduce((sum, channel, index) => sum + channel * (weights[index] ?? 0), 0);
+        .reduce(
+          (sum, channel, index) => sum + channel * (weights[index] ?? 0),
+          0,
+        );
     }
   }
 
@@ -237,7 +256,11 @@ function labelPlugin({
         ctx.textBaseline = "middle";
         meta.data.forEach((element: any, index: number) => {
           const position = element.tooltipPosition();
-          ctx.fillText(formatValue(dataset.data[index]), position.x, position.y - 20);
+          ctx.fillText(
+            formatValue(dataset.data[index]),
+            position.x,
+            position.y - 20,
+          );
         });
       }
 
@@ -271,7 +294,7 @@ function labelPlugin({
           if (!value) return;
           const arc = element.getProps(
             ["x", "y", "startAngle", "endAngle", "innerRadius", "outerRadius"],
-            true
+            true,
           );
           const angle = (arc.startAngle + arc.endAngle) / 2;
           const radius = arc.outerRadius * 0.72;
@@ -292,7 +315,12 @@ function labelPlugin({
   };
 }
 
-function categoryScale(axisColor: string, gridColor: string, fontFamily: string, showGrid = false) {
+function categoryScale(
+  axisColor: string,
+  gridColor: string,
+  fontFamily: string,
+  showGrid = false,
+) {
   return {
     type: "category",
     grid: {
@@ -316,7 +344,12 @@ function categoryScale(axisColor: string, gridColor: string, fontFamily: string,
   };
 }
 
-function linearScale(axisColor: string, gridColor: string, fontFamily: string, showGrid = false) {
+function linearScale(
+  axisColor: string,
+  gridColor: string,
+  fontFamily: string,
+  showGrid = false,
+) {
   return {
     type: "linear",
     beginAtZero: true,
@@ -364,7 +397,10 @@ function baseOptions(axisColor: string, fontFamily: string): ChartOptions {
   };
 }
 
-function makeChartConfig(canvas: HTMLCanvasElement, payload: PitchChartPayload): ChartConfiguration {
+function makeChartConfig(
+  canvas: HTMLCanvasElement,
+  payload: PitchChartPayload,
+): ChartConfiguration {
   const axisColor = resolveColor(canvas, AXIS);
   const gridColor = resolveColor(canvas, GRID);
   const primaryText = resolveColor(canvas, PRIMARY_TEXT);
@@ -382,7 +418,7 @@ function makeChartConfig(canvas: HTMLCanvasElement, payload: PitchChartPayload):
           {
             data: payload.pieData.map((item) => item.value),
             backgroundColor: payload.pieData.map((item, index) =>
-              chartColor(index, item.color)
+              chartColor(index, item.color),
             ),
             borderColor: "transparent",
             borderWidth: 0,

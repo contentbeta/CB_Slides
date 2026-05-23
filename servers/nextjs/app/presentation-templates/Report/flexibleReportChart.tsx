@@ -57,7 +57,6 @@ export const ScatterDataPointSchema = z.object({
   name: z.string().optional(),
 });
 
-
 export const flexibleChartTypeSchema = z.enum([
   "bar",
   "bar-horizontal",
@@ -85,7 +84,10 @@ export const flexibleChartDataSchema = z.object({
     z.array(scatterDataSchema),
     z.array(dualLinePointSchema),
   ]),
-  series: z.array(z.string()).optional().meta({ description: "Series names for grouped/stacked charts" }),
+  series: z
+    .array(z.string())
+    .optional()
+    .meta({ description: "Series names for grouped/stacked charts" }),
   divergingLabels: z.tuple([z.string(), z.string()]).optional(),
 });
 
@@ -93,14 +95,20 @@ export type FlexibleChartData = z.infer<typeof flexibleChartDataSchema>;
 
 const formatComma = (value: string | number) => {
   const numeric = Number(value);
-  return Number.isFinite(numeric) ? numeric.toLocaleString("en-US") : String(value);
+  return Number.isFinite(numeric)
+    ? numeric.toLocaleString("en-US")
+    : String(value);
 };
 
 export function deriveSeriesNames(data: any[], explicit: string[]): string[] {
   if (explicit.length > 0) return explicit;
   const first = data[0];
   if (!first) return [];
-  if (first.values != null && typeof first.values === "object" && !Array.isArray(first.values)) {
+  if (
+    first.values != null &&
+    typeof first.values === "object" &&
+    !Array.isArray(first.values)
+  ) {
     return Object.keys(first.values);
   }
   if (typeof first.value === "number") return ["value"];
@@ -111,7 +119,11 @@ export function transformMultiSeriesData(data: any[], series: string[]) {
   return data.map((item) => {
     const result: Record<string, any> = { name: item.name };
     series.forEach((s) => {
-      if (item.values != null && typeof item.values === "object" && s in item.values) {
+      if (
+        item.values != null &&
+        typeof item.values === "object" &&
+        s in item.values
+      ) {
         result[s] = Number(item.values[s]) || 0;
       } else if (s === "value" && typeof item.value === "number") {
         result[s] = item.value;
@@ -127,7 +139,10 @@ export function transformMultiSeriesData(data: any[], series: string[]) {
 
 export function transformDivergingData(data: any[]) {
   return data.map((item) => {
-    if (typeof item.positive === "number" && typeof item.negative === "number") {
+    if (
+      typeof item.positive === "number" &&
+      typeof item.negative === "number"
+    ) {
       return {
         name: item.name,
         positive: item.positive,
@@ -152,7 +167,11 @@ export function normalizeScatterPoints(data: any[]) {
       return { ...item, x: item.x, y: item.y };
     }
     if (typeof item.value === "number") {
-      return { ...item, x: typeof item.x === "number" ? item.x : i + 1, y: item.value };
+      return {
+        ...item,
+        x: typeof item.x === "number" ? item.x : i + 1,
+        y: item.value,
+      };
     }
     return { ...item, x: i + 1, y: 0 };
   });
@@ -197,8 +216,18 @@ export function normalizeFlexibleChartData(
     return {
       data: rows.map((r, i) => ({
         label: r.label ?? r.name ?? `P${i + 1}`,
-        valueA: typeof r.valueA === "number" ? r.valueA : typeof r.value === "number" ? r.value : 0,
-        valueB: typeof r.valueB === "number" ? r.valueB : typeof r.value === "number" ? r.value : 0,
+        valueA:
+          typeof r.valueA === "number"
+            ? r.valueA
+            : typeof r.value === "number"
+              ? r.value
+              : 0,
+        valueB:
+          typeof r.valueB === "number"
+            ? r.valueB
+            : typeof r.value === "number"
+              ? r.value
+              : 0,
       })),
       series,
     };
@@ -235,7 +264,8 @@ export function normalizeFlexibleChartData(
   return { data: mapped, series };
 }
 
-const graphVar = (index: number, fallback: string) => `var(--graph-${index % 10}, ${fallback})`;
+const graphVar = (index: number, fallback: string) =>
+  `var(--graph-${index % 10}, ${fallback})`;
 const AXIS_TEXT = "var(--background-text,#232223)";
 const BODY_FONT = "var(--body-font-family,'Source Sans 3')";
 const ZERO_LINE = "var(--stroke,#9CA3AF)";
@@ -260,12 +290,19 @@ function resolveToken(element: HTMLElement, value: string, fallback: string) {
   return resolved || parts.fallback || fallback;
 }
 
-function resolveColor(element: HTMLElement, value: string, fallback = "#232223") {
+function resolveColor(
+  element: HTMLElement,
+  value: string,
+  fallback = "#232223",
+) {
   return resolveToken(element, value, fallback);
 }
 
 function resolveFont(element: HTMLElement) {
-  return resolveToken(element, BODY_FONT, "Source Sans 3").replace(/^['"]|['"]$/g, "");
+  return resolveToken(element, BODY_FONT, "Source Sans 3").replace(
+    /^['"]|['"]$/g,
+    "",
+  );
 }
 
 function toNumber(value: unknown) {
@@ -276,9 +313,13 @@ function toNumber(value: unknown) {
 function withAlpha(color: string, alpha: number) {
   const hex = color.trim().match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
   if (hex) {
-    const raw = hex[1].length === 3
-      ? hex[1].split("").map((char) => char + char).join("")
-      : hex[1];
+    const raw =
+      hex[1].length === 3
+        ? hex[1]
+            .split("")
+            .map((char) => char + char)
+            .join("")
+        : hex[1];
     const int = Number.parseInt(raw, 16);
     const rgb = [(int >> 16) & 255, (int >> 8) & 255, int & 255];
     return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`;
@@ -286,7 +327,10 @@ function withAlpha(color: string, alpha: number) {
 
   const rgb = color.trim().match(/^rgba?\(([^)]+)\)$/i);
   if (rgb) {
-    const channels = rgb[1].split(",").slice(0, 3).map((part) => part.trim());
+    const channels = rgb[1]
+      .split(",")
+      .slice(0, 3)
+      .map((part) => part.trim());
     return `rgba(${channels.join(", ")}, ${alpha})`;
   }
 
@@ -297,29 +341,46 @@ function colorLuminance(color: string) {
   const weights = [0.2126, 0.7152, 0.0722];
   const hex = color.trim().match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
   if (hex) {
-    const raw = hex[1].length === 3
-      ? hex[1].split("").map((char) => char + char).join("")
-      : hex[1];
+    const raw =
+      hex[1].length === 3
+        ? hex[1]
+            .split("")
+            .map((char) => char + char)
+            .join("")
+        : hex[1];
     const int = Number.parseInt(raw, 16);
     const rgb = [(int >> 16) & 255, (int >> 8) & 255, int & 255];
     return rgb
       .map((value) => {
         const channel = value / 255;
-        return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+        return channel <= 0.03928
+          ? channel / 12.92
+          : ((channel + 0.055) / 1.055) ** 2.4;
       })
-      .reduce((sum, channel, index) => sum + channel * (weights[index] ?? 0), 0);
+      .reduce(
+        (sum, channel, index) => sum + channel * (weights[index] ?? 0),
+        0,
+      );
   }
 
   const rgb = color.trim().match(/^rgba?\(([^)]+)\)$/i);
   if (rgb) {
-    const channels = rgb[1].split(",").slice(0, 3).map((part) => Number(part.trim()));
+    const channels = rgb[1]
+      .split(",")
+      .slice(0, 3)
+      .map((part) => Number(part.trim()));
     if (channels.every(Number.isFinite)) {
       return channels
         .map((value) => {
           const channel = value / 255;
-          return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+          return channel <= 0.03928
+            ? channel / 12.92
+            : ((channel + 0.055) / 1.055) ** 2.4;
         })
-        .reduce((sum, channel, index) => sum + channel * (weights[index] ?? 0), 0);
+        .reduce(
+          (sum, channel, index) => sum + channel * (weights[index] ?? 0),
+          0,
+        );
     }
   }
 
@@ -337,16 +398,22 @@ function clamp(value: number, min: number, max: number) {
 }
 
 function labelsFrom(data: any[], key = "name") {
-  return data.map((item, index) => String(item?.[key] ?? item?.label ?? `P${index + 1}`));
+  return data.map((item, index) =>
+    String(item?.[key] ?? item?.label ?? `P${index + 1}`),
+  );
 }
 
 function valuesFrom(data: any[], key: string) {
   return data.map((item) => toNumber(item?.[key]));
 }
 
-function resolvedGraphColors(canvas: HTMLCanvasElement, count: number, fallback: string) {
+function resolvedGraphColors(
+  canvas: HTMLCanvasElement,
+  count: number,
+  fallback: string,
+) {
   return Array.from({ length: Math.max(1, count) }, (_, index) =>
-    resolveColor(canvas, graphVar(index, fallback), fallback)
+    resolveColor(canvas, graphVar(index, fallback), fallback),
   );
 }
 
@@ -390,7 +457,11 @@ function reportChartUi(compact: boolean): ReportChartUi {
   };
 }
 
-function reportBaseOptions(axisColor: string, fontFamily: string, ui: ReportChartUi): ChartOptions {
+function reportBaseOptions(
+  axisColor: string,
+  fontFamily: string,
+  ui: ReportChartUi,
+): ChartOptions {
   return {
     responsive: true,
     maintainAspectRatio: false,
@@ -418,7 +489,12 @@ function reportBaseOptions(axisColor: string, fontFamily: string, ui: ReportChar
   } as ChartOptions;
 }
 
-function reportCategoryScale(axisColor: string, fontFamily: string, ui: ReportChartUi, stacked = false) {
+function reportCategoryScale(
+  axisColor: string,
+  fontFamily: string,
+  ui: ReportChartUi,
+  stacked = false,
+) {
   return {
     type: "category",
     offset: true,
@@ -445,7 +521,13 @@ function reportCategoryScale(axisColor: string, fontFamily: string, ui: ReportCh
   };
 }
 
-function reportLinearScale(axisColor: string, fontFamily: string, ui: ReportChartUi, stacked = false, beginAtZero = true) {
+function reportLinearScale(
+  axisColor: string,
+  fontFamily: string,
+  ui: ReportChartUi,
+  stacked = false,
+  beginAtZero = true,
+) {
   return {
     type: "linear",
     beginAtZero,
@@ -474,7 +556,12 @@ function reportLinearScale(axisColor: string, fontFamily: string, ui: ReportChar
   };
 }
 
-function reportBarDataset(data: number[], color: string, ui: ReportChartUi, extra: Record<string, unknown> = {}) {
+function reportBarDataset(
+  data: number[],
+  color: string,
+  ui: ReportChartUi,
+  extra: Record<string, unknown> = {},
+) {
   return {
     data,
     backgroundColor: color,
@@ -489,7 +576,12 @@ function reportBarDataset(data: number[], color: string, ui: ReportChartUi, extr
   };
 }
 
-function reportValueLabelPlugin(mode: "vertical" | "horizontal" | "none", axisColor: string, fontFamily: string, ui: ReportChartUi): Plugin {
+function reportValueLabelPlugin(
+  mode: "vertical" | "horizontal" | "none",
+  axisColor: string,
+  fontFamily: string,
+  ui: ReportChartUi,
+): Plugin {
   return {
     id: `reportValueLabels-${mode}-${ui.compact ? "compact" : "default"}`,
     afterDatasetsDraw(chart) {
@@ -508,13 +600,19 @@ function reportValueLabelPlugin(mode: "vertical" | "horizontal" | "none", axisCo
         const rawColor = Array.isArray(dataset.backgroundColor)
           ? dataset.backgroundColor[0]
           : dataset.backgroundColor;
-        ctx.fillStyle = mode === "horizontal"
-          ? readableTextColor(rawColor)
-          : typeof rawColor === "string" ? rawColor : axisColor;
+        ctx.fillStyle =
+          mode === "horizontal"
+            ? readableTextColor(rawColor)
+            : typeof rawColor === "string"
+              ? rawColor
+              : axisColor;
 
         meta.data.forEach((element: any, index: number) => {
           const raw = Array.isArray(dataset.data) ? dataset.data[index] : 0;
-          const value = typeof raw === "object" ? toNumber(raw?.y ?? raw?.x) : toNumber(raw);
+          const value =
+            typeof raw === "object"
+              ? toNumber(raw?.y ?? raw?.x)
+              : toNumber(raw);
           if (!value) return;
 
           const position = element.tooltipPosition();
@@ -526,7 +624,11 @@ function reportValueLabelPlugin(mode: "vertical" | "horizontal" | "none", axisCo
               area.left + 3,
               area.right - 3,
             );
-            const y = clamp(position.y, area.top + ui.labelFs / 2, area.bottom - ui.labelFs / 2);
+            const y = clamp(
+              position.y,
+              area.top + ui.labelFs / 2,
+              area.bottom - ui.labelFs / 2,
+            );
             ctx.fillText(formatComma(value), x, y);
             return;
           }
@@ -547,13 +649,20 @@ function reportValueLabelPlugin(mode: "vertical" | "horizontal" | "none", axisCo
   };
 }
 
-function reportPieLabelPlugin(axisColor: string, fontFamily: string, ui: ReportChartUi): Plugin {
+function reportPieLabelPlugin(
+  axisColor: string,
+  fontFamily: string,
+  ui: ReportChartUi,
+): Plugin {
   return {
     id: `reportPieLabels-${ui.compact ? "compact" : "default"}`,
     afterDatasetsDraw(chart) {
       const dataset: any = chart.data.datasets[0];
       const values = dataset?.data ?? [];
-      const total = values.reduce((sum: number, value: unknown) => sum + Math.abs(toNumber(value)), 0);
+      const total = values.reduce(
+        (sum: number, value: unknown) => sum + Math.abs(toNumber(value)),
+        0,
+      );
       if (!total) return;
 
       const meta = chart.getDatasetMeta(0);
@@ -568,9 +677,13 @@ function reportPieLabelPlugin(axisColor: string, fontFamily: string, ui: ReportC
         const percent = value / total;
         if (percent < ui.pieLabelMinPct) return;
 
-        const arc = element.getProps(["x", "y", "startAngle", "endAngle", "innerRadius", "outerRadius"], true);
+        const arc = element.getProps(
+          ["x", "y", "startAngle", "endAngle", "innerRadius", "outerRadius"],
+          true,
+        );
         const angle = (arc.startAngle + arc.endAngle) / 2;
-        const radius = arc.innerRadius + (arc.outerRadius - arc.innerRadius) * 0.58;
+        const radius =
+          arc.innerRadius + (arc.outerRadius - arc.innerRadius) * 0.58;
         const x = arc.x + Math.cos(angle) * radius;
         const y = arc.y + Math.sin(angle) * radius;
         const fill = Array.isArray(dataset.backgroundColor)
@@ -630,13 +743,13 @@ function reportCartesianOptions({
     indexAxis: horizontal ? "y" : "x",
     scales: horizontal
       ? {
-        x: reportLinearScale(axisColor, fontFamily, ui, stacked),
-        y: reportCategoryScale(axisColor, fontFamily, ui, stacked),
-      }
+          x: reportLinearScale(axisColor, fontFamily, ui, stacked),
+          y: reportCategoryScale(axisColor, fontFamily, ui, stacked),
+        }
       : {
-        x: reportCategoryScale(axisColor, fontFamily, ui, stacked),
-        y: reportLinearScale(axisColor, fontFamily, ui, stacked),
-      },
+          x: reportCategoryScale(axisColor, fontFamily, ui, stacked),
+          y: reportLinearScale(axisColor, fontFamily, ui, stacked),
+        },
   } as ChartOptions;
 }
 
@@ -657,17 +770,33 @@ function makeReportChartConfig({
   const axisColor = resolveColor(canvas, AXIS_TEXT, "#232223");
   const fontFamily = resolveFont(canvas);
   const zeroLineColor = resolveColor(canvas, ZERO_LINE, "#9CA3AF");
-  const { data: normalizedData, series: normalizedSeries } = normalizeFlexibleChartData(
-    chartType,
-    chartData,
-    series ?? [],
+  const { data: normalizedData, series: normalizedSeries } =
+    normalizeFlexibleChartData(chartType, chartData, series ?? []);
+  const effectiveSeries = deriveSeriesNames(
+    normalizedData as any[],
+    normalizedSeries,
   );
-  const effectiveSeries = deriveSeriesNames(normalizedData as any[], normalizedSeries);
-  const colorCount = Math.max(10, effectiveSeries.length, normalizedData.length);
-  const colors = resolvedGraphColors(canvas, colorCount, colorFallback ?? "#157CFF");
+  const colorCount = Math.max(
+    10,
+    effectiveSeries.length,
+    normalizedData.length,
+  );
+  const colors = resolvedGraphColors(
+    canvas,
+    colorCount,
+    colorFallback ?? "#9748b1",
+  );
   const resolvedDualLineColors: [string, string] = [
-    resolveColor(canvas, dualLineColors?.[0] ?? "var(--graph-0,#9fb6ff)", "#9fb6ff"),
-    resolveColor(canvas, dualLineColors?.[1] ?? "var(--graph-1,#4d4ef3)", "#4d4ef3"),
+    resolveColor(
+      canvas,
+      dualLineColors?.[0] ?? "var(--graph-0,#9fb6ff)",
+      "#9fb6ff",
+    ),
+    resolveColor(
+      canvas,
+      dualLineColors?.[1] ?? "var(--graph-1,#4d4ef3)",
+      "#4d4ef3",
+    ),
   ];
 
   if (chartType === "pie" || chartType === "donut") {
@@ -678,7 +807,9 @@ function makeReportChartConfig({
         datasets: [
           {
             data: valuesFrom(normalizedData as any[], "value"),
-            backgroundColor: (normalizedData as any[]).map((_, index) => colors[index % colors.length]),
+            backgroundColor: (normalizedData as any[]).map(
+              (_, index) => colors[index % colors.length],
+            ),
             borderColor: "transparent",
             borderWidth: 0,
             hoverBorderWidth: 0,
@@ -705,8 +836,12 @@ function makeReportChartConfig({
         datasets: [
           {
             data: scatterPoints.map((point) => ({ x: point.x, y: point.y })),
-            backgroundColor: scatterPoints.map((_, index) => colors[index % colors.length]),
-            borderColor: scatterPoints.map((_, index) => colors[index % colors.length]),
+            backgroundColor: scatterPoints.map(
+              (_, index) => colors[index % colors.length],
+            ),
+            borderColor: scatterPoints.map(
+              (_, index) => colors[index % colors.length],
+            ),
             borderWidth: 0,
             clip: false,
             pointRadius: ui.dotR + (compact ? 0.5 : 1),
@@ -729,51 +864,53 @@ function makeReportChartConfig({
     return {
       type: "line",
       data: {
-        labels: dual ? labelsFrom(normalizedData as any[], "label") : labelsFrom(normalizedData as any[]),
+        labels: dual
+          ? labelsFrom(normalizedData as any[], "label")
+          : labelsFrom(normalizedData as any[]),
         datasets: dual
           ? [
-            {
-              data: valuesFrom(normalizedData as any[], "valueA"),
-              borderColor: resolvedDualLineColors[0],
-              backgroundColor: resolvedDualLineColors[0],
-              borderWidth: ui.lineStroke,
-              clip: false,
-              cubicInterpolationMode: "monotone",
-              pointBackgroundColor: resolvedDualLineColors[0],
-              pointBorderColor: resolvedDualLineColors[0],
-              pointBorderWidth: ui.dotStroke,
-              pointRadius: ui.dotR,
-              tension: 0.35,
-            },
-            {
-              data: valuesFrom(normalizedData as any[], "valueB"),
-              borderColor: resolvedDualLineColors[1],
-              backgroundColor: resolvedDualLineColors[1],
-              borderWidth: ui.lineStroke,
-              clip: false,
-              cubicInterpolationMode: "monotone",
-              pointBackgroundColor: resolvedDualLineColors[1],
-              pointBorderColor: resolvedDualLineColors[1],
-              pointBorderWidth: ui.dotStroke,
-              pointRadius: ui.dotR,
-              tension: 0.35,
-            },
-          ]
+              {
+                data: valuesFrom(normalizedData as any[], "valueA"),
+                borderColor: resolvedDualLineColors[0],
+                backgroundColor: resolvedDualLineColors[0],
+                borderWidth: ui.lineStroke,
+                clip: false,
+                cubicInterpolationMode: "monotone",
+                pointBackgroundColor: resolvedDualLineColors[0],
+                pointBorderColor: resolvedDualLineColors[0],
+                pointBorderWidth: ui.dotStroke,
+                pointRadius: ui.dotR,
+                tension: 0.35,
+              },
+              {
+                data: valuesFrom(normalizedData as any[], "valueB"),
+                borderColor: resolvedDualLineColors[1],
+                backgroundColor: resolvedDualLineColors[1],
+                borderWidth: ui.lineStroke,
+                clip: false,
+                cubicInterpolationMode: "monotone",
+                pointBackgroundColor: resolvedDualLineColors[1],
+                pointBorderColor: resolvedDualLineColors[1],
+                pointBorderWidth: ui.dotStroke,
+                pointRadius: ui.dotR,
+                tension: 0.35,
+              },
+            ]
           : [
-            {
-              data: valuesFrom(normalizedData as any[], "value"),
-              borderColor: colors[0],
-              backgroundColor: colors[0],
-              borderWidth: ui.lineStroke,
-              clip: false,
-              cubicInterpolationMode: "monotone",
-              pointBackgroundColor: colors[0],
-              pointBorderColor: colors[0],
-              pointBorderWidth: ui.dotStroke,
-              pointRadius: ui.dotR,
-              tension: 0.35,
-            },
-          ],
+              {
+                data: valuesFrom(normalizedData as any[], "value"),
+                borderColor: colors[0],
+                backgroundColor: colors[0],
+                borderWidth: ui.lineStroke,
+                clip: false,
+                cubicInterpolationMode: "monotone",
+                pointBackgroundColor: colors[0],
+                pointBorderColor: colors[0],
+                pointBorderWidth: ui.dotStroke,
+                pointRadius: ui.dotR,
+                tension: 0.35,
+              },
+            ],
       },
       options: reportCartesianOptions({ axisColor, fontFamily, ui }),
     } as ChartConfiguration;
@@ -803,7 +940,10 @@ function makeReportChartConfig({
   }
 
   if (chartType === "area-stacked") {
-    const transformedData = transformMultiSeriesData(normalizedData as any[], effectiveSeries);
+    const transformedData = transformMultiSeriesData(
+      normalizedData as any[],
+      effectiveSeries,
+    );
     return {
       type: "line",
       data: {
@@ -821,7 +961,12 @@ function makeReportChartConfig({
           tension: 0.35,
         })),
       },
-      options: reportCartesianOptions({ axisColor, fontFamily, stacked: true, ui }),
+      options: reportCartesianOptions({
+        axisColor,
+        fontFamily,
+        stacked: true,
+        ui,
+      }),
     } as ChartConfiguration;
   }
 
@@ -832,61 +977,125 @@ function makeReportChartConfig({
       data: {
         labels: labelsFrom(transformedData),
         datasets: [
-          reportBarDataset(valuesFrom(transformedData, "positive"), colors[0], ui, {
-            stack: "stack",
-          }),
-          reportBarDataset(valuesFrom(transformedData, "negative"), colors[3], ui, {
-            stack: "stack",
-          }),
+          reportBarDataset(
+            valuesFrom(transformedData, "positive"),
+            colors[0],
+            ui,
+            {
+              stack: "stack",
+            },
+          ),
+          reportBarDataset(
+            valuesFrom(transformedData, "negative"),
+            colors[3],
+            ui,
+            {
+              stack: "stack",
+            },
+          ),
         ],
       },
-      options: reportCartesianOptions({ axisColor, fontFamily, horizontal: true, stacked: true, ui }),
-      plugins: [reportZeroLinePlugin(zeroLineColor), reportValueLabelPlugin("horizontal", axisColor, fontFamily, ui)],
+      options: reportCartesianOptions({
+        axisColor,
+        fontFamily,
+        horizontal: true,
+        stacked: true,
+        ui,
+      }),
+      plugins: [
+        reportZeroLinePlugin(zeroLineColor),
+        reportValueLabelPlugin("horizontal", axisColor, fontFamily, ui),
+      ],
     } as ChartConfiguration;
   }
 
-  if (chartType === "bar-grouped-vertical" || chartType === "bar-grouped-horizontal" || chartType === "bar-clustered") {
-    const transformedData = transformMultiSeriesData(normalizedData as any[], effectiveSeries);
+  if (
+    chartType === "bar-grouped-vertical" ||
+    chartType === "bar-grouped-horizontal" ||
+    chartType === "bar-clustered"
+  ) {
+    const transformedData = transformMultiSeriesData(
+      normalizedData as any[],
+      effectiveSeries,
+    );
     const horizontal = chartType === "bar-grouped-horizontal";
     const clustered = chartType === "bar-clustered";
     return {
       type: "bar",
       data: {
         labels: labelsFrom(transformedData),
-        datasets: effectiveSeries.map((name, index) => reportBarDataset(
-          valuesFrom(transformedData, name),
-          colors[index % colors.length],
-          ui,
-          clustered
-            ? {
-              barPercentage: 0.62,
-              categoryPercentage: 0.82,
-              maxBarThickness: Math.max(compact ? 6 : 15, (compact ? 22 : 50) / Math.max(1, effectiveSeries.length)),
-            }
-            : {},
-        )),
+        datasets: effectiveSeries.map((name, index) =>
+          reportBarDataset(
+            valuesFrom(transformedData, name),
+            colors[index % colors.length],
+            ui,
+            clustered
+              ? {
+                  barPercentage: 0.62,
+                  categoryPercentage: 0.82,
+                  maxBarThickness: Math.max(
+                    compact ? 6 : 15,
+                    (compact ? 22 : 50) / Math.max(1, effectiveSeries.length),
+                  ),
+                }
+              : {},
+          ),
+        ),
       },
-      options: reportCartesianOptions({ axisColor, fontFamily, horizontal, ui }),
-      plugins: [reportValueLabelPlugin(horizontal ? "horizontal" : "vertical", axisColor, fontFamily, ui)],
+      options: reportCartesianOptions({
+        axisColor,
+        fontFamily,
+        horizontal,
+        ui,
+      }),
+      plugins: [
+        reportValueLabelPlugin(
+          horizontal ? "horizontal" : "vertical",
+          axisColor,
+          fontFamily,
+          ui,
+        ),
+      ],
     } as ChartConfiguration;
   }
 
-  if (chartType === "bar-stacked-vertical" || chartType === "bar-stacked-horizontal") {
-    const transformedData = transformMultiSeriesData(normalizedData as any[], effectiveSeries);
+  if (
+    chartType === "bar-stacked-vertical" ||
+    chartType === "bar-stacked-horizontal"
+  ) {
+    const transformedData = transformMultiSeriesData(
+      normalizedData as any[],
+      effectiveSeries,
+    );
     const horizontal = chartType === "bar-stacked-horizontal";
     return {
       type: "bar",
       data: {
         labels: labelsFrom(transformedData),
-        datasets: effectiveSeries.map((name, index) => reportBarDataset(
-          valuesFrom(transformedData, name),
-          colors[index % colors.length],
-          ui,
-          { stack: "stack" },
-        )),
+        datasets: effectiveSeries.map((name, index) =>
+          reportBarDataset(
+            valuesFrom(transformedData, name),
+            colors[index % colors.length],
+            ui,
+            { stack: "stack" },
+          ),
+        ),
       },
-      options: reportCartesianOptions({ axisColor, fontFamily, horizontal, stacked: true, ui }),
-      plugins: [reportValueLabelPlugin(horizontal ? "horizontal" : "vertical", axisColor, fontFamily, ui)],
+      options: reportCartesianOptions({
+        axisColor,
+        fontFamily,
+        horizontal,
+        stacked: true,
+        ui,
+      }),
+      plugins: [
+        reportValueLabelPlugin(
+          horizontal ? "horizontal" : "vertical",
+          axisColor,
+          fontFamily,
+          ui,
+        ),
+      ],
     } as ChartConfiguration;
   }
 
@@ -896,11 +1105,22 @@ function makeReportChartConfig({
       data: {
         labels: labelsFrom(normalizedData as any[]),
         datasets: [
-          reportBarDataset(valuesFrom(normalizedData as any[], "value"), colors[0], ui),
+          reportBarDataset(
+            valuesFrom(normalizedData as any[], "value"),
+            colors[0],
+            ui,
+          ),
         ],
       },
-      options: reportCartesianOptions({ axisColor, fontFamily, horizontal: true, ui }),
-      plugins: [reportValueLabelPlugin("horizontal", axisColor, fontFamily, ui)],
+      options: reportCartesianOptions({
+        axisColor,
+        fontFamily,
+        horizontal: true,
+        ui,
+      }),
+      plugins: [
+        reportValueLabelPlugin("horizontal", axisColor, fontFamily, ui),
+      ],
     } as ChartConfiguration;
   }
 
@@ -910,7 +1130,11 @@ function makeReportChartConfig({
       data: {
         labels: labelsFrom(normalizedData as any[]),
         datasets: [
-          reportBarDataset(valuesFrom(normalizedData as any[], "value"), colors[0], ui),
+          reportBarDataset(
+            valuesFrom(normalizedData as any[], "value"),
+            colors[0],
+            ui,
+          ),
         ],
       },
       options: reportCartesianOptions({ axisColor, fontFamily, ui }),
@@ -938,7 +1162,7 @@ export function FlexibleReportChart({
   chartType,
   data: chartData,
   series = [],
-  colorFallback = "#157CFF",
+  colorFallback = "#9748b1",
   dualLineColors = ["var(--graph-0,#9fb6ff)", "var(--graph-1,#4d4ef3)"],
   density = "default",
 }: FlexibleReportChartProps) {
@@ -999,7 +1223,11 @@ export function FlexibleReportChart({
   }, [chartData, chartType, colorFallback, density, dualLineColors, series]);
 
   if (!flexibleChartTypeSchema.safeParse(chartType).success) {
-    return <div className="flex h-full items-center justify-center text-gray-500">Unsupported chart type</div>;
+    return (
+      <div className="flex h-full items-center justify-center text-gray-500">
+        Unsupported chart type
+      </div>
+    );
   }
 
   return <canvas ref={canvasRef} className="block h-full w-full" />;

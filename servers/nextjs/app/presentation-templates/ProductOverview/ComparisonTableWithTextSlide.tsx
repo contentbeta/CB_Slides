@@ -60,7 +60,7 @@ export const Schema = z.object({
     .string()
     .max(80)
     .default(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt."
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.",
     )
     .meta({
       description: "Short subtitle shown under the main heading.",
@@ -76,25 +76,24 @@ export const Schema = z.object({
   highlightedHeaderIndex: z.number().int().min(1).max(8).default(4).meta({
     description: "1-based column index for the dark highlighted table header.",
   }),
-  rows: z
-    .array(RowSchema)
-    .min(1)
-    .max(6)
-    .default(DEFAULT_ROWS)
-    .meta({
-      description: "Table rows of text content. Prefer the `cells` array format.",
-    }),
+  rows: z.array(RowSchema).min(1).max(6).default(DEFAULT_ROWS).meta({
+    description: "Table rows of text content. Prefer the `cells` array format.",
+  }),
 });
 
 export type SchemaType = z.infer<typeof Schema>;
 
-const ComparisonTableWithTextSlide = ({ data }: { data: Partial<SchemaType> }) => {
+const ComparisonTableWithTextSlide = ({
+  data,
+}: {
+  data: Partial<SchemaType>;
+}) => {
   const { title, subtitle, columns, highlightedHeaderIndex, rows } = data;
   const safeColumns = columns && columns.length > 0 ? columns : DEFAULT_COLUMNS;
   const resolvedHighlightedHeaderIndex =
     highlightedHeaderIndex &&
-      highlightedHeaderIndex >= 1 &&
-      highlightedHeaderIndex <= safeColumns.length
+    highlightedHeaderIndex >= 1 &&
+    highlightedHeaderIndex <= safeColumns.length
       ? highlightedHeaderIndex
       : Math.min(4, safeColumns.length);
   const safeRows = rows && rows.length > 0 ? rows : DEFAULT_ROWS;
@@ -103,18 +102,21 @@ const ComparisonTableWithTextSlide = ({ data }: { data: Partial<SchemaType> }) =
       "cells" in row
         ? row.cells
         : [row.cell1, row.cell2, row.cell3, row.cell4].filter(
-          (cell): cell is string => typeof cell === "string"
-        );
+            (cell): cell is string => typeof cell === "string",
+          );
 
     return Array.from(
       { length: safeColumns.length },
-      (_, cellIndex) => rowCells[cellIndex] ?? ""
+      (_, cellIndex) => rowCells[cellIndex] ?? "",
     );
   });
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden "
         style={{
@@ -148,7 +150,8 @@ const ComparisonTableWithTextSlide = ({ data }: { data: Partial<SchemaType> }) =
             <thead className="w-full">
               <tr className="w-full">
                 {safeColumns.map((column, index) => {
-                  const isHighlighted = index + 1 === resolvedHighlightedHeaderIndex;
+                  const isHighlighted =
+                    index + 1 === resolvedHighlightedHeaderIndex;
                   return (
                     <th
                       key={`${column}-${index}`}

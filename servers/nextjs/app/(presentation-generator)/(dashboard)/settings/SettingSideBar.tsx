@@ -20,7 +20,7 @@ const SettingSideBar = ({ mode, setMode, selectedProvider, setSelectedProvider }
                         onClick={() => setMode('presenton')}
                         style={{
                             background: mode === 'presenton' ? '#F4F3FF' : 'transparent',
-                            color: mode === 'presenton' ? '#5146E5' : '#3A3A3A'
+                            color: mode === 'presenton' ? '#c35de4' : '#3A3A3A'
                         }}
                     >Template Based
                     </button>
@@ -37,7 +37,7 @@ const SettingSideBar = ({ mode, setMode, selectedProvider, setSelectedProvider }
                         >
                             Image Based
                         </button>
-                        <span className='absolute -top-2 -right-5 text-[7px] uppercase tracking-wide bg-[#F4F3FF] text-[#5146E5] border border-[#D9D6FE] rounded-full px-1.5 py-0.5 whitespace-nowrap'>
+                        <span className='absolute -top-2 -right-5 text-[7px] uppercase tracking-wide bg-[#F4F3FF] text-[#c35de4] border border-[#D9D6FE] rounded-full px-1.5 py-0.5 whitespace-nowrap'>
                             Coming soon
                         </span>
                     </div>
@@ -81,7 +81,7 @@ const SettingSideBar = ({ mode, setMode, selectedProvider, setSelectedProvider }
                         onClick={() => setSelectedProvider('privacy')}
                     >
                         <div className='relative w-6 h-6 rounded-full overflow-hidden border border-[#EDEEEF] flex items-center justify-center bg-white'>
-                            <Shield className='w-3.5 h-3.5 text-[#5146E5]' />
+                            <Shield className='w-3.5 h-3.5 text-[#c35de4]' />
                         </div>
                         <p className='text-[#191919] text-xs font-medium'>Usage Analytics</p>
                     </button>
@@ -90,7 +90,7 @@ const SettingSideBar = ({ mode, setMode, selectedProvider, setSelectedProvider }
                         onClick={() => setSelectedProvider('session')}
                     >
                         <div className='relative w-6 h-6 rounded-full overflow-hidden border border-[#EDEEEF] flex items-center justify-center bg-white'>
-                            <LogOut className='w-3.5 h-3.5 text-[#5146E5]' />
+                            <LogOut className='w-3.5 h-3.5 text-[#c35de4]' />
                         </div>
                         <p className='text-[#191919] text-xs font-medium'>Sign out</p>
                     </button>

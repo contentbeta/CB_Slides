@@ -196,7 +196,7 @@ const HorizontalTimeline = ({ data }: { data: Partial<SchemaType> }) => {
   const axisEnd = slideData.showEndLabel ? lastCenter : SLIDE_WIDTH;
   const endLabelLeft = Math.min(
     SLIDE_WIDTH - 152,
-    lastCenter + timelineStyle.badgeSize / 2 + 18
+    lastCenter + timelineStyle.badgeSize / 2 + 18,
   );
 
   return (
@@ -241,8 +241,8 @@ const HorizontalTimeline = ({ data }: { data: Partial<SchemaType> }) => {
             30,
             Math.min(
               SLIDE_WIDTH - timelineStyle.contentWidth - 30,
-              centerX - timelineStyle.badgeSize / 2
-            )
+              centerX - timelineStyle.badgeSize / 2,
+            ),
           );
 
           return (

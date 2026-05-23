@@ -1,7 +1,6 @@
 import { RemoteSvgIcon } from "@/app/hooks/useRemoteSvgIcon";
 import * as z from "zod";
 
-
 const AnalysisItemSchema = z.object({
   title: z.string().max(30).meta({
     description: "Short item title displayed next to the icon.",
@@ -20,27 +19,58 @@ export const Schema = z.object({
   title: z.string().min(3).max(12).default("Data Analysis").meta({
     description: "Slide title shown at the top-left.",
   }),
-  itemIcon: z.object({
-    __icon_url__: z.string().default("https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg"),
-    __icon_query__: z.string().default("pulse icon"),
-  }).default({
-    __icon_url__:
-      "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
-    __icon_query__: "pulse icon",
-  }).meta({
-    description: "Icon shown in each analysis list badge.",
-  }),
+  itemIcon: z
+    .object({
+      __icon_url__: z
+        .string()
+        .default(
+          "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+        ),
+      __icon_query__: z.string().default("pulse icon"),
+    })
+    .default({
+      __icon_url__:
+        "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+      __icon_query__: "pulse icon",
+    })
+    .meta({
+      description: "Icon shown in each analysis list badge.",
+    }),
   items: z
     .array(AnalysisItemSchema)
 
     .max(6)
     .default([
-      { title: "Title 1 title 1 title 1 title 1 title 1", description: "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim" },
-      { title: "Title 3 title 3 title 3 title 3 title 3", description: "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim " },
-      { title: "Title 2 title 2 title 2 title 2 title 2", description: "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim " },
-      { title: "Title 4 title 4 title 4 title 4 title 4", description: "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim " },
-      { title: "Title 2 title 2 title 2 title 2 title 2", description: "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim " },
-      { title: "Title 5 title 5 title 5 title 5 title 5", description: "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim " },
+      {
+        title: "Title 1 title 1 title 1 title 1 title 1",
+        description:
+          "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim",
+      },
+      {
+        title: "Title 3 title 3 title 3 title 3 title 3",
+        description:
+          "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim ",
+      },
+      {
+        title: "Title 2 title 2 title 2 title 2 title 2",
+        description:
+          "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim ",
+      },
+      {
+        title: "Title 4 title 4 title 4 title 4 title 4",
+        description:
+          "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim ",
+      },
+      {
+        title: "Title 2 title 2 title 2 title 2 title 2",
+        description:
+          "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim ",
+      },
+      {
+        title: "Title 5 title 5 title 5 title 5 title 5",
+        description:
+          "Ut enim ad minima veniam, quis. Ut enim ad minima veniam, quis. Ut enim ",
+      },
     ])
     .meta({
       description: "List of points contains a title and description.",
@@ -54,7 +84,10 @@ const DataAnalysisListSlide = ({ data }: { data: Partial<SchemaType> }) => {
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden rounded-[24px] bg-[#f9f8f8]"
         style={{
@@ -63,8 +96,11 @@ const DataAnalysisListSlide = ({ data }: { data: Partial<SchemaType> }) => {
         }}
       >
         <div
-          className="absolute left-0 top-0 w-[42px] rounded-b-[22px] bg-[#157CFF]"
-          style={{ height: 185, backgroundColor: "var(--primary-color,#157CFF)" }}
+          className="absolute left-0 top-0 w-[42px] rounded-b-[22px] bg-[#9748b1]"
+          style={{
+            height: 185,
+            backgroundColor: "var(--primary-color,#9748b1)",
+          }}
         />
 
         <div className="px-[58px] pt-[52px]">
@@ -81,9 +117,9 @@ const DataAnalysisListSlide = ({ data }: { data: Partial<SchemaType> }) => {
             <div key={`${item.title}-${index}`}>
               <div className="flex items-center gap-[14px]">
                 <div
-                  className="flex h-[55px] w-[55px] items-center justify-center rounded-full bg-[#157CFF] text-white"
+                  className="flex h-[55px] w-[55px] items-center justify-center rounded-full bg-[#9748b1] text-white"
                   style={{
-                    backgroundColor: "var(--primary-color,#157CFF)",
+                    backgroundColor: "var(--primary-color,#9748b1)",
                     color: "var(--primary-text,#ffffff)",
                   }}
                 >

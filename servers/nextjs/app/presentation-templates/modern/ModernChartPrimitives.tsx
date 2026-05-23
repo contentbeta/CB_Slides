@@ -12,11 +12,11 @@ type SimpleChartDatum = {
 type MultiLineDatum = Record<string, string | number>;
 
 const DEFAULT_COLORS = [
-  "#3b82f6",
+  "#c25de2",
   "#ef4444",
   "#10b981",
   "#f59e0b",
-  "#8b5cf6",
+  "#ab51c9",
   "#06b6d4",
   "#84cc16",
   "#f97316",
@@ -24,7 +24,11 @@ const DEFAULT_COLORS = [
   "#6366f1",
 ];
 
-const resolveCssValue = (element: HTMLElement, value: string, fallback: string) => {
+const resolveCssValue = (
+  element: HTMLElement,
+  value: string,
+  fallback: string,
+) => {
   const match = value.match(/^var\((--[^,\s)]+)\s*,?\s*([^)]+)?\)$/);
   if (!match) return value;
 
@@ -39,18 +43,30 @@ const chartLabelColor = (element: HTMLElement) =>
   resolveCssValue(element, "var(--background-text, #111827)", "#111827");
 
 const chartFont = (element: HTMLElement) =>
-  resolveCssValue(element, "var(--heading-font-family,Montserrat)", "Montserrat").replace(/^['"]|['"]$/g, "");
+  resolveCssValue(
+    element,
+    "var(--heading-font-family,Montserrat)",
+    "Montserrat",
+  ).replace(/^['"]|['"]$/g, "");
 
-const graphColor = (element: HTMLElement, index: number, fallback = DEFAULT_COLORS[index % DEFAULT_COLORS.length]) => {
+const graphColor = (
+  element: HTMLElement,
+  index: number,
+  fallback = DEFAULT_COLORS[index % DEFAULT_COLORS.length],
+) => {
   const slot = index % 10;
-  return resolveCssValue(element, `var(--graph-${slot}, ${fallback})`, fallback);
+  return resolveCssValue(
+    element,
+    `var(--graph-${slot}, ${fallback})`,
+    fallback,
+  );
 };
 
 const valueLabelPlugin = (
   showLabels: boolean,
   chartType: SimpleChartType,
   labelColor: string,
-  fontFamily: string
+  fontFamily: string,
 ): Plugin => ({
   id: `modernValueLabels-${chartType}-${showLabels ? "on" : "off"}`,
   afterDatasetsDraw(chart) {
@@ -74,25 +90,38 @@ const valueLabelPlugin = (
         if (chartType === "horizontalBar") {
           const point = element.tooltipPosition();
           ctx.textAlign = "left";
-          ctx.fillText(String(value), Math.min(point.x + 8, area.right - 4), point.y);
+          ctx.fillText(
+            String(value),
+            Math.min(point.x + 8, area.right - 4),
+            point.y,
+          );
           return;
         }
 
         if (chartType === "pie") {
           const label = chart.data.labels?.[index] ?? "";
-          const arc = element.getProps(["x", "y", "startAngle", "endAngle", "innerRadius", "outerRadius"], true);
+          const arc = element.getProps(
+            ["x", "y", "startAngle", "endAngle", "innerRadius", "outerRadius"],
+            true,
+          );
           const angle = (arc.startAngle + arc.endAngle) / 2;
-          const radius = arc.innerRadius + (arc.outerRadius - arc.innerRadius) * 0.62;
+          const radius =
+            arc.innerRadius + (arc.outerRadius - arc.innerRadius) * 0.62;
           ctx.textAlign = "center";
-          ctx.fillText(String(label), arc.x + Math.cos(angle) * radius, arc.y + Math.sin(angle) * radius);
+          ctx.fillText(
+            String(label),
+            arc.x + Math.cos(angle) * radius,
+            arc.y + Math.sin(angle) * radius,
+          );
           return;
         }
 
         const point = element.tooltipPosition();
         ctx.textAlign = "center";
-        const labelY = chartType === "line" && point.y - 14 < area.top + 8
-          ? point.y + 16
-          : Math.max(area.top + 8, point.y - 14);
+        const labelY =
+          chartType === "line" && point.y - 14 < area.top + 8
+            ? point.y + 16
+            : Math.max(area.top + 8, point.y - 14);
         ctx.fillText(String(value), point.x, Math.min(area.bottom - 8, labelY));
       });
     });
@@ -101,7 +130,9 @@ const valueLabelPlugin = (
   },
 });
 
-const useThemeVersion = (canvasRef: React.RefObject<HTMLCanvasElement | null>) => {
+const useThemeVersion = (
+  canvasRef: React.RefObject<HTMLCanvasElement | null>,
+) => {
   const [themeVersion, setThemeVersion] = React.useState(0);
 
   useEffect(() => {
@@ -141,7 +172,11 @@ const useThemeVersion = (canvasRef: React.RefObject<HTMLCanvasElement | null>) =
   return themeVersion;
 };
 
-const axisOptions = (textColor: string, fontFamily: string, gridColor: string) => ({
+const axisOptions = (
+  textColor: string,
+  fontFamily: string,
+  gridColor: string,
+) => ({
   grid: {
     color: gridColor,
   },
@@ -175,7 +210,11 @@ export const ModernSimpleChart: React.FC<{
     const values = data.map((item) => item.value);
     const colors = data.map((_, index) => graphColor(canvas, index));
     const isHorizontal = type === "horizontalBar";
-    const gridColor = resolveCssValue(canvas, "var(--background-text, #E5E7EB)", "#E5E7EB");
+    const gridColor = resolveCssValue(
+      canvas,
+      "var(--background-text, #E5E7EB)",
+      "#E5E7EB",
+    );
 
     const commonOptions: ChartOptions = {
       responsive: true,
@@ -230,7 +269,9 @@ export const ModernSimpleChart: React.FC<{
               ...commonOptions,
               radius: 100,
             } as ChartOptions,
-            plugins: [valueLabelPlugin(showLabels, type, textColor, fontFamily)],
+            plugins: [
+              valueLabelPlugin(showLabels, type, textColor, fontFamily),
+            ],
           }
         : {
             type: type === "line" ? "line" : "bar",
@@ -240,9 +281,15 @@ export const ModernSimpleChart: React.FC<{
                 {
                   label: "value",
                   data: values,
-                  backgroundColor: type === "line" ? (colors[0] || DEFAULT_COLORS[0]) : colors,
+                  backgroundColor:
+                    type === "line" ? colors[0] || DEFAULT_COLORS[0] : colors,
                   borderColor: colors[0] || DEFAULT_COLORS[0],
-                  borderRadius: type === "bar" ? 8 : type === "horizontalBar" ? 6 : undefined,
+                  borderRadius:
+                    type === "bar"
+                      ? 8
+                      : type === "horizontalBar"
+                        ? 6
+                        : undefined,
                   borderWidth: type === "line" ? 3 : 0,
                   fill: false,
                   pointBackgroundColor: colors[0] || DEFAULT_COLORS[0],
@@ -278,7 +325,9 @@ export const ModernSimpleChart: React.FC<{
                     },
               },
             } as ChartOptions,
-            plugins: [valueLabelPlugin(showLabels, type, labelColor, fontFamily)],
+            plugins: [
+              valueLabelPlugin(showLabels, type, labelColor, fontFamily),
+            ],
           };
 
     const chart = new Chart(canvas, config);
@@ -305,7 +354,11 @@ export const ModernMultiLineChart: React.FC<{
 
     const textColor = chartTextColor(canvas, "#234CD9");
     const fontFamily = chartFont(canvas);
-    const gridColor = resolveCssValue(canvas, "var(--background-text, #E5E7EB)", "#E5E7EB");
+    const gridColor = resolveCssValue(
+      canvas,
+      "var(--background-text, #E5E7EB)",
+      "#E5E7EB",
+    );
     const labels = data.map((item) => String(item.year ?? ""));
 
     const config: ChartConfiguration = {
@@ -313,12 +366,18 @@ export const ModernMultiLineChart: React.FC<{
       data: {
         labels,
         datasets: seriesKeys.map((key, index) => {
-          const color = graphColor(canvas, index, colors[index % colors.length]);
+          const color = graphColor(
+            canvas,
+            index,
+            colors[index % colors.length],
+          );
           return {
             label: key
               .replace(/([A-Z])/g, " $1")
               .replace(/^./, (str) => str.toUpperCase()),
-            data: data.map((item) => (typeof item[key] === "number" ? item[key] : 0)),
+            data: data.map((item) =>
+              typeof item[key] === "number" ? item[key] : 0,
+            ),
             borderColor: color,
             backgroundColor: color,
             borderWidth: 3,

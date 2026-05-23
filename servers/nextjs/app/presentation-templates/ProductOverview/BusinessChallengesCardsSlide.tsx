@@ -1,7 +1,5 @@
 import * as z from "zod";
 
-
-
 export const slideLayoutId = "title-description-with-cards-text-slide";
 export const slideLayoutName = "Title Description with Cards to Text Slide";
 export const slideLayoutDescription =
@@ -26,21 +24,37 @@ export const Schema = z.object({
   taglineLabel: z.string().max(16).default("TAGLINE").meta({
     description: "Short label above the left-side paragraph.",
   }),
-  taglineBody: z.string().max(100).default(
-    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea."
-  ).meta({
-    description: "Supporting paragraph on the left side.",
-  }),
-  heroImage: z.object({
-    __image_url__: z.string().url().default("https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80"),
-    __image_prompt__: z.string().min(10).max(100).default("Team meeting and stressed analyst"),
-  }).default({
-    __image_url__:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80",
-    __image_prompt__: "Team meeting and stressed analyst",
-  }).meta({
-    description: "Primary image shown in the upper right area.",
-  }),
+  taglineBody: z
+    .string()
+    .max(100)
+    .default(
+      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.",
+    )
+    .meta({
+      description: "Supporting paragraph on the left side.",
+    }),
+  heroImage: z
+    .object({
+      __image_url__: z
+        .string()
+        .url()
+        .default(
+          "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80",
+        ),
+      __image_prompt__: z
+        .string()
+        .min(10)
+        .max(100)
+        .default("Team meeting and stressed analyst"),
+    })
+    .default({
+      __image_url__:
+        "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1400&q=80",
+      __image_prompt__: "Team meeting and stressed analyst",
+    })
+    .meta({
+      description: "Primary image shown in the upper right area.",
+    }),
   cards: z
     .array(CardSchema)
 
@@ -69,12 +83,19 @@ export const Schema = z.object({
 
 export type SchemaType = z.infer<typeof Schema>;
 
-const BusinessChallengesCardsSlide = ({ data }: { data: Partial<SchemaType> }) => {
+const BusinessChallengesCardsSlide = ({
+  data,
+}: {
+  data: Partial<SchemaType>;
+}) => {
   const { title, taglineLabel, taglineBody, heroImage, cards } = data;
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden "
         style={{

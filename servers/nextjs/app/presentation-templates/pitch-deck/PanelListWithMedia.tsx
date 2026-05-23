@@ -38,7 +38,7 @@ export const Schema = z
           .string()
           .url()
           .default(
-            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80"
+            "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
           ),
         __image_prompt__: z.string().default("Skyscraper perspective photo"),
       })

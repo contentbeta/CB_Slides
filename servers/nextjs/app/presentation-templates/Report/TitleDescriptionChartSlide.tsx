@@ -2,14 +2,16 @@
 
 import * as z from "zod";
 
-import { FlexibleReportChart, flexibleChartDataSchema } from "./flexibleReportChart";
+import {
+  FlexibleReportChart,
+  flexibleChartDataSchema,
+} from "./flexibleReportChart";
 import { RemoteSvgIcon } from "@/app/hooks/useRemoteSvgIcon";
 
 export const slideLayoutId = "title-description-chart-slide";
 export const slideLayoutName = "Title Description Chart Slide";
 export const slideLayoutDescription =
   "A slide with a title at the top, description text in left and chart in the right.";
-
 
 export const Schema = z.object({
   title: z.string().min(3).max(80).default("Data Analysis").meta({
@@ -19,11 +21,14 @@ export const Schema = z.object({
     .object({
       __icon_url__: z
         .string()
-        .default("https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg"),
+        .default(
+          "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+        ),
       __icon_query__: z.string().default("pulse icon"),
     })
     .default({
-      __icon_url__: "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+      __icon_url__:
+        "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
       __icon_query__: "pulse icon",
     })
     .meta({
@@ -34,7 +39,7 @@ export const Schema = z.object({
     .min(30)
     .max(320)
     .default(
-      "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut alut enim ad minima veniam, quis. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut alut enim ad minima veniam, quis"
+      "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut alut enim ad minima veniam, quis. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut alut enim ad minima veniam, quis",
     )
     .meta({
       description: "Description text shown in the left content area.",
@@ -47,7 +52,6 @@ export const Schema = z.object({
       { name: "Q3", value: 58 },
       { name: "Q4", value: 89 },
     ],
-
   }),
   legendLabel: z.string().min(3).max(32).default("Traditional Workflow").meta({
     description: "Legend label shown below the chart.",
@@ -67,7 +71,10 @@ const DataAnalysisInsightBarSlide = ({
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden rounded-[24px] bg-[#f9f8f8]"
         style={{
@@ -76,8 +83,11 @@ const DataAnalysisInsightBarSlide = ({
         }}
       >
         <div
-          className="absolute left-0 top-0 w-[42px] rounded-b-[22px] bg-[#157CFF]"
-          style={{ height: 185, backgroundColor: "var(--primary-color,#157CFF)" }}
+          className="absolute left-0 top-0 w-[42px] rounded-b-[22px] bg-[#9748b1]"
+          style={{
+            height: 185,
+            backgroundColor: "var(--primary-color,#9748b1)",
+          }}
         />
 
         <div className="px-[64px] pt-[48px]">
@@ -93,13 +103,12 @@ const DataAnalysisInsightBarSlide = ({
           <div className=" pt-[24px] w-1/2">
             <div className="flex items-center gap-[14px]">
               <div
-                className="flex h-[55px] w-[55px] items-center justify-center rounded-full bg-[#157CFF] text-white"
+                className="flex h-[55px] w-[55px] items-center justify-center rounded-full bg-[#9748b1] text-white"
                 style={{
-                  backgroundColor: "var(--primary-color,#157CFF)",
+                  backgroundColor: "var(--primary-color,#9748b1)",
                   color: "var(--primary-text,#ffffff)",
                 }}
               >
-
                 <RemoteSvgIcon
                   url={data.insightIcon?.__icon_url__}
                   strokeColor={"currentColor"}
@@ -125,15 +134,20 @@ const DataAnalysisInsightBarSlide = ({
 
           <div className="ml-[28px] flex w-1/2 flex-col items-center">
             <div className="h-[400px] min-h-0 w-full overflow-hidden">
-              <FlexibleReportChart chartType={chartType} data={chartData} series={series} colorFallback="#157CFF" />
+              <FlexibleReportChart
+                chartType={chartType}
+                data={chartData}
+                series={series}
+                colorFallback="#9748b1"
+              />
             </div>
             <div
-              className="mt-[12px] flex items-center gap-[10px] text-[24px] tracking-[-0.03em] text-[#157CFF]"
-              style={{ color: "var(--primary-color,#157CFF)" }}
+              className="mt-[12px] flex items-center gap-[10px] text-[24px] tracking-[-0.03em] text-[#9748b1]"
+              style={{ color: "var(--primary-color,#9748b1)" }}
             >
               <span
-                className="h-[12px] w-[12px] rounded-full bg-[#157CFF]"
-                style={{ backgroundColor: "var(--primary-color,#157CFF)" }}
+                className="h-[12px] w-[12px] rounded-full bg-[#9748b1]"
+                style={{ backgroundColor: "var(--primary-color,#9748b1)" }}
               />
               <p>{data.legendLabel}</p>
             </div>

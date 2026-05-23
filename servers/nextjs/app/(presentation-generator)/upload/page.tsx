@@ -5,11 +5,11 @@ import Header from "@/app/(presentation-generator)/(dashboard)/dashboard/compone
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Presenton | Open Source AI presentation generator",
+  title: "CB-Deck-Maker | Open Source AI presentation generator",
   description:
     "Open-source AI presentation generator with custom layouts, multi-model support (OpenAI, Gemini, Ollama), and PDF/PPTX export. A free Gamma alternative.",
   alternates: {
-    canonical: "https://presenton.ai/create",
+    canonical: "https://cb-deck-maker.local/create",
   },
   keywords: [
     "presentation generator",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description:
       "Open-source AI presentation generator with custom layouts, multi-model support (OpenAI, Gemini, Ollama), and PDF/PPTX export. A free Gamma alternative.",
     type: "website",
-    url: "https://presenton.ai/create",
+    url: "https://cb-deck-maker.local/create",
     siteName: "PresentOn",
   },
   twitter: {

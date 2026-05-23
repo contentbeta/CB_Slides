@@ -3,7 +3,6 @@ import * as z from "zod";
 const PRODUCT_BG = "var(--background-color,#d7dddd)";
 const PRODUCT_DARK = "var(--primary-color,#05463d)";
 
-
 export const slideLayoutId = "table-of-content-slide";
 export const slideLayoutName = "Table of Content Slide";
 export const slideLayoutDescription =
@@ -25,22 +24,56 @@ export const Schema = z.object({
   title: z.string().min(6).max(18).default("Table Of Content").meta({
     description: "Heading in the right-side content area.",
   }),
-  description: z.string().min(50).max(160).default(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore."
-  ).meta({
-    description: "Supporting descriptive paragraph under the heading.",
-  }),
+  description: z
+    .string()
+    .min(50)
+    .max(160)
+    .default(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.",
+    )
+    .meta({
+      description: "Supporting descriptive paragraph under the heading.",
+    }),
   sections: z
     .array(SectionSchema)
     .max(6)
     .default([
-      { title: "SECTION TITLE SECTION TITLE", number: "01", description: "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit." },
-      { title: "SECTION TITLE SECTION TITLE", number: "02", description: "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit." },
-      { title: "SECTION TITLE SECTION TITLE", number: "03", description: "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit." },
-      { title: "SECTION TITLE SECTION TITLE", number: "04", description: "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit." },
-      { title: "SECTION TITLE SECTION TITLE", number: "05", description: "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit." },
-      { title: "SECTION TITLE SECTION TITLE", number: "06", description: "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit." },
-
+      {
+        title: "SECTION TITLE SECTION TITLE",
+        number: "01",
+        description:
+          "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit.",
+      },
+      {
+        title: "SECTION TITLE SECTION TITLE",
+        number: "02",
+        description:
+          "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit.",
+      },
+      {
+        title: "SECTION TITLE SECTION TITLE",
+        number: "03",
+        description:
+          "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit.",
+      },
+      {
+        title: "SECTION TITLE SECTION TITLE",
+        number: "04",
+        description:
+          "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit.",
+      },
+      {
+        title: "SECTION TITLE SECTION TITLE",
+        number: "05",
+        description:
+          "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit.",
+      },
+      {
+        title: "SECTION TITLE SECTION TITLE",
+        number: "06",
+        description:
+          "Lorem ipsum dolor sit. Lorem ipsum dolor sit. Lorem ipsum dolor sit.",
+      },
     ])
     .meta({
       description: "Six rows listed in the table of contents panel.",
@@ -54,7 +87,10 @@ const TableOfContentSlide = ({ data }: { data: Partial<SchemaType> }) => {
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden "
         style={{
@@ -63,24 +99,33 @@ const TableOfContentSlide = ({ data }: { data: Partial<SchemaType> }) => {
         }}
       >
         <div className="grid h-full grid-cols-[1fr_1fr]">
-          <div className="px-[56px] pt-[50px]" style={{ backgroundColor: PRODUCT_DARK }}>
-            <div className={`${sections && sections?.length > 3 ? 'space-y-[28px]' : 'space-y-[40px]'}`}>
+          <div
+            className="px-[56px] pt-[50px]"
+            style={{ backgroundColor: PRODUCT_DARK }}
+          >
+            <div
+              className={`${sections && sections?.length > 3 ? "space-y-[28px]" : "space-y-[40px]"}`}
+            >
               {sections?.map((section, index) => (
-                <div key={index} className="flex items-center gap-4 justify-between">
+                <div
+                  key={index}
+                  className="flex items-center gap-4 justify-between"
+                >
                   <div>
-
                     <p
                       className="text-[20px] font-semibold  tracking-[0.2em] text-[#ecf2f1]"
                       style={{ color: "var(--primary-text,#ecf2f1)" }}
                     >
                       {section.title}
                     </p>
-                    {section.description && <p
-                      className="mt-[6px] text-[18px] leading-[1.2] text-[#ecf2f1]"
-                      style={{ color: "var(--primary-text,#ecf2f1)" }}
-                    >
-                      {section.description}
-                    </p>}
+                    {section.description && (
+                      <p
+                        className="mt-[6px] text-[18px] leading-[1.2] text-[#ecf2f1]"
+                        style={{ color: "var(--primary-text,#ecf2f1)" }}
+                      >
+                        {section.description}
+                      </p>
+                    )}
                   </div>
                   <p
                     className="text-[22px] font-medium text-[#ecf2f1]"

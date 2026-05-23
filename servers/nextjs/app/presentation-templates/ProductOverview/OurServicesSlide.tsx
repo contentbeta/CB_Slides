@@ -1,6 +1,5 @@
 import * as z from "zod";
 
-
 export const slideLayoutId = "title-description-with-image-block-slide";
 export const slideLayoutName = "Title Description with Image Block Slide";
 export const slideLayoutDescription =
@@ -25,30 +24,62 @@ export const Schema = z.object({
   taglineLabel: z.string().max(16).default("TAGLINE").meta({
     description: "Small label above left paragraph.",
   }),
-  taglineBody: z.string().max(30).default(
-    "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea."
-  ).meta({
-    description: "Supporting text shown beneath the tagline label.",
-  }),
-  featureImage: z.object({
-    __image_url__: z.string().url().default("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80"),
-    __image_prompt__: z.string().min(10).max(100).default("Customer support team in office"),
-  }).default({
-    __image_url__:
-      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
-    __image_prompt__: "Customer support team in office",
-  }).meta({
-    description: "Main image shown at the lower left side.",
-  }),
+  taglineBody: z
+    .string()
+    .max(30)
+    .default(
+      "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.",
+    )
+    .meta({
+      description: "Supporting text shown beneath the tagline label.",
+    }),
+  featureImage: z
+    .object({
+      __image_url__: z
+        .string()
+        .url()
+        .default(
+          "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
+        ),
+      __image_prompt__: z
+        .string()
+        .min(10)
+        .max(100)
+        .default("Customer support team in office"),
+    })
+    .default({
+      __image_url__:
+        "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80",
+      __image_prompt__: "Customer support team in office",
+    })
+    .meta({
+      description: "Main image shown at the lower left side.",
+    }),
   services: z
     .array(CardSchema)
 
     .max(4)
     .default([
-      { heading: "HEADING 1", body: "Lorem ipsum dolor sit amet, consectetur", isHighlighted: false },
-      { heading: "HEADING 2", body: "Lorem ipsum dolor sit amet, consectetur", isHighlighted: true },
-      { heading: "HEADING 3", body: "Lorem ipsum dolor sit amet, consectetur", isHighlighted: false },
-      { heading: "HEADING 4", body: "Lorem ipsum dolor sit amet, consectetur", isHighlighted: false },
+      {
+        heading: "HEADING 1",
+        body: "Lorem ipsum dolor sit amet, consectetur",
+        isHighlighted: false,
+      },
+      {
+        heading: "HEADING 2",
+        body: "Lorem ipsum dolor sit amet, consectetur",
+        isHighlighted: true,
+      },
+      {
+        heading: "HEADING 3",
+        body: "Lorem ipsum dolor sit amet, consectetur",
+        isHighlighted: false,
+      },
+      {
+        heading: "HEADING 4",
+        body: "Lorem ipsum dolor sit amet, consectetur",
+        isHighlighted: false,
+      },
     ])
     .meta({
       description: "Cards rendered on the right side.",
@@ -62,7 +93,10 @@ const OurServicesSlide = ({ data }: { data: Partial<SchemaType> }) => {
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] flex items-end pb-[56px]  justify-between overflow-hidden "
         style={{
@@ -72,7 +106,6 @@ const OurServicesSlide = ({ data }: { data: Partial<SchemaType> }) => {
       >
         <div className=" pt-[50px]">
           <div className="px-[68px]">
-
             <h2
               className="text-[80px] font-semibold leading-[108.4%] tracking-[-2.419px] text-[#15342D]"
               style={{ color: "var(--primary-color,#15342D)" }}
@@ -99,7 +132,6 @@ const OurServicesSlide = ({ data }: { data: Partial<SchemaType> }) => {
             className="mt-[35px] h-[326px] w-[650px] bg-[#15342D]"
             style={{ backgroundColor: "var(--primary-color,#15342D)" }}
           >
-
             {featureImage?.__image_url__ && (
               <img
                 src={featureImage?.__image_url__}
@@ -109,8 +141,6 @@ const OurServicesSlide = ({ data }: { data: Partial<SchemaType> }) => {
             )}
           </div>
         </div>
-
-
 
         <div className="grid grid-cols-2 gap-[22px] pr-[76px]">
           {services?.map((card, index) => (

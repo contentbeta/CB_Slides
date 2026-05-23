@@ -4,8 +4,7 @@ import { ImageSchema } from "../defaultSchemes";
 
 export const layoutId = "images-with-description";
 export const layoutName = "Images With Description";
-export const layoutDescription =
-  "Images with description slide layout";
+export const layoutDescription = "Images with description slide layout";
 
 const imagesWithDescriptionSlideSchema = z.object({
   name: z.string().min(2).max(50).meta({
@@ -76,21 +75,21 @@ const imagesWithDescriptionSlideSchema2 = z.object({
     .meta({
       description: "List of team members with their information",
     }),
-
-
 });
 
 export const Schema = imagesWithDescriptionSlideSchema2;
 
-export type ImagesWithDescriptionSlideData = z.infer<typeof imagesWithDescriptionSlideSchema2>;
+export type ImagesWithDescriptionSlideData = z.infer<
+  typeof imagesWithDescriptionSlideSchema2
+>;
 
 interface ImagesWithDescriptionSlideLayoutProps {
   data?: Partial<ImagesWithDescriptionSlideData>;
 }
 
-const ImagesWithDescriptionSlideLayout: React.FC<ImagesWithDescriptionSlideLayoutProps> = ({
-  data: slideData,
-}) => {
+const ImagesWithDescriptionSlideLayout: React.FC<
+  ImagesWithDescriptionSlideLayoutProps
+> = ({ data: slideData }) => {
   return (
     <>
       {/* Import Montserrat Font */}
@@ -102,20 +101,31 @@ const ImagesWithDescriptionSlideLayout: React.FC<ImagesWithDescriptionSlideLayou
       <div
         className="w-full max-w-[1280px] max-h-[720px] aspect-video mx-auto rounded shadow-lg overflow-hidden relative z-20"
         style={{
-          fontFamily: "var(--heading-font-family,Montserrat)",
+          fontFamily: "var(--body-font-family,Montserrat)",
           backgroundColor: "var(--background-color, #FFFFFF)",
         }}
       >
         {/* Header */}
-        {((slideData as any)?.__companyName__ || (slideData as any)?._logo_url__) && (
+        {((slideData as any)?.__companyName__ ||
+          (slideData as any)?._logo_url__) && (
           <div className="absolute top-0 left-0 right-0 px-8 sm:px-12 lg:px-20 pt-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
-
-                {(slideData as any)?._logo_url__ && <img src={(slideData as any)?._logo_url__} alt="logo" className="w-6 h-6" />}
-                {(slideData as any)?.__companyName__ && <span className="text-sm sm:text-base font-semibold" style={{ color: 'var(--background-text, #111827)' }}>
-                  {(slideData as any)?.__companyName__ || 'Company Name'}
-                </span>}
+                {(slideData as any)?._logo_url__ && (
+                  <img
+                    src={(slideData as any)?._logo_url__}
+                    alt="logo"
+                    className="w-6 h-6"
+                  />
+                )}
+                {(slideData as any)?.__companyName__ && (
+                  <span
+                    className="text-sm sm:text-base font-semibold"
+                    style={{ color: "var(--background-text, #111827)" }}
+                  >
+                    {(slideData as any)?.__companyName__ || "Company Name"}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -126,16 +136,18 @@ const ImagesWithDescriptionSlideLayout: React.FC<ImagesWithDescriptionSlideLayou
           {/* Title */}
           <h1
             className="text-5xl font-bold mb-4 leading-tight text-left"
-            style={{ letterSpacing: "-0.03em", color: 'var(--background-text, #234CD9)' }}
-
-
-
-
+            style={{
+              letterSpacing: "-0.03em",
+              color: "var(--background-text, #234CD9)",
+            }}
           >
             {slideData?.title}
           </h1>
           {/* Subtitle */}
-          <p className="text-lg leading-relaxed font-normal mb-12 max-w-lg text-left" style={{ color: 'var(--background-text, #234CD9)' }}>
+          <p
+            className="text-lg leading-relaxed font-normal mb-12 max-w-lg text-left"
+            style={{ color: "var(--background-text, #234CD9)" }}
+          >
             {slideData?.subtitle}
           </p>
           {/* Items Row */}
@@ -144,7 +156,10 @@ const ImagesWithDescriptionSlideLayout: React.FC<ImagesWithDescriptionSlideLayou
               <div
                 key={idx}
                 className="flex flex-col items-center rounded-lg shadow-md px-6 pt-6 pb-4 w-1/4 min-w-[260px] max-w-[280px] mx-auto"
-                style={{ minHeight: 380, backgroundColor: 'var(--card-color, #F5F8FE)' }}
+                style={{
+                  minHeight: 380,
+                  backgroundColor: "var(--card-color, #F5F8FE)",
+                }}
               >
                 {/* Image full width */}
                 <div className="relative w-full h-40 mb-4 rounded-md overflow-hidden bg-white">
@@ -157,11 +172,17 @@ const ImagesWithDescriptionSlideLayout: React.FC<ImagesWithDescriptionSlideLayou
                   )}
                 </div>
                 {/* Name */}
-                <div className="text-lg font-bold mb-1" style={{ color: 'var(--background-text, #234CD9)' }}>
+                <div
+                  className="text-lg font-bold mb-1"
+                  style={{ color: "var(--background-text, #234CD9)" }}
+                >
                   {member.name}
                 </div>
                 {/* Description */}
-                <div className="text-sm text-center mb-2 min-h-[48px]" style={{ color: 'var(--background-text, #234CD9)' }}>
+                <div
+                  className="text-sm text-center mb-2 min-h-[48px]"
+                  style={{ color: "var(--background-text, #234CD9)" }}
+                >
                   {member.description}
                 </div>
                 {/* LinkedIn Link (if provided) */}
@@ -171,7 +192,7 @@ const ImagesWithDescriptionSlideLayout: React.FC<ImagesWithDescriptionSlideLayou
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center text-xs transition-colors duration-200 mt-1"
-                    style={{ color: 'var(--background-text, #234CD9)' }}
+                    style={{ color: "var(--background-text, #234CD9)" }}
                   >
                     <svg
                       className="w-4 h-4 mr-1"
@@ -192,7 +213,10 @@ const ImagesWithDescriptionSlideLayout: React.FC<ImagesWithDescriptionSlideLayou
           </div>
         </div>
         {/* Bottom Divider */}
-        <div className="absolute bottom-0 left-0 right-0 h-1" style={{ backgroundColor: 'var(--primary-color, #1E4CD9)' }} />
+        <div
+          className="absolute bottom-0 left-0 right-0 h-1"
+          style={{ backgroundColor: "var(--primary-color, #1E4CD9)" }}
+        />
       </div>
     </>
   );

@@ -10,20 +10,22 @@ export const Schema = z.object({
   title: z.string().min(8).max(24).default("Code + Explanation").meta({
     description: "Slide heading shown at the top-left.",
   }),
-  codeSnippet: z.object({
-    language: z.string().min(2).max(10).meta({
-      description: "Programming language of the snippet",
-    }),
-    fileName: z.string().min(3).max(30).meta({
-      description: "File name label shown above the code snippet.",
-    }),
-    content: z.string().min(20).max(520).meta({
-      description: "The actual code content to be displayed.",
-    }),
-  }).default({
-    language: "tsx",
-    fileName: "components/UserAuth.tsx",
-    content: `import { useState } from "react";
+  codeSnippet: z
+    .object({
+      language: z.string().min(2).max(10).meta({
+        description: "Programming language of the snippet",
+      }),
+      fileName: z.string().min(3).max(30).meta({
+        description: "File name label shown above the code snippet.",
+      }),
+      content: z.string().min(20).max(520).meta({
+        description: "The actual code content to be displayed.",
+      }),
+    })
+    .default({
+      language: "tsx",
+      fileName: "components/UserAuth.tsx",
+      content: `import { useState } from "react";
 import { login } from "@/lib/auth";
 
 export function UserAuth() {
@@ -40,9 +42,10 @@ export function UserAuth() {
 }
   
 `,
-  }).meta({
-    description: "Code sample shown in the left panel.",
-  }),
+    })
+    .meta({
+      description: "Code sample shown in the left panel.",
+    }),
   descriptionTitle: z.string().min(4).max(20).default("Description").meta({
     description: "Heading shown above the paragraph.",
   }),
@@ -51,7 +54,7 @@ export function UserAuth() {
     .min(40)
     .max(360)
     .default(
-      "This component manages credentials as local state and submits them through an async handler. The login utility abstracts network details while the handler keeps the UI flow predictable. Keep validation and side effects isolated so changes remain safe when authentication requirements evolve. "
+      "This component manages credentials as local state and submits them through an async handler. The login utility abstracts network details while the handler keeps the UI flow predictable. Keep validation and side effects isolated so changes remain safe when authentication requirements evolve. ",
     )
     .meta({
       description: "Description paragraph shown in the right column.",
@@ -76,7 +79,10 @@ const CodeSlide02CodeExplanationSplit = ({
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet"
+      />
       <style>{PRISM_CODE_BLOCK_STYLES}</style>
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden p-[53px]"
@@ -85,9 +91,13 @@ const CodeSlide02CodeExplanationSplit = ({
           fontFamily: "var(--body-font-family,Nunito Sans)",
         }}
       >
-
         <div className="relative z-10 flex h-full flex-col">
-          <h2 className="text-[64px] font-medium" style={{ color: "var(--background-text,#ffffff)" }}>{data.title}</h2>
+          <h2
+            className="text-[64px] font-medium"
+            style={{ color: "var(--background-text,#ffffff)" }}
+          >
+            {data.title}
+          </h2>
 
           <div className="mt-[22px] grid min-h-0  flex-1 grid-cols-2 gap-[34px]">
             <div
@@ -124,14 +134,24 @@ const CodeSlide02CodeExplanationSplit = ({
                     wordBreak: "normal",
                     tabSize: 2,
                   }}
-                  dangerouslySetInnerHTML={{ __html: fittedCode.highlightedHtml }}
+                  dangerouslySetInnerHTML={{
+                    __html: fittedCode.highlightedHtml,
+                  }}
                 />
               </div>
             </div>
 
             <div className=" ">
-              <h3 className="text-[24px] font-medium" style={{ color: "var(--background-text,#f1f4ff)" }}>{data.descriptionTitle}</h3>
-              <p className="mt-[18px] text-[22px] leading-[145%]" style={{ color: "var(--background-text,#d2d9ff)" }}>
+              <h3
+                className="text-[24px] font-medium"
+                style={{ color: "var(--background-text,#f1f4ff)" }}
+              >
+                {data.descriptionTitle}
+              </h3>
+              <p
+                className="mt-[18px] text-[22px] leading-[145%]"
+                style={{ color: "var(--background-text,#d2d9ff)" }}
+              >
                 {data.description}
               </p>
             </div>

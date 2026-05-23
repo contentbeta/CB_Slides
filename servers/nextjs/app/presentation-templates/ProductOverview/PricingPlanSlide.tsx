@@ -1,7 +1,6 @@
 import { RemoteSvgIcon } from "@/app/hooks/useRemoteSvgIcon";
 import * as z from "zod";
 
-
 export const slideLayoutId = "title-cards-list-with-text-slide";
 export const slideLayoutName = "Title with Cards List with Text";
 export const slideLayoutDescription =
@@ -30,16 +29,23 @@ export const Schema = z.object({
   title: z.string().min(6).max(18).default("Pricing Plan").meta({
     description: "Main slide title.",
   }),
-  featureIcon: z.object({
-    __icon_url__: z.string().default("https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg"),
-    __icon_query__: z.string().min(3).max(30).default("check icon"),
-  }).default({
-    __icon_url__:
-      "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
-    __icon_query__: "check icon",
-  }).meta({
-    description: "Icon used for each feature bullet in plan cards.",
-  }),
+  featureIcon: z
+    .object({
+      __icon_url__: z
+        .string()
+        .default(
+          "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+        ),
+      __icon_query__: z.string().min(3).max(30).default("check icon"),
+    })
+    .default({
+      __icon_url__:
+        "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/icons/placeholder.svg",
+      __icon_query__: "check icon",
+    })
+    .meta({
+      description: "Icon used for each feature bullet in plan cards.",
+    }),
   plans: z
     .array(PlanSchema)
     .max(3)
@@ -90,7 +96,10 @@ const PricingPlanSlide = ({ data }: { data: Partial<SchemaType> }) => {
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden flex flex-col "
         style={{
@@ -143,12 +152,19 @@ const PricingPlanSlide = ({ data }: { data: Partial<SchemaType> }) => {
 
                 <div className="mt-[18px] space-y-[6px]">
                   {plan.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-center gap-[10px]">
+                    <div
+                      key={featureIndex}
+                      className="flex items-center gap-[10px]"
+                    >
                       <RemoteSvgIcon
                         url={featureIcon?.__icon_url__}
                         strokeColor={"currentColor"}
                         className="w-[28px] h-[28px] object-contain"
-                        color={active ? "var(--primary-text, #edf2f1)" : "var(--background-text, #15342DCC)"}
+                        color={
+                          active
+                            ? "var(--primary-text, #edf2f1)"
+                            : "var(--background-text, #15342DCC)"
+                        }
                         title={featureIcon?.__icon_query__}
                       />
                       {/* <img

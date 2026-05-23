@@ -17,7 +17,7 @@ export const Schema = z.object({
 
     .max(360)
     .default(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     )
     .meta({
       description: "Long-form explanation body.",
@@ -26,11 +26,17 @@ export const Schema = z.object({
 
 export type SchemaType = z.infer<typeof Schema>;
 
-const CodeSlide08CodeExplanationText = ({ data }: { data: Partial<SchemaType> }) => {
-
+const CodeSlide08CodeExplanationText = ({
+  data,
+}: {
+  data: Partial<SchemaType>;
+}) => {
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden p-[53px]"
         style={{
@@ -38,12 +44,25 @@ const CodeSlide08CodeExplanationText = ({ data }: { data: Partial<SchemaType> })
           fontFamily: "var(--body-font-family,Nunito Sans)",
         }}
       >
-
-
-        <h2 className="text-[64px] font-medium" style={{ color: "var(--background-text,#f2f4ff)" }}>{data.title}</h2>
+        <h2
+          className="text-[64px] font-medium"
+          style={{ color: "var(--background-text,#f2f4ff)" }}
+        >
+          {data.title}
+        </h2>
         <div className="relative z-10 h-full max-w-[560px]">
-          <h3 className="mt-[34px] text-[24px] font-medium" style={{ color: "var(--background-text,#f1f4ff)" }}>{data.descriptionTitle}</h3>
-          <p className="mt-[16px] text-[22px] leading-[145%]" style={{ color: "var(--background-text,#d2d9ff)" }}>{data.description}</p>
+          <h3
+            className="mt-[34px] text-[24px] font-medium"
+            style={{ color: "var(--background-text,#f1f4ff)" }}
+          >
+            {data.descriptionTitle}
+          </h3>
+          <p
+            className="mt-[16px] text-[22px] leading-[145%]"
+            style={{ color: "var(--background-text,#d2d9ff)" }}
+          >
+            {data.description}
+          </p>
         </div>
       </div>
     </>

@@ -1,5 +1,10 @@
 import { useFontLoader } from "../../hooks/useFontLoad";
 import type { Theme } from "../../services/api/types";
+import {
+  applyThemeFontSplitStyles,
+  buildFontLoaderMap,
+  getThemeFonts,
+} from "../../utils/themeFonts";
 
 const THEME_CSS_KEYS = [
   "--primary-color",
@@ -21,7 +26,9 @@ const THEME_CSS_KEYS = [
 ] as const;
 
 /** Remove theme inline variables from a container (e.g. before switching themes). */
-export function clearPresentationThemeFromElement(element: HTMLElement | null): void {
+export function clearPresentationThemeFromElement(
+  element: HTMLElement | null,
+): void {
   if (!element) return;
   for (const key of THEME_CSS_KEYS) {
     element.style.removeProperty(key);
@@ -37,7 +44,7 @@ export function clearPresentationThemeFromElement(element: HTMLElement | null): 
  */
 export function applyPresentationThemeToElement(
   element: HTMLElement | null,
-  theme: Theme | null | undefined
+  theme: Theme | null | undefined,
 ): void {
   if (!element || !theme?.data) return;
   if (!theme.data.colors?.["graph_0"]) return;
@@ -63,8 +70,13 @@ export function applyPresentationThemeToElement(
   Object.entries(cssVariables).forEach(([key, value]) => {
     element.style.setProperty(key, value);
   });
-  useFontLoader({ [theme.data.fonts.textFont.name]: theme.data.fonts.textFont.url });
-  element.style.setProperty("font-family", `"${theme.data.fonts.textFont.name}"`);
-  element.style.setProperty("--heading-font-family", `"${theme.data.fonts.textFont.name}"`);
-  element.style.setProperty("--body-font-family", `"${theme.data.fonts.textFont.name}"`);
+  const fonts = getThemeFonts(theme);
+  useFontLoader(buildFontLoaderMap(fonts));
+  element.style.setProperty("font-family", `"${fonts.bodyFont.name}"`);
+  element.style.setProperty(
+    "--heading-font-family",
+    `"${fonts.headingFont.name}"`,
+  );
+  element.style.setProperty("--body-font-family", `"${fonts.bodyFont.name}"`);
+  applyThemeFontSplitStyles(element);
 }

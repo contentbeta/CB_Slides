@@ -1,9 +1,10 @@
-import React from "react"
-import * as z from "zod"
+import React from "react";
+import * as z from "zod";
 
-const layoutId = "table-of-contents-layout"
-const layoutName = "Table Of Contents"
-const layoutDescription = "Header with brand marker, title, optional description, and a two-column table of contents list"
+const layoutId = "table-of-contents-layout";
+const layoutName = "Table Of Contents";
+const layoutDescription =
+  "Header with brand marker, title, optional description, and a two-column table of contents list";
 
 const ToCItemSchema = z
   .object({
@@ -13,13 +14,12 @@ const ToCItemSchema = z
   })
   .default({
     title: "Introduction",
-  })
+  });
 
 const Schema = z
   .object({
     topBar: z
       .object({
-
         marker: z.string().min(1).max(3).default("2").meta({
           description: "Numeric marker on the top bar. Up to 3 digits",
         }),
@@ -38,7 +38,7 @@ const Schema = z
       .min(0)
       .max(200)
       .default(
-        "Use this as a quick guide to navigate the presentation sections."
+        "Use this as a quick guide to navigate the presentation sections.",
       )
       .meta({ description: "Lead paragraph. Optional. Max 35 words" }),
 
@@ -77,16 +77,18 @@ const Schema = z
       { title: "Financials" },
       { title: "Ask" },
     ],
-  })
+  });
 
-type SlideData = z.infer<typeof Schema>
+type SlideData = z.infer<typeof Schema>;
 
 interface SlideLayoutProps {
-  data?: Partial<SlideData>
+  data?: Partial<SlideData>;
 }
 
-const dynamicSlideLayout: React.FC<SlideLayoutProps> = ({ data: slideData }) => {
-  const items = slideData?.items || []
+const dynamicSlideLayout: React.FC<SlideLayoutProps> = ({
+  data: slideData,
+}) => {
+  const items = slideData?.items || [];
 
   return (
     <>
@@ -98,7 +100,7 @@ const dynamicSlideLayout: React.FC<SlideLayoutProps> = ({ data: slideData }) => 
       <div
         className=" w-full rounded-sm max-w-[1280px] shadow-lg max-h-[720px] aspect-video relative z-20 mx-auto overflow-hidden"
         style={{
-          fontFamily: "var(--heading-font-family,Playfair Display)",
+          fontFamily: "var(--body-font-family,Playfair Display)",
           backgroundColor: "var(--background-color, #FFFFFF)",
         }}
       >
@@ -106,9 +108,21 @@ const dynamicSlideLayout: React.FC<SlideLayoutProps> = ({ data: slideData }) => 
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-6">
               <div className="flex items-center gap-1">
-
-                {(slideData as any)?._logo_url__ && <img src={(slideData as any)?._logo_url__} alt="logo" className="w-6 h-6" />}
-                {(slideData as any)?.__companyName__ && <span className="text-[18px]  font-semibold" style={{ color: 'var(--background-text, #111827)' }}>{(slideData as any)?.__companyName__ || "Pitchdeck"}</span>}
+                {(slideData as any)?._logo_url__ && (
+                  <img
+                    src={(slideData as any)?._logo_url__}
+                    alt="logo"
+                    className="w-6 h-6"
+                  />
+                )}
+                {(slideData as any)?.__companyName__ && (
+                  <span
+                    className="text-[18px]  font-semibold"
+                    style={{ color: "var(--background-text, #111827)" }}
+                  >
+                    {(slideData as any)?.__companyName__ || "Pitchdeck"}
+                  </span>
+                )}
               </div>
               <div
                 className="h-[2px] w-[220px]"
@@ -169,10 +183,8 @@ const dynamicSlideLayout: React.FC<SlideLayoutProps> = ({ data: slideData }) => 
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export { Schema, layoutId, layoutName, layoutDescription }
-export default dynamicSlideLayout
-
-
+export { Schema, layoutId, layoutName, layoutDescription };
+export default dynamicSlideLayout;

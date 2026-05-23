@@ -1,7 +1,5 @@
 import * as z from "zod";
 
-
-
 export const slideLayoutId = "introduction-slide";
 export const slideLayoutName = "Introduction Slide";
 export const slideLayoutDescription =
@@ -9,7 +7,8 @@ export const slideLayoutDescription =
 
 const IntroBlockSchema = z.object({
   label: z.string().min(3).max(12).meta({
-    description: "Uppercase mini-heading shown above each introduction paragraph.",
+    description:
+      "Uppercase mini-heading shown above each introduction paragraph.",
   }),
   body: z.string().max(180).meta({
     description: "Supporting paragraph content for the introduction block.",
@@ -20,16 +19,29 @@ export const Schema = z.object({
   title: z.string().max(15).default("Introduction").meta({
     description: "Primary title in the right column.",
   }),
-  portraitImage: z.object({
-    __image_url__: z.string().url().default("https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=1200&q=80"),
-    __image_prompt__: z.string().min(10).max(100).default("Two business professionals in office"),
-  }).optional().default({
-    __image_url__:
-      "https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=1200&q=80",
-    __image_prompt__: "Two business professionals in office",
-  }).meta({
-    description: "Main portrait image shown on the left half.",
-  }),
+  portraitImage: z
+    .object({
+      __image_url__: z
+        .string()
+        .url()
+        .default(
+          "https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=1200&q=80",
+        ),
+      __image_prompt__: z
+        .string()
+        .min(10)
+        .max(100)
+        .default("Two business professionals in office"),
+    })
+    .optional()
+    .default({
+      __image_url__:
+        "https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=1200&q=80",
+      __image_prompt__: "Two business professionals in office",
+    })
+    .meta({
+      description: "Main portrait image shown on the left half.",
+    }),
   blocks: z
     .array(IntroBlockSchema)
 
@@ -56,7 +68,10 @@ const IntroductionSlide = ({ data }: { data: Partial<SchemaType> }) => {
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden "
         style={{
@@ -69,7 +84,6 @@ const IntroductionSlide = ({ data }: { data: Partial<SchemaType> }) => {
             className="h-full w-full overflow-hidden bg-[#15342D]"
             style={{ backgroundColor: "var(--primary-color,#15342D)" }}
           >
-
             {portraitImage?.__image_url__ && (
               <img
                 src={portraitImage.__image_url__}

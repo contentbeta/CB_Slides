@@ -1,6 +1,5 @@
 import * as z from "zod";
 
-
 export const slideLayoutId = "title-image-bullet-cards-slide";
 export const slideLayoutName = "Title Image Bullet Cards Slide";
 export const slideLayoutDescription =
@@ -22,16 +21,25 @@ export const Schema = z.object({
   showImage: z.boolean().default(true).meta({
     description: "Whether the image should be shown.",
   }),
-  featureImage: z.object({
-    __image_url__: z.string().default("https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/images/placeholder.jpg"),
-    __image_prompt__: z.string().default("Thinking woman portrait on a neutral background"),
-  }).default({
-    __image_url__:
-      "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/images/placeholder.jpg",
-    __image_prompt__: "Thinking woman portrait on a neutral background",
-  }).meta({
-    description: "Optional image used on the left side of the slide.",
-  }),
+  featureImage: z
+    .object({
+      __image_url__: z
+        .string()
+        .default(
+          "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/images/placeholder.jpg",
+        ),
+      __image_prompt__: z
+        .string()
+        .default("Thinking woman portrait on a neutral background"),
+    })
+    .default({
+      __image_url__:
+        "https://presenton-public.s3.ap-southeast-1.amazonaws.com/static/images/placeholder.jpg",
+      __image_prompt__: "Thinking woman portrait on a neutral background",
+    })
+    .meta({
+      description: "Optional image used on the left side of the slide.",
+    }),
   cards: z
     .array(CardSchema)
     .min(1)
@@ -78,9 +86,7 @@ function SolutionCard({
       }}
     >
       <p className="text-[42px] font-medium tracking-[8.709px]">{stepNumber}</p>
-      <p className="mt-[27px] text-[27px] min-h-[200px] ">
-        {description}
-      </p>
+      <p className="mt-[27px] text-[27px] min-h-[200px] ">{description}</p>
     </div>
   );
 }
@@ -89,9 +95,13 @@ const SolutionSlide = ({ data }: SolutionSlideProps) => {
   const { title, showImage, featureImage, cards } = data;
   const visibleCards = showImage ? cards?.slice(0, 2) : cards;
 
-
   return (
-    <>  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet" />
+    <>
+      {" "}
+      <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden rounded-[24px] bg-[#F9F8F8]"
         style={{
@@ -99,8 +109,12 @@ const SolutionSlide = ({ data }: SolutionSlideProps) => {
           fontFamily: "var(--body-font-family,'Source Sans 3')",
         }}
       >
-        <div className="absolute left-0 top-0 w-[42px] rounded-b-[22px] bg-[#157CFF]"
-          style={{ height: 185, backgroundColor: "var(--primary-color,#157CFF)" }}
+        <div
+          className="absolute left-0 top-0 w-[42px] rounded-b-[22px] bg-[#9748b1]"
+          style={{
+            height: 185,
+            backgroundColor: "var(--primary-color,#9748b1)",
+          }}
         />
 
         <div className="relative z-10 h-full  py-[58px]">

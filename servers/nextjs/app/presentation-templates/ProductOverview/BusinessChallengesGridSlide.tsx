@@ -15,9 +15,14 @@ const BlockSchema = z.object({
 });
 
 export const Schema = z.object({
-  title: z.string().min(8).max(24).default("Business Challenges Business").meta({
-    description: "Main title shown in the top.",
-  }),
+  title: z
+    .string()
+    .min(8)
+    .max(24)
+    .default("Business Challenges Business")
+    .meta({
+      description: "Main title shown in the top.",
+    }),
   blocks: z
     .array(BlockSchema)
 
@@ -47,12 +52,19 @@ export const Schema = z.object({
 
 export type SchemaType = z.infer<typeof Schema>;
 
-const BusinessChallengesGridSlide = ({ data }: { data: Partial<SchemaType> }) => {
+const BusinessChallengesGridSlide = ({
+  data,
+}: {
+  data: Partial<SchemaType>;
+}) => {
   const { title, blocks } = data;
 
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden  flex flex-col"
         style={{

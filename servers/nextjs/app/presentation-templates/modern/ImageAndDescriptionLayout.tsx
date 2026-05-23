@@ -34,15 +34,17 @@ const imageWithDescriptionSlideSchema = z.object({
 
 export const Schema = imageWithDescriptionSlideSchema;
 
-export type ImageWithDescriptionSlideData = z.infer<typeof imageWithDescriptionSlideSchema>;
+export type ImageWithDescriptionSlideData = z.infer<
+  typeof imageWithDescriptionSlideSchema
+>;
 
 interface ImageWithDescriptionSlideLayoutProps {
   data?: Partial<ImageWithDescriptionSlideData>;
 }
 
-const ImageWithDescriptionSlideLayout: React.FC<ImageWithDescriptionSlideLayoutProps> = ({
-  data: slideData,
-}) => {
+const ImageWithDescriptionSlideLayout: React.FC<
+  ImageWithDescriptionSlideLayoutProps
+> = ({ data: slideData }) => {
   return (
     <>
       {/* Import fonts */}
@@ -54,20 +56,31 @@ const ImageWithDescriptionSlideLayout: React.FC<ImageWithDescriptionSlideLayoutP
       <div
         className="w-full rounded-sm max-w-[1280px] shadow-lg  aspect-video relative z-20 mx-auto overflow-hidden"
         style={{
-          fontFamily: "var(--heading-font-family,Montserrat)",
+          fontFamily: "var(--body-font-family,Montserrat)",
           backgroundColor: "var(--background-color, #FFFFFF)",
         }}
       >
         {/* Header */}
-        {((slideData as any)?.__companyName__ || (slideData as any)?._logo_url__) && (
+        {((slideData as any)?.__companyName__ ||
+          (slideData as any)?._logo_url__) && (
           <div className="absolute top-0 left-0 right-0 px-8 sm:px-12 lg:px-20 pt-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
-
-                {(slideData as any)?._logo_url__ && <img src={(slideData as any)?._logo_url__} alt="logo" className="w-6 h-6" />}
-                {(slideData as any)?.__companyName__ && <span className="text-sm sm:text-base font-semibold" style={{ color: 'var(--background-text, #111827)' }}>
-                  {(slideData as any)?.__companyName__ || 'Company Name'}
-                </span>}
+                {(slideData as any)?._logo_url__ && (
+                  <img
+                    src={(slideData as any)?._logo_url__}
+                    alt="logo"
+                    className="w-6 h-6"
+                  />
+                )}
+                {(slideData as any)?.__companyName__ && (
+                  <span
+                    className="text-sm sm:text-base font-semibold"
+                    style={{ color: "var(--background-text, #111827)" }}
+                  >
+                    {(slideData as any)?.__companyName__ || "Company Name"}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -132,13 +145,19 @@ const ImageWithDescriptionSlideLayout: React.FC<ImageWithDescriptionSlideLayoutP
           {/* Right side - Content */}
           <div className="flex-1 pl-16 flex flex-col justify-center">
             {slideData?.title && (
-              <h2 className="text-5xl font-bold mb-12 leading-tight" style={{ color: 'var(--background-text, #1E4CD9)' }}>
+              <h2
+                className="text-5xl font-bold mb-12 leading-tight"
+                style={{ color: "var(--background-text, #1E4CD9)" }}
+              >
                 {slideData?.title}
               </h2>
             )}
 
             {slideData?.content && (
-              <div className="text-lg leading-relaxed font-normal max-w-lg" style={{ color: 'var(--background-text, #334155)' }}>
+              <div
+                className="text-lg leading-relaxed font-normal max-w-lg"
+                style={{ color: "var(--background-text, #334155)" }}
+              >
                 {slideData?.content}
               </div>
             )}

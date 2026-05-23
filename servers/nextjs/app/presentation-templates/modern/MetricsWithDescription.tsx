@@ -12,7 +12,6 @@ const marketSizeSlideSchema = z.object({
     description: "Main slide title",
   }),
 
-
   mapImage: ImageSchema.default({
     __image_url__:
       "https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg", // You can quickly find a world map image via a Google search or use a free resource like Wikimedia Commons
@@ -52,7 +51,7 @@ const marketSizeSlideSchema = z.object({
         value: "194 Million",
         description:
           "It is a part of TAM that has the potential to become a target market for the company by considering the type of product, technology available and geographical conditions.",
-      }
+      },
     ])
     .meta({
       description:
@@ -91,20 +90,31 @@ const MarketSizeSlideLayout: React.FC<MarketSizeSlideProps> = ({
       <div
         className="w-full rounded-sm max-w-[1280px] shadow-lg max-h-[720px] aspect-video relative z-20 mx-auto overflow-hidden"
         style={{
-          fontFamily: "var(--heading-font-family,Montserrat)",
-          backgroundColor: 'var(--background-color, #FFFFFF)'
+          fontFamily: "var(--body-font-family,Montserrat)",
+          backgroundColor: "var(--background-color, #FFFFFF)",
         }}
       >
         {/* Header */}
-        {((slideData as any)?.__companyName__ || (slideData as any)?._logo_url__) && (
+        {((slideData as any)?.__companyName__ ||
+          (slideData as any)?._logo_url__) && (
           <div className="absolute top-0 left-0 right-0 px-8 sm:px-12 lg:px-20 pt-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-1">
-
-                {(slideData as any)?._logo_url__ && <img src={(slideData as any)?._logo_url__} alt="logo" className="w-6 h-6" />}
-                {(slideData as any)?.__companyName__ && <span className="text-sm sm:text-base font-semibold" style={{ color: 'var(--background-text, #111827)' }}>
-                  {(slideData as any)?.__companyName__ || 'Company Name'}
-                </span>}
+                {(slideData as any)?._logo_url__ && (
+                  <img
+                    src={(slideData as any)?._logo_url__}
+                    alt="logo"
+                    className="w-6 h-6"
+                  />
+                )}
+                {(slideData as any)?.__companyName__ && (
+                  <span
+                    className="text-sm sm:text-base font-semibold"
+                    style={{ color: "var(--background-text, #111827)" }}
+                  >
+                    {(slideData as any)?.__companyName__ || "Company Name"}
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -118,7 +128,8 @@ const MarketSizeSlideLayout: React.FC<MarketSizeSlideProps> = ({
               {/* Move the title down to align with the top of the market stats */}
               <h1
                 className="text-5xl font-bold mb-8 leading-tight text-left"
-                style={{ color: 'var(--background-text, #1E4CD9)' }}>
+                style={{ color: "var(--background-text, #1E4CD9)" }}
+              >
                 {slideData?.title || "Market Size"}
               </h1>
               <div className="w-full bg-[#CBE3CC] rounded-md mb-8 flex items-center justify-center">
@@ -132,7 +143,10 @@ const MarketSizeSlideLayout: React.FC<MarketSizeSlideProps> = ({
                 )}
               </div>
               {slideData?.description && (
-                <p className="text-sm leading-relaxed font-normal mb-12 max-w-lg text-left" style={{ color: 'var(--background-text, #234CD9)' }}>
+                <p
+                  className="text-sm leading-relaxed font-normal mb-12 max-w-lg text-left"
+                  style={{ color: "var(--background-text, #234CD9)" }}
+                >
                   {slideData?.description}
                 </p>
               )}
@@ -145,14 +159,26 @@ const MarketSizeSlideLayout: React.FC<MarketSizeSlideProps> = ({
               {stats.map((stat, index) => (
                 <div key={index}>
                   <div className="space-y-2">
-                    <div className="text-white text-sm font-semibold px-3 py-1 inline-block rounded-sm" style={{ backgroundColor: 'var(--primary-color, #234CD9)', color: 'var(--primary-text, #ffffff)' }}>
+                    <div
+                      className="text-white text-sm font-semibold px-3 py-1 inline-block rounded-sm"
+                      style={{
+                        backgroundColor: "var(--primary-color, #234CD9)",
+                        color: "var(--primary-text, #ffffff)",
+                      }}
+                    >
                       <span className="text-sm">{stat.label}</span>
                     </div>
-                    <div className="text-2xl font-bold" style={{ color: 'var(--primary-color, #1E4CD9)' }}>
+                    <div
+                      className="text-2xl font-bold"
+                      style={{ color: "var(--primary-color, #1E4CD9)" }}
+                    >
                       {stat.value}
                     </div>
                   </div>
-                  <p className="text-sm leading-snug" style={{ color: 'var(--background-text, #334155)' }}>
+                  <p
+                    className="text-sm leading-snug"
+                    style={{ color: "var(--background-text, #334155)" }}
+                  >
                     {stat.description}
                   </p>
                 </div>

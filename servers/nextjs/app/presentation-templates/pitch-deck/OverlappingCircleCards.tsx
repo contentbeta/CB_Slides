@@ -162,7 +162,7 @@ const OverlappingCircleCards = ({ data }: { data: Partial<SchemaType> }) => {
                   style={{
                     left: getConnectorLeft(
                       layout.overlap,
-                      layout.connectorSize
+                      layout.connectorSize,
                     ),
                     width: layout.connectorSize,
                     height: layout.connectorSize,

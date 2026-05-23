@@ -424,7 +424,7 @@ const SettingsPage = () => {
               <h3 className=" text-[28px] tracking-[-0.84px] font-unbounded font-normal text-black flex items-center gap-2">
                 Settings
               </h3>
-              <p className="text-[10px] px-2.5 py-0.5 rounded-[50px] text-[#7A5AF8] border border-[#EDEEEF]  font-medium ">
+              <p className="text-[10px] px-2.5 py-0.5 rounded-[50px] text-[#9748b1] border border-[#EDEEEF]  font-medium ">
                 {textSummary} · {imageSummary}
               </p>
             </div>
@@ -456,7 +456,7 @@ const SettingsPage = () => {
               </div>
               <LogoutButton
                 label="Sign out"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-[58px] border border-[#EDEEEF] bg-[#7C51F8] px-5 py-3 font-syne text-xs font-semibold text-white transition hover:bg-[#6d46e6] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-[58px] border border-[#EDEEEF] bg-[#c25de2] px-5 py-3 font-syne text-xs font-semibold text-white transition hover:bg-[#6d46e6] disabled:cursor-not-allowed disabled:opacity-60"
               />
             </div>
           )}

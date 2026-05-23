@@ -259,7 +259,7 @@ const SlideContent = ({
                     <button
                       disabled={isUpdating}
                       type="submit"
-                      className={`ml-auto flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#9034EA] to-[#5146E5] px-4 py-2 text-sm font-medium text-white transition-opacity ${
+                      className={`ml-auto flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#b757d7] to-[#c35de4] px-4 py-2 text-sm font-medium text-white transition-opacity ${
                         isUpdating
                           ? "cursor-not-allowed opacity-70"
                           : "hover:opacity-90"

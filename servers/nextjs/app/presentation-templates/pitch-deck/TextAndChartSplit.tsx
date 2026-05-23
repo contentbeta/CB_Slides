@@ -74,7 +74,7 @@ export const Schema = z.object({
 
     .max(126)
     .default(
-      "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut alUt enim ad minima veniam."
+      "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut alUt enim ad minima veniam.",
     )
     .meta({
       description: "Supporting paragraph text.",

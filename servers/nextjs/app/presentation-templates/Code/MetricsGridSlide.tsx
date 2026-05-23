@@ -8,7 +8,7 @@ const MetricSchema = z.object({
     description: "Metric label text.",
   }),
   subtext: z.string().min(3).max(30).meta({
-      description: "Metric subtext/description.",
+    description: "Metric subtext/description.",
   }),
 });
 
@@ -41,10 +41,12 @@ export const Schema = z.object({
 export type SchemaType = z.infer<typeof Schema>;
 
 const CodeSlide11MetricsGrid = ({ data }: { data: Partial<SchemaType> }) => {
-
   return (
     <>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet"
+      />
       <div
         className="relative h-[720px] w-[1280px] overflow-hidden rounded-[24px] border p-[40px]"
         style={{
@@ -54,10 +56,12 @@ const CodeSlide11MetricsGrid = ({ data }: { data: Partial<SchemaType> }) => {
           fontFamily: "var(--body-font-family,Nunito Sans)",
         }}
       >
-
-
-
-        <h2 className="text-[64px] font-medium" style={{ color: "var(--background-text,#ffffff)" }}>{data.title}</h2>
+        <h2
+          className="text-[64px] font-medium"
+          style={{ color: "var(--background-text,#ffffff)" }}
+        >
+          {data.title}
+        </h2>
 
         <div className="mt-[53px] grid flex-1 grid-cols-3 gap-[14px]">
           {data?.metrics?.map((metric, index) => (
@@ -69,9 +73,24 @@ const CodeSlide11MetricsGrid = ({ data }: { data: Partial<SchemaType> }) => {
                 backgroundColor: "var(--card-color,#0F172B80)",
               }}
             >
-              <p className="text-[64px] font-semibold leading-none" style={{ color: "var(--graph-0,#8bb4ff)" }}>{metric.value}</p>
-              <p className="mt-[13px] text-[26px]" style={{ color: "var(--background-text,#edf1ff)" }}>{metric.label}</p>
-              <p className="mt-[13px] text-[18px]" style={{ color: "var(--background-text,#8fa2d8)" }}>{metric.subtext}</p>
+              <p
+                className="text-[64px] font-semibold leading-none"
+                style={{ color: "var(--graph-0,#8bb4ff)" }}
+              >
+                {metric.value}
+              </p>
+              <p
+                className="mt-[13px] text-[26px]"
+                style={{ color: "var(--background-text,#edf1ff)" }}
+              >
+                {metric.label}
+              </p>
+              <p
+                className="mt-[13px] text-[18px]"
+                style={{ color: "var(--background-text,#8fa2d8)" }}
+              >
+                {metric.subtext}
+              </p>
             </div>
           ))}
         </div>

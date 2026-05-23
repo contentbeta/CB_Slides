@@ -55,14 +55,14 @@ export const Schema = z.object({
     .max(250)
     .describe("The description of the slide")
     .default(
-      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies."
+      "Focus on companies with 500+ employees in Financial Services, Healthcare, and Technology sectors. Target $3.5M in new pipeline with sub-$150 CAC through account-based marketing and content-led strategies.",
     ),
   metrics: z
     .array(
       z.object({
         value: z.string().max(5).describe("The numerical value or percentage"),
         label: z.string().max(40).describe("The label describing the metric"),
-      })
+      }),
     )
     .max(4)
     .describe("Four metric boxes displayed in a grid")
@@ -100,9 +100,9 @@ export const Schema = z.object({
               .number()
               .optional()
               .describe(
-                "Value for the second series (optional for single-series charts)"
+                "Value for the second series (optional for single-series charts)",
               ),
-          })
+          }),
         )
         .max(4)
         .describe("Data points for the chart"),
@@ -930,7 +930,7 @@ const dynamicSlideLayout: React.FC<{
                 {chart?.seriesNames
                   ?.slice(
                     0,
-                    chart?.data?.some((row) => (row.value2 ?? 0) > 0) ? 2 : 1
+                    chart?.data?.some((row) => (row.value2 ?? 0) > 0) ? 2 : 1,
                   )
                   ?.map((name, i) => (
                     <div key={i} className="flex items-center gap-[8px]">

@@ -1,17 +1,7 @@
 <p align="center">
   <img src="https://d3nauzviflkfb4.cloudfront.net/tenants/57d50329-b7ad-472c-bf54-19d7933dcdf9/branding/ae74530f-8e8b-4d6d-acde-5fea6cc06c3c" alt="Presenton" />
 </p>
-<!--
-Source - https://stackoverflow.com/q/22252472
-Posted by Barbara, modified by community. See post 'Timeline' for change history
-Retrieved 2026-05-23, License - CC BY-SA 4.0
--->
 
-<svg>
-    <image class="change-my-color" xlink:href="[https://svgur.com/i/AFM.svg](https://cdn-ilbnbef.nitrocdn.com/EKyrOUswRhmoLlCKzmZwsMvsMkedOSyS/assets/images/optimized/rev-63f5d27/www.contentbeta.com/wp-content/uploads/2024/03/Contentbeta-new-logos.svg)" width="96" height="96" src="ppngfallback.png" />
-</svg>
-
----
 
 <p align="center">
   <a href="https://presenton.ai/download"><strong>Quickstart</strong></a> &middot;

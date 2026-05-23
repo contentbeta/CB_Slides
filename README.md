@@ -60,38 +60,6 @@ Create AI-powered presentations using your own model provider (BYOK) or run ever
   </a>
 </p>
 
-**Available Platforms**
-
-<table>
-<tr>
-<th align="left">Platform</th>
-<th align="left">Architecture</th>
-<th align="left">Package</th>
-<th align="left">Download</th>
-</tr>
-
-<tr>
-<td><b>macOS</b></td>
-<td>Apple Silicon / Intel</td>
-<td><code>.dmg</code></td>
-<td><a href="https://presenton.ai/download">Download ↗</a></td>
-</tr>
-
-<tr>
-<td><b>Windows</b></td>
-<td>x64</td>
-<td><code>.exe</code></td>
-<td><a href="https://presenton.ai/download">Download ↗</a></td>
-</tr>
-
-<tr>
-<td><b>Linux</b></td>
-<td>x64</td>
-<td> <code>.deb</code></td>
-<td><a href="https://presenton.ai/download">Download ↗</a></td>
-</tr>
-
-</table>
 
 
 **Deploy to Cloud Providers**
